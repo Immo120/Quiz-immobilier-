@@ -649,7 +649,7 @@
         const form = document.getElementById('quizForm');
         const successMessage = document.getElementById('successMessage');
 
-        form.addEventListener('submit', async function(e) {
+      form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -669,17 +669,35 @@
             // Calcul du profil et des blocages
             const analyse = analyserProfil(data);
             
-            // Affichage du résultat personnalisé
+            // Préparer les données pour l'envoi
+            const dataToSend = {
+                ...data,
+                profil: analyse.profil,
+                points_forts: analyse.points_forts.join('\n'),
+                blocages_detail: analyse.blocages.map(b => `• ${b.detail}`).join('\n')
+            };
+
+            // Afficher le résultat immédiatement
             afficherResultat(analyse, data);
-
-            // Log des données (à remplacer par EmailJS)
-            console.log('Données du quiz:', data);
-            console.log('Analyse:', analyse);
-
-            // Masquer le formulaire
             form.style.display = 'none';
             successMessage.style.display = 'block';
             window.scrollTo(0, 0);
+
+            // Envoyer les données à Google Sheets en arrière-plan
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataToSend)
+                });
+                console.log('Données envoyées avec succès');
+            } catch (error) {
+                console.error('Erreur lors de l\'envoi:', error);
+                // L'utilisateur voit quand même son résultat
+            }
         });
 
         function analyserProfil(data) {
