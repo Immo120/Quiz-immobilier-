@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Es-tu prêt à investir dans l'immobilier ?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            background: white;
+            border-radius: 0;
+            box-shadow: none;
+            max-width: 750px;
+            width: 100%;
+            margin: -30px auto 40px auto;
+            padding: 50px 40px;
+            position: relative;
+            border-radius: 20px 20px 0 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: white;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 20px;
+            text-align: center;
+            line-height: 1.6;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .intro-text {
+            color: #4a5568;
+            font-size: 17px;
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-block {
+            margin-bottom: 35px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .question-block:nth-child(1) { animation-delay: 0.1s; }
+        .question-block:nth-child(2) { animation-delay: 0.2s; }
+        .question-block:nth-child(3) { animation-delay: 0.3s; }
+        .question-block:nth-child(4) { animation-delay: 0.4s; }
+        .question-block:nth-child(5) { animation-delay: 0.5s; }
+        .question-block:nth-child(6) { animation-delay: 0.6s; }
+        .question-block:nth-child(7) { animation-delay: 0.7s; }
+        .question-block:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .question {
+            color: #2d3748;
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            position: relative;
+        }
+
+        .option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .option label {
+            display: block;
+            padding: 16px 20px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: #2d3748;
+        }
+
+        .option label:hover {
+            background: #edf2f7;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option input[type="radio"]:checked + label {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            font-weight: 600;
+        }
+
+        select {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f7fafc;
+            color: #2d3748;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            border-color: #667eea;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+
+        .email-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0 30px 0;
+            text-align: center;
+        }
+
+        .email-section h3 {
+            color: white;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .email-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        input[type="email"],
+        input[type="text"] {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #2d3748;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        input[type="email"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: white;
+            background: white;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .success {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .success h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .success p {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .success ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .success li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .profile-badge {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 700;
+            margin: 15px 0 25px 0;
+            font-size: 22px;
+        }
+
+        .profile-pret {
+            background: #10b981;
+            color: white;
+        }
+
+        .profile-presque {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .profile-pas-pret {
+            background: #ef4444;
+            color: white;
+        }
+
+        .blocage-box {
+            background: #fef3c7;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .blocage-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .action-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .action-box h4 {
+            color: #065f46;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            margin-top: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 20px;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 17px;
+            }
+
+            .container {
+                padding: 35px 25px;
+                margin: -20px 20px 20px 20px;
+            }
+
+            .question {
+                font-size: 17px;
+            }
+
+            .intro-text {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- En-tête professionnelle -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">🏡</div>
+            <h1>Es-tu prêt(e) à investir dans l'immobilier ?</h1>
+            <p class="subtitle">Découvre en 2 minutes si c'est le bon moment pour te lancer, ou ce qu'il te manque pour y arriver</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <p class="intro-text">
+            <strong>💡 Ce quiz analyse ta situation financière, professionnelle et personnelle</strong> pour te dire si tu peux investir maintenant, ou ce que tu dois améliorer d'abord.
+        </p>
+
+        <form id="quizForm">
+            <!-- Question 1 : Revenus -->
+            <div class="question-block">
+                <p class="question">1. Quels sont tes revenus mensuels nets (seul ou en couple) ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="rev1" name="revenus" value="faible" required>
+                        <label for="rev1">Moins de 2 000€/mois</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="rev2" name="revenus" value="correct">
+                        <label for="rev2">2 000€ - 3 000€/mois</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="rev3" name="revenus" value="bon">
+                        <label for="rev3">3 000€ - 4 500€/mois</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="rev4" name="revenus" value="excellent">
+                        <label for="rev4">Plus de 4 500€/mois</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 : Épargne -->
+            <div class="question-block">
+                <p class="question">2. Combien as-tu d'épargne disponible aujourd'hui ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="ep1" name="epargne" value="peu" required>
+                        <label for="ep1">Moins de 5 000€</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="ep2" name="epargne" value="correct">
+                        <label for="ep2">5 000€ - 15 000€</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="ep3" name="epargne" value="bon">
+                        <label for="ep3">15 000€ - 40 000€</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="ep4" name="epargne" value="excellent">
+                        <label for="ep4">Plus de 40 000€</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 : Endettement -->
+            <div class="question-block">
+                <p class="question">3. As-tu déjà un crédit immobilier en cours (résidence principale) ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="end1" name="endettement" value="aucun" required>
+                        <label for="end1">Non, aucun crédit immobilier</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="end2" name="endettement" value="locataire">
+                        <label for="end2">Je suis locataire (pas de crédit)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="end3" name="endettement" value="rp-leger">
+                        <label for="end3">Oui, crédit RP avec mensualité raisonnable (&lt;30% revenus)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="end4" name="endettement" value="rp-lourd">
+                        <label for="end4">Oui, crédit RP avec mensualité élevée (&gt;30% revenus)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 : Stabilité -->
+            <div class="question-block">
+                <p class="question">4. Quelle est ta situation professionnelle ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="stab1" name="stabilite" value="instable" required>
+                        <label for="stab1">CDD / Intérim / Freelance récent (moins d'1 an)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="stab2" name="stabilite" value="moyen">
+                        <label for="stab2">CDI récent (moins de 6 mois) ou freelance établi</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="stab3" name="stabilite" value="stable">
+                        <label for="stab3">CDI stable (plus de 6 mois)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="stab4" name="stabilite" value="tres-stable">
+                        <label for="stab4">CDI stable + conjoint(e) en CDI</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 : Motivation -->
+            <div class="question-block">
+                <p class="question">5. Qu'est-ce qui te bloque aujourd'hui ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="mot1" name="blocage" value="argent" required>
+                        <label for="mot1">Je n'ai pas assez d'argent</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="mot2" name="blocage" value="peur">
+                        <label for="mot2">J'ai peur de me tromper / de faire une erreur</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="mot3" name="blocage" value="connaissance">
+                        <label for="mot3">Je ne sais pas par où commencer</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="mot4" name="blocage" value="temps">
+                        <label for="mot4">Je n'ai pas le temps de m'en occuper</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="mot5" name="blocage" value="rien">
+                        <label for="mot5">Rien, je suis prêt(e) à passer à l'action maintenant</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 6 : Objectif -->
+            <div class="question-block">
+                <p class="question">6. Pourquoi veux-tu investir dans l'immobilier ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="obj1" name="objectif" value="securite" required>
+                        <label for="obj1">Sécuriser mon avenir / celui de ma famille</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="obj2" name="objectif" value="revenus">
+                        <label for="obj2">Créer des revenus complémentaires</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="obj3" name="objectif" value="patrimoine">
+                        <label for="obj3">Me constituer un patrimoine solide</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="obj4" name="objectif" value="liberte">
+                        <label for="obj4">Atteindre la liberté financière</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="obj5" name="objectif" value="curiosite">
+                        <label for="obj5">Simple curiosité, je me renseigne</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 7 : Timeline -->
+            <div class="question-block">
+                <p class="question">7. Dans combien de temps veux-tu avoir signé ton premier bien ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="time1" name="timeline" value="urgent" required>
+                        <label for="time1">Dans les 3 prochains mois (c'est urgent)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="time2" name="timeline" value="motive">
+                        <label for="time2">Dans les 3-6 prochains mois (je suis motivé(e))</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="time3" name="timeline" value="flexible">
+                        <label for="time3">Dans les 6-12 mois (je prends mon temps)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="time4" name="timeline" value="explore">
+                        <label for="time4">Je ne sais pas, j'explore</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 8 : Mindset -->
+            <div class="question-block">
+                <p class="question">8. Comment te décrirais-tu ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="mind1" name="mindset" value="paralysie" required>
+                        <label for="mind1">J'analyse tout mais je ne passe jamais à l'action</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="mind2" name="mindset" value="prudent">
+                        <label for="mind2">J'ai besoin d'être rassuré(e) avant d'agir</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="mind3" name="mindset" value="determine">
+                        <label for="mind3">Une fois que je décide, je fonce (comme dans le sport)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="mind4" name="mindset" value="reve">
+                        <label for="mind4">J'en parle depuis longtemps mais je n'ai rien fait</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Email + Prénom -->
+            <div class="email-section">
+                <h3>📧 Reçois ton profil d'investisseur personnalisé</h3>
+                <p>Découvre si tu es prêt(e) à investir maintenant, ou ce qu'il te manque pour y arriver</p>
+                <input type="text" name="prenom" placeholder="Ton prénom" required>
+                <input type="email" name="email" placeholder="Ton adresse email" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Découvrir mon profil 🚀</button>
+        </form>
+
+        <div class="success" id="successMessage">
+            <!-- Le contenu sera généré dynamiquement -->
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('quizForm');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const data = {
+                revenus: formData.get('revenus'),
+                epargne: formData.get('epargne'),
+                endettement: formData.get('endettement'),
+                stabilite: formData.get('stabilite'),
+                blocage: formData.get('blocage'),
+                objectif: formData.get('objectif'),
+                timeline: formData.get('timeline'),
+                mindset: formData.get('mindset'),
+                prenom: formData.get('prenom'),
+                email: formData.get('email')
+            };
+
+            // Calcul du profil et des blocages
+            const analyse = analyserProfil(data);
+            
+            // Affichage du résultat personnalisé
+            afficherResultat(analyse, data);
+
+            // Log des données (à remplacer par EmailJS)
+            console.log('Données du quiz:', data);
+            console.log('Analyse:', analyse);
+
+            // Masquer le formulaire
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
+            window.scrollTo(0, 0);
+        });
+
+        function analyserProfil(data) {
+            let score = 0;
+            let blocages = [];
+            let points_forts = [];
+
+            // Analyse revenus
+            if (data.revenus === 'faible') {
+                blocages.push({
+                    type: 'revenus',
+                    titre: '💰 Revenus insuffisants',
+                    detail: 'Avec moins de 2000€/mois, les banques ne te prêteront pas. Tu as besoin d\'au moins 2000€/mois net pour être bancable.',
+                    solution: 'Augmente tes revenus via une évolution pro, une formation, ou un side hustle. Objectif : atteindre 2000€/mois minimum.'
+                });
+                score += 0;
+            } else if (data.revenus === 'correct') {
+                points_forts.push('✅ Revenus corrects (2000-3000€)');
+                score += 2;
+            } else if (data.revenus === 'bon') {
+                points_forts.push('✅ Bons revenus (3000-4500€)');
+                score += 2.5;
+            } else {
+                points_forts.push('✅ Excellents revenus (4500€+)');
+                score += 3;
+            }
+
+            // Analyse épargne
+            if (data.epargne === 'peu') {
+                blocages.push({
+                    type: 'epargne',
+                    titre: '💸 Épargne insuffisante',
+                    detail: 'Avec moins de 5000€, tu n\'as pas assez pour couvrir les frais de notaire, d\'agence et d\'apport. Il te faut minimum 10-15K€.',
+                    solution: 'Épargne agressivement pendant 6-12 mois. Objectif : 10 000€ minimum pour avoir des options.'
+                });
+                score += 0;
+            } else if (data.epargne === 'correct') {
+                blocages.push({
+                    type: 'epargne',
+                    titre: '⚠️ Épargne juste',
+                    detail: 'Entre 5-15K€, c\'est le minimum. Tu peux investir mais tes marges de manœuvre seront limitées.',
+                    solution: 'Continue d\'épargner pour atteindre 20-30K€ et avoir plus de flexibilité sur le choix du bien.'
+                });
+                score += 1.5;
+            } else if (data.epargne === 'bon') {
+                points_forts.push('✅ Belle épargne (15-40K€)');
+                score += 2.5;
+            } else {
+                points_forts.push('✅ Excellente épargne (40K€+)');
+                score += 3;
+            }
+
+            // Analyse endettement
+            if (data.endettement === 'rp-lourd') {
+                blocages.push({
+                    type: 'endettement',
+                    titre: '🏠 Endettement trop élevé',
+                    detail: 'Ton crédit RP représente plus de 30% de tes revenus. Les banques ne te prêteront pas pour un investissement locatif (taux d\'endettement max = 35%).',
+                    solution: 'Attends de rembourser une partie de ton crédit RP, ou augmente tes revenus pour diminuer le ratio.'
+                });
+                score += 0;
+            } else if (data.endettement === 'rp-leger') {
+                points_forts.push('✅ Crédit RP gérable (<30%)');
+                score += 1.5;
+            } else {
+                points_forts.push('✅ Aucun endettement (capacité max)');
+                score += 2;
+            }
+
+            // Analyse stabilité
+            if (data.stabilite === 'instable') {
+                blocages.push({
+                    type: 'stabilite',
+                    titre: '📋 Situation professionnelle instable',
+                    detail: 'En CDD/intérim ou freelance récent, les banques exigent 3 ans d\'ancienneté ou un CDI pour prêter.',
+                    solution: 'Obtiens un CDI ou stabilise ton activité freelance pendant 2-3 ans minimum.'
+                });
+                score += 0;
+            } else if (data.stabilite === 'moyen') {
+                blocages.push({
+                    type: 'stabilite',
+                    titre: '⚠️ CDI récent',
+                    detail: 'Avec un CDI de moins de 6 mois, certaines banques peuvent être réticentes.',
+                    solution: 'Idéalement, attends 6-12 mois d\'ancienneté pour maximiser tes chances d\'accord bancaire.'
+                });
+                score += 1;
+            } else if (data.stabilite === 'stable') {
+                points_forts.push('✅ CDI stable');
+                score += 1.5;
+            } else {
+                points_forts.push('✅ Couple en CDI (double sécurité)');
+                score += 2;
+            }
+
+            // Analyse mindset
+            if (data.blocage === 'rien' && (data.mindset === 'determine' || data.mindset === 'prudent')) {
+                points_forts.push('✅ Mindset prêt à l\'action');
+                score += 1.5;
+            } else if (data.mindset === 'paralysie' || data.mindset === 'reve') {
+                blocages.push({
+                    type: 'mindset',
+                    titre: '🧠 Paralysie par l\'analyse',
+                    detail: 'Tu réfléchis depuis longtemps mais tu ne passes jamais à l\'action. C\'est ton plus gros blocage.',
+                    solution: 'Tu as besoin d\'un cadre clair et d\'un accompagnement pour te lancer. Comme dans le sport : un coach + un plan = résultats.'
+                });
+            }
+
+            // Détermination du profil
+            let profil;
+            if (score >= 8 && data.revenus !== 'faible' && data.epargne !== 'peu') {
+                profil = 'PRET';
+            } else if (score >= 4.5 && blocages.length <= 2) {
+                profil = 'PRESQUE';
+            } else {
+                profil = 'PAS_PRET';
+            }
+
+            return {
+                profil: profil,
+                score: score,
+                blocages: blocages,
+                points_forts: points_forts
+            };
+        }
+
+        function afficherResultat(analyse, data) {
+            const prenom = data.prenom;
+            let html = '';
+
+            if (analyse.profil === 'PRET') {
+                html = `
+                    <div style="text-align: center;">
+                        <span class="profile-badge profile-pret">🎉 TU ES PRÊT(E) À INVESTIR !</span>
+                    </div>
+                    
+                    <p><strong>Bonjour ${prenom}</strong>,</p>
+                    
+                    <p>Excellente nouvelle ! 🎉 Tu as <strong>tous les ingrédients</strong> pour te lancer dans l'investissement immobilier dès maintenant.</p>
+                    
+                    <div class="action-box">
+                        <h4>
