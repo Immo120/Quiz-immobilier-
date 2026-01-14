@@ -19,12 +19,12 @@
             margin: 0;
         }
 
-      .header {
-background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
-    padding: 60px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+        .header {
+            background: linear-gradient(135deg, #FF9500 0%, #FF6B00 50%, #1a1a1a 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .header::before {
@@ -46,10 +46,24 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
         }
 
         .logo {
-    width: 90px;
-    height: auto;
-    margin-bottom: 20px;
-}
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            padding: 15px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
 
         .container {
             background: white;
@@ -100,9 +114,9 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
             margin-bottom: 40px;
             line-height: 1.6;
             padding: 20px;
-            background: #f7fafc;
+            background: #FFF5E6;
             border-radius: 12px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #FF9500;
         }
 
         .question-block {
@@ -161,15 +175,15 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
         }
 
         .option label:hover {
-            background: #edf2f7;
-            border-color: #667eea;
+            background: #FFF5E6;
+            border-color: #FF9500;
             transform: translateX(5px);
         }
 
         .option input[type="radio"]:checked + label {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF9500 0%, #FF6B00 100%);
             color: white;
-            border-color: #667eea;
+            border-color: #FF9500;
             font-weight: 600;
         }
 
@@ -186,23 +200,22 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
         }
 
         select:hover {
-            border-color: #667eea;
+            border-color: #FF9500;
         }
 
         select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #FF9500;
             background: white;
         }
 
-       .email-section {
-background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
-    padding: 30px;
-    border-radius: 15px;
-    margin: 40px 0 30px 0;
-    text-align: center;
-}
-
+        .email-section {
+            background: linear-gradient(135deg, #FF9500 0%, #FF6B00 50%, #2d2d2d 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0 30px 0;
+            text-align: center;
+        }
 
         .email-section h3 {
             color: white;
@@ -236,25 +249,25 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
             background: white;
         }
 
-       .submit-btn {
-    width: 100%;
-    padding: 18px 40px;
-    font-size: 18px;
-    font-weight: 700;
-    color: white;
-    background: #000000;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
+        .submit-btn {
+            width: 100%;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            background: #1a1a1a;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
 
-.submit-btn:hover {
-    transform: translateY(-2px);
-    background: #ff7a00;
-    box-shadow: 0 6px 25px rgba(255, 122, 0, 0.6);
-}
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+            background: #2d2d2d;
+        }
 
         .submit-btn:active {
             transform: translateY(0);
@@ -370,9 +383,9 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
             }
 
             .logo {
-                width: 60px;
-                height: 60px;
-                font-size: 30px;
+                width: 100px;
+                height: 100px;
+                font-size: 25px;
             }
 
             h1 {
@@ -402,11 +415,9 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
     <!-- En-tête professionnelle -->
     <div class="header">
         <div class="header-content">
-<img 
-  src="https://i.imgur.com/HuQCGkr.png" 
-  alt="Logo"
-  class="logo"
-/>
+            <div class="logo">
+                <img src="Immo 120_20251031_094012_0000.svg" alt="IMMO 120 Logo">
+            </div>
             <h1>Es-tu prêt(e) à investir dans l'immobilier ?</h1>
             <p class="subtitle">Découvre en 2 minutes si c'est le bon moment pour te lancer, ou ce qu'il te manque pour y arriver</p>
         </div>
@@ -414,7 +425,7 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
 
     <div class="container">
         <p class="intro-text">
-            <strong>Ce quiz analyse ta situation financière, professionnelle et personnelle</strong> pour te dire si tu peux investir maintenant, ou ce que tu dois améliorer d'abord.
+            <strong>💡 Ce quiz analyse ta situation financière, professionnelle et personnelle</strong> pour te dire si tu peux investir maintenant, ou ce que tu dois améliorer d'abord.
         </p>
 
         <form id="quizForm">
@@ -493,19 +504,27 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
                 <div class="options">
                     <div class="option">
                         <input type="radio" id="stab1" name="stabilite" value="instable" required>
-                        <label for="stab1">CDD / Intérim / Freelance récent (moins d'1 an)</label>
+                        <label for="stab1">CDD / Intérim (moins d'1 an)</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="stab2" name="stabilite" value="moyen">
-                        <label for="stab2">CDI récent (moins de 6 mois) ou freelance établi</label>
+                        <input type="radio" id="stab2" name="stabilite" value="freelance-debut">
+                        <label for="stab2">Freelance avec moins de 3 bilans</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="stab3" name="stabilite" value="stable">
-                        <label for="stab3">CDI stable (plus de 6 mois)</label>
+                        <input type="radio" id="stab3" name="stabilite" value="cdi-recent">
+                        <label for="stab3">CDI depuis moins de 6 mois</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="stab4" name="stabilite" value="tres-stable">
-                        <label for="stab4">CDI stable + conjoint(e) en CDI</label>
+                        <input type="radio" id="stab4" name="stabilite" value="stable">
+                        <label for="stab4">CDI stable (6 mois+)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="stab5" name="stabilite" value="freelance-etabli">
+                        <label for="stab5">Freelance avec 3+ bilans positifs</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="stab6" name="stabilite" value="tres-stable">
+                        <label for="stab6">CDI stable + conjoint(e) en CDI</label>
                     </div>
                 </div>
             </div>
@@ -612,13 +631,13 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
 
             <!-- Section Email + Prénom -->
             <div class="email-section">
-                <h3>Reçois ton profil d'investisseur personnalisé</h3>
+                <h3>📧 Reçois ton profil d'investisseur personnalisé</h3>
                 <p>Découvre si tu es prêt(e) à investir maintenant, ou ce qu'il te manque pour y arriver</p>
                 <input type="text" name="prenom" placeholder="Ton prénom" required>
                 <input type="email" name="email" placeholder="Ton adresse email" required>
             </div>
 
-            <button type="submit" class="submit-btn">Découvrir mon profil</button>
+            <button type="submit" class="submit-btn">Découvrir mon profil 🚀</button>
         </form>
 
         <div class="success" id="successMessage">
@@ -664,115 +683,106 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
         });
 
         function analyserProfil(data) {
-            let score = 0;
             let blocages = [];
             let points_forts = [];
+            let est_qualifie = true;
 
-            // Analyse revenus
+            // CRITÈRE 1 : Revenus (MINIMUM 2000€/mois)
             if (data.revenus === 'faible') {
+                est_qualifie = false;
                 blocages.push({
                     type: 'revenus',
                     titre: '💰 Revenus insuffisants',
-                    detail: 'Avec moins de 2000€/mois, les banques ne te prêteront pas. Tu as besoin d\'au moins 2000€/mois net pour être bancable.',
-                    solution: 'Augmente tes revenus via une évolution pro, une formation, ou un side hustle. Objectif : atteindre 2000€/mois minimum.'
+                    detail: 'Avec moins de 2000€/mois, les banques ne te prêteront pas. C\'est le minimum absolu pour être bancable.',
+                    solution: 'Augmente tes revenus via une évolution professionnelle, une formation, ou un complément de revenus. Objectif : atteindre 2000€/mois net minimum.'
                 });
-                score += 0;
             } else if (data.revenus === 'correct') {
-                points_forts.push('✅ Revenus corrects (2000-3000€)');
-                score += 2;
+                points_forts.push('✅ Revenus conformes (2000-3000€)');
             } else if (data.revenus === 'bon') {
                 points_forts.push('✅ Bons revenus (3000-4500€)');
-                score += 2.5;
             } else {
                 points_forts.push('✅ Excellents revenus (4500€+)');
-                score += 3;
             }
 
-            // Analyse épargne
+            // CRITÈRE 2 : Épargne (MINIMUM 10 000€)
             if (data.epargne === 'peu') {
+                est_qualifie = false;
                 blocages.push({
                     type: 'epargne',
                     titre: '💸 Épargne insuffisante',
-                    detail: 'Avec moins de 5000€, tu n\'as pas assez pour couvrir les frais de notaire, d\'agence et d\'apport. Il te faut minimum 10-15K€.',
-                    solution: 'Épargne agressivement pendant 6-12 mois. Objectif : 10 000€ minimum pour avoir des options.'
+                    detail: 'Avec moins de 5000€, tu n\'as pas assez pour les frais de notaire, d\'agence et d\'apport. Il te faut minimum 10 000€ pour investir.',
+                    solution: 'Épargne agressivement pendant 6-12 mois. Objectif : 10 000€ minimum pour couvrir tous les frais et sécuriser ton projet.'
                 });
-                score += 0;
             } else if (data.epargne === 'correct') {
-                blocages.push({
-                    type: 'epargne',
-                    titre: '⚠️ Épargne juste',
-                    detail: 'Entre 5-15K€, c\'est le minimum. Tu peux investir mais tes marges de manœuvre seront limitées.',
-                    solution: 'Continue d\'épargner pour atteindre 20-30K€ et avoir plus de flexibilité sur le choix du bien.'
-                });
-                score += 1.5;
+                // Entre 5-15K : on considère que c'est limite mais acceptable si proche de 10K
+                points_forts.push('✅ Épargne correcte (5-15K€) - vise 10K€ minimum');
             } else if (data.epargne === 'bon') {
                 points_forts.push('✅ Belle épargne (15-40K€)');
-                score += 2.5;
             } else {
                 points_forts.push('✅ Excellente épargne (40K€+)');
-                score += 3;
             }
 
-            // Analyse endettement
+            // CRITÈRE 3 : Endettement (MAX 30%)
             if (data.endettement === 'rp-lourd') {
+                est_qualifie = false;
                 blocages.push({
                     type: 'endettement',
-                    titre: '🏠 Endettement trop élevé',
-                    detail: 'Ton crédit RP représente plus de 30% de tes revenus. Les banques ne te prêteront pas pour un investissement locatif (taux d\'endettement max = 35%).',
-                    solution: 'Attends de rembourser une partie de ton crédit RP, ou augmente tes revenus pour diminuer le ratio.'
+                    titre: '🏠 Taux d\'endettement trop élevé',
+                    detail: 'Ton crédit représente plus de 30% de tes revenus. Les banques ne te prêteront pas (taux d\'endettement max = 35%, et il faut de la marge pour l\'investissement).',
+                    solution: 'Rembourse une partie de ton crédit ou augmente tes revenus pour faire baisser ce ratio sous les 30%.'
                 });
-                score += 0;
             } else if (data.endettement === 'rp-leger') {
-                points_forts.push('✅ Crédit RP gérable (<30%)');
-                score += 1.5;
+                points_forts.push('✅ Endettement gérable (<30%)');
             } else {
-                points_forts.push('✅ Aucun endettement (capacité max)');
-                score += 2;
+                points_forts.push('✅ Aucun endettement (capacité maximale)');
             }
 
-            // Analyse stabilité
-            if (data.stabilite === 'instable') {
-                blocages.push({
-                    type: 'stabilite',
-                    titre: '📋 Situation professionnelle instable',
-                    detail: 'En CDD/intérim ou freelance récent, les banques exigent 3 ans d\'ancienneté ou un CDI pour prêter.',
-                    solution: 'Obtiens un CDI ou stabilise ton activité freelance pendant 2-3 ans minimum.'
-                });
-                score += 0;
-            } else if (data.stabilite === 'moyen') {
-                blocages.push({
-                    type: 'stabilite',
-                    titre: '⚠️ CDI récent',
-                    detail: 'Avec un CDI de moins de 6 mois, certaines banques peuvent être réticentes.',
-                    solution: 'Idéalement, attends 6-12 mois d\'ancienneté pour maximiser tes chances d\'accord bancaire.'
-                });
-                score += 1;
-            } else if (data.stabilite === 'stable') {
-                points_forts.push('✅ CDI stable');
-                score += 1.5;
+            // CRITÈRE 4 : Stabilité professionnelle (CDI 6 mois+ OU 3 bilans freelance)
+            if (data.stabilite === 'instable' || data.stabilite === 'freelance-debut' || data.stabilite === 'cdi-recent') {
+                est_qualifie = false;
+                if (data.stabilite === 'freelance-debut') {
+                    blocages.push({
+                        type: 'stabilite',
+                        titre: '📋 Situation professionnelle instable',
+                        detail: 'En tant que freelance avec moins de 3 bilans, les banques exigent au moins 3 années d\'activité pour prêter.',
+                        solution: 'Continue ton activité et présente 3 bilans positifs consécutifs pour prouver ta stabilité.'
+                    });
+                } else if (data.stabilite === 'cdi-recent') {
+                    blocages.push({
+                        type: 'stabilite',
+                        titre: '📋 CDI trop récent',
+                        detail: 'Avec un CDI de moins de 6 mois, les banques considèrent que tu es encore en période d\'essai ou trop récent.',
+                        solution: 'Attends d\'avoir au moins 6 mois d\'ancienneté en CDI pour maximiser tes chances.'
+                    });
+                } else {
+                    blocages.push({
+                        type: 'stabilite',
+                        titre: '📋 Situation professionnelle instable',
+                        detail: 'En CDD ou intérim, les banques exigent un CDI ou 3 ans d\'ancienneté en freelance pour prêter.',
+                        solution: 'Obtiens un CDI stable ou lance-toi en freelance et patiente 3 ans.'
+                    });
+                }
+            } else if (data.stabilite === 'stable' || data.stabilite === 'freelance-etabli') {
+                points_forts.push('✅ Situation professionnelle stable');
             } else {
-                points_forts.push('✅ Couple en CDI (double sécurité)');
-                score += 2;
+                points_forts.push('✅ Couple en CDI stable (double sécurité)');
             }
 
-            // Analyse mindset
-            if (data.blocage === 'rien' && (data.mindset === 'determine' || data.mindset === 'prudent')) {
-                points_forts.push('✅ Mindset prêt à l\'action');
-                score += 1.5;
-            } else if (data.mindset === 'paralysie' || data.mindset === 'reve') {
+            // INFORMATIONS COMPLÉMENTAIRES (pas bloquant mais utile)
+            if (data.mindset === 'paralysie' || data.mindset === 'reve') {
                 blocages.push({
                     type: 'mindset',
                     titre: '🧠 Paralysie par l\'analyse',
-                    detail: 'Tu réfléchis depuis longtemps mais tu ne passes jamais à l\'action. C\'est ton plus gros blocage.',
-                    solution: 'Tu as besoin d\'un cadre clair et d\'un accompagnement pour te lancer. Comme dans le sport : un coach + un plan = résultats.'
+                    detail: 'Tu réfléchis depuis longtemps mais tu ne passes jamais à l\'action. Ce n\'est pas bloquant financièrement, mais c\'est ton principal frein psychologique.',
+                    solution: 'Tu as besoin d\'un cadre clair et d\'un accompagnement. Comme dans le sport : un coach + un plan = résultats.'
                 });
             }
 
             // Détermination du profil
             let profil;
-            if (score >= 8 && data.revenus !== 'faible' && data.epargne !== 'peu') {
+            if (est_qualifie) {
                 profil = 'PRET';
-            } else if (score >= 4.5 && blocages.length <= 2) {
+            } else if (blocages.length <= 2 && data.revenus !== 'faible') {
                 profil = 'PRESQUE';
             } else {
                 profil = 'PAS_PRET';
@@ -780,9 +790,9 @@ background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
 
             return {
                 profil: profil,
-                score: score,
                 blocages: blocages,
-                points_forts: points_forts
+                points_forts: points_forts,
+                est_qualifie: est_qualifie
             };
         }
 
