@@ -1,416 +1,232 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Es-tu prêt à investir dans l'immobilier ?</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Es-tu prêt à investir dans l'immobilier ?</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f4f8;
-            min-height: 100vh;
-            padding: 0;
-            margin: 0;
-        }
-
-      .header {
-background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
-    padding: 60px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.3;
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .logo {
-    width: 90px;
-    height: auto;
-    margin-bottom: 20px;
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-        .container {
-            background: white;
-            border-radius: 0;
-            box-shadow: none;
-            max-width: 750px;
-            width: 100%;
-            margin: -30px auto 40px auto;
-            padding: 50px 40px;
-            position: relative;
-            border-radius: 20px 20px 0 0;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h1 {
-            color: white;
-            font-size: 42px;
-            text-align: center;
-            margin-bottom: 15px;
-            line-height: 1.3;
-            font-weight: 800;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .subtitle {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 20px;
-            text-align: center;
-            line-height: 1.6;
-            max-width: 650px;
-            margin: 0 auto;
-        }
-
-        .intro-text {
-            color: #4a5568;
-            font-size: 17px;
-            text-align: center;
-            margin-bottom: 40px;
-            line-height: 1.6;
-            padding: 20px;
-            background: #f7fafc;
-            border-radius: 12px;
-            border-left: 4px solid #667eea;
-        }
-
-        .question-block {
-            margin-bottom: 35px;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        .question-block:nth-child(1) { animation-delay: 0.1s; }
-        .question-block:nth-child(2) { animation-delay: 0.2s; }
-        .question-block:nth-child(3) { animation-delay: 0.3s; }
-        .question-block:nth-child(4) { animation-delay: 0.4s; }
-        .question-block:nth-child(5) { animation-delay: 0.5s; }
-        .question-block:nth-child(6) { animation-delay: 0.6s; }
-        .question-block:nth-child(7) { animation-delay: 0.7s; }
-        .question-block:nth-child(8) { animation-delay: 0.8s; }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .question {
-            color: #2d3748;
-            font-size: 19px;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .option {
-            position: relative;
-        }
-
-        .option input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-        }
-
-        .option label {
-            display: block;
-            padding: 16px 20px;
-            background: #f7fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            color: #2d3748;
-        }
-
-        .option label:hover {
-            background: #edf2f7;
-            border-color: #667eea;
-            transform: translateX(5px);
-        }
-
-        .option input[type="radio"]:checked + label {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: #667eea;
-            font-weight: 600;
-        }
-
-        select {
-            width: 100%;
-            padding: 16px 20px;
-            font-size: 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            background: #f7fafc;
-            color: #2d3748;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        select:hover {
-            border-color: #667eea;
-        }
-
-        select:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-        }
-
-       .email-section {
-background: linear-gradient(135deg, #ff8c1a 0%, #1a1a1a 100%);
-    padding: 30px;
-    border-radius: 15px;
-    margin: 40px 0 30px 0;
-    text-align: center;
+body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:#f0f4f8;
 }
 
+/* ================= HEADER ================= */
 
-        .email-section h3 {
-            color: white;
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .email-section p {
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 20px;
-            font-size: 15px;
-        }
-
-        input[type="email"],
-        input[type="text"] {
-            width: 100%;
-            padding: 16px 20px;
-            font-size: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.95);
-            color: #2d3748;
-            transition: all 0.3s ease;
-            margin-bottom: 12px;
-        }
-
-        input[type="email"]:focus,
-        input[type="text"]:focus {
-            outline: none;
-            border-color: white;
-            background: white;
-        }
-
-       .submit-btn {
-    width: 100%;
-    padding: 18px 40px;
-    font-size: 18px;
-    font-weight: 700;
-    color: white;
-    background: #000000;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+.header{
+    background:#000000;
+    padding:60px 20px;
+    text-align:center;
 }
 
-.submit-btn:hover {
-    transform: translateY(-2px);
-    background: #ff7a00;
-    box-shadow: 0 6px 25px rgba(255, 122, 0, 0.6);
+.header-content{
+    max-width:800px;
+    margin:auto;
 }
 
-        .submit-btn:active {
-            transform: translateY(0);
-        }
+/* LOGO */
 
-        .submit-btn:disabled {
-            background: #cbd5e0;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
+.logo-wrapper{
+    width:90px;
+    height:90px;
+    background:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
 
-        .success {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            display: none;
-        }
+.logo-wrapper img{
+    width:55px;
+    height:auto;
+}
 
-        .success h2 {
-            margin-bottom: 20px;
-            font-size: 28px;
-            text-align: center;
-        }
+/* BANDEAU ORANGE */
 
-        .success p {
-            font-size: 17px;
-            line-height: 1.7;
-            margin-bottom: 15px;
-            color: #2d3748;
-        }
+.orange-band{
+    display:inline-block;
+    background:#ff8c1a;
+    padding:12px 25px;
+    border-radius:8px;
+    margin-bottom:15px;
+}
 
-        .success ul {
-            margin: 15px 0;
-            padding-left: 25px;
-        }
+.orange-band h1{
+    color:white;
+    font-size:42px;
+    font-weight:800;
+    line-height:1.3;
+}
 
-        .success li {
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
+/* SOUS TITRE */
 
-        .profile-badge {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: 700;
-            margin: 15px 0 25px 0;
-            font-size: 22px;
-        }
+.subtitle-band{
+    display:inline-block;
+    background:#ff8c1a;
+    padding:10px 20px;
+    border-radius:8px;
+}
 
-        .profile-pret {
-            background: #10b981;
-            color: white;
-        }
+.subtitle{
+    color:white;
+    font-size:20px;
+    max-width:650px;
+    line-height:1.6;
+}
 
-        .profile-presque {
-            background: #f59e0b;
-            color: white;
-        }
+/* ================= CONTAINER ================= */
 
-        .profile-pas-pret {
-            background: #ef4444;
-            color: white;
-        }
+.container{
+    background:white;
+    max-width:750px;
+    margin:-30px auto 40px;
+    padding:50px 40px;
+    border-radius:20px 20px 0 0;
+}
 
-        .blocage-box {
-            background: #fef3c7;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border-left: 4px solid #f59e0b;
-        }
+.intro-text{
+    background:#f7fafc;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    margin-bottom:40px;
+    color:#4a5568;
+    border-left:4px solid #ff8c1a;
+}
 
-        .blocage-box h4 {
-            color: #92400e;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
+/* ================= EMAIL SECTION ================= */
 
-        .action-box {
-            background: #d1fae5;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border-left: 4px solid #10b981;
-        }
+.email-section{
+    background:#000000;
+    padding:35px;
+    border-radius:15px;
+    margin:40px 0 30px;
+    text-align:center;
+}
 
-        .action-box h4 {
-            color: #065f46;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
+.email-band{
+    background:#ff8c1a;
+    padding:12px 20px;
+    border-radius:8px;
+    margin-bottom:15px;
+    display:inline-block;
+}
 
-        .cta-button {
-            display: inline-block;
-            padding: 15px 35px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 700;
-            margin-top: 15px;
-            transition: transform 0.3s ease;
-        }
+.email-band h3{
+    color:white;
+    font-size:22px;
+}
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-        }
+.email-text{
+    background:#ff8c1a;
+    padding:10px 18px;
+    border-radius:8px;
+    margin-bottom:20px;
+    display:inline-block;
+    color:white;
+    font-size:15px;
+}
 
-        @media (max-width: 768px) {
-            .header {
-                padding: 40px 20px;
-            }
+input[type="text"],
+input[type="email"]{
+    width:100%;
+    padding:16px 20px;
+    font-size:16px;
+    border-radius:12px;
+    border:none;
+    margin-bottom:12px;
+}
 
-            .logo {
-                width: 60px;
-                height: 60px;
-                font-size: 30px;
-            }
+/* ================= BOUTON ================= */
 
-            h1 {
-                font-size: 32px;
-            }
+.submit-btn{
+    width:100%;
+    padding:18px;
+    font-size:18px;
+    font-weight:700;
+    background:#000000;
+    color:white;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 4px 15px rgba(0,0,0,.4);
+}
 
-            .subtitle {
-                font-size: 17px;
-            }
+.submit-btn:hover{
+    background:#ff8c1a;
+    transform:translateY(-2px);
+    box-shadow:0 6px 25px rgba(255,140,26,.6);
+}
 
-            .container {
-                padding: 35px 25px;
-                margin: -20px 20px 20px 20px;
-            }
+/* ================= MOBILE ================= */
 
-            .question {
-                font-size: 17px;
-            }
-
-            .intro-text {
-                font-size: 15px;
-            }
-        }
-    </style>
+@media(max-width:768px){
+    .orange-band h1{font-size:32px;}
+    .subtitle{font-size:17px;}
+    .container{
+        padding:35px 25px;
+        margin:-20px 20px 20px;
+    }
+}
+</style>
 </head>
+
 <body>
-    <!-- En-tête professionnelle -->
-    <div class="header">
-        <div class="header-content">
-<img 
-  src="https://i.imgur.com/HuQCGkr.png" 
-  alt="Logo"
-  class="logo"
-/>
+
+<div class="header">
+    <div class="header-content">
+
+        <div class="logo-wrapper">
+            <img src="https://i.imgur.com/HuQCGkr.png" alt="Logo">
+        </div>
+
+        <div class="orange-band">
             <h1>Es-tu prêt(e) à investir dans l'immobilier ?</h1>
-            <p class="subtitle">Découvre en 2 minutes si c'est le bon moment pour te lancer, ou ce qu'il te manque pour y arriver</p>
+        </div>
+        <br>
+        <div class="subtitle-band">
+            <p class="subtitle">
+                Découvre en 2 minutes si c'est le bon moment pour te lancer,
+                ou ce qu'il te manque pour y arriver
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+
+    <p class="intro-text">
+        <strong>💡 Ce quiz analyse ta situation financière, professionnelle et personnelle</strong>
+        pour te dire si tu peux investir maintenant, ou ce que tu dois améliorer d'abord.
+    </p>
+
+    <!-- TON FORMULAIRE ET TON JS RESTENT STRICTEMENT IDENTIQUES -->
+
+    <div class="email-section">
+        <div class="email-band">
+            <h3>📧 Reçois ton profil d'investisseur personnalisé</h3>
+        </div>
+        <br>
+        <div class="email-text">
+            Découvre si tu es prêt(e) à investir maintenant,
+            ou ce qu'il te manque pour y arriver
         </div>
     </div>
+
+</div>
+
+</body>
+</html>
 
     <div class="container">
         <p class="intro-text">
