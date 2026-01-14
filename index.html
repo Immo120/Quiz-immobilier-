@@ -77,17 +77,6 @@
             border-radius: 20px 20px 0 0;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         h1 {
             color: white;
             font-size: 42px;
@@ -187,28 +176,6 @@
             font-weight: 600;
         }
 
-        select {
-            width: 100%;
-            padding: 16px 20px;
-            font-size: 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            background: #f7fafc;
-            color: #2d3748;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        select:hover {
-            border-color: #FF9500;
-        }
-
-        select:focus {
-            outline: none;
-            border-color: #FF9500;
-            background: white;
-        }
-
         .email-section {
             background: linear-gradient(135deg, #FF9500 0%, #FF6B00 50%, #2d2d2d 100%);
             padding: 30px;
@@ -299,16 +266,6 @@
             color: #2d3748;
         }
 
-        .success ul {
-            margin: 15px 0;
-            padding-left: 25px;
-        }
-
-        .success li {
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
         .profile-badge {
             display: inline-block;
             padding: 12px 30px;
@@ -347,36 +304,6 @@
             font-size: 18px;
         }
 
-        .action-box {
-            background: #d1fae5;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border-left: 4px solid #10b981;
-        }
-
-        .action-box h4 {
-            color: #065f46;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 35px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 700;
-            margin-top: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-        }
-
         @media (max-width: 768px) {
             .header {
                 padding: 40px 20px;
@@ -385,7 +312,6 @@
             .logo {
                 width: 100px;
                 height: 100px;
-                font-size: 25px;
             }
 
             h1 {
@@ -412,7 +338,6 @@
     </style>
 </head>
 <body>
-    <!-- En-tête professionnelle -->
     <div class="header">
         <div class="header-content">
             <div class="logo">
@@ -425,11 +350,10 @@
 
     <div class="container">
         <p class="intro-text">
-            <strong>Ce quiz analyse ta situation financière, professionnelle et personnelle</strong> pour te dire si tu peux investir maintenant, ou ce que tu dois améliorer d'abord.
+            <strong>💡 Ce quiz analyse ta situation financière, professionnelle et personnelle</strong> pour te dire si tu peux investir maintenant, ou ce que tu dois améliorer d'abord.
         </p>
 
         <form id="quizForm">
-            <!-- Question 1 : Revenus -->
             <div class="question-block">
                 <p class="question">1. Quels sont tes revenus mensuels nets (seul ou en couple) ?</p>
                 <div class="options">
@@ -452,7 +376,6 @@
                 </div>
             </div>
 
-            <!-- Question 2 : Épargne -->
             <div class="question-block">
                 <p class="question">2. Combien as-tu d'épargne disponible aujourd'hui ?</p>
                 <div class="options">
@@ -475,7 +398,6 @@
                 </div>
             </div>
 
-            <!-- Question 3 : Endettement -->
             <div class="question-block">
                 <p class="question">3. As-tu déjà un crédit immobilier en cours (résidence principale) ?</p>
                 <div class="options">
@@ -498,7 +420,6 @@
                 </div>
             </div>
 
-            <!-- Question 4 : Stabilité -->
             <div class="question-block">
                 <p class="question">4. Quelle est ta situation professionnelle ?</p>
                 <div class="options">
@@ -529,7 +450,6 @@
                 </div>
             </div>
 
-            <!-- Question 5 : Motivation -->
             <div class="question-block">
                 <p class="question">5. Qu'est-ce qui te bloque aujourd'hui ?</p>
                 <div class="options">
@@ -556,7 +476,6 @@
                 </div>
             </div>
 
-            <!-- Question 6 : Objectif -->
             <div class="question-block">
                 <p class="question">6. Pourquoi veux-tu investir dans l'immobilier ?</p>
                 <div class="options">
@@ -583,7 +502,6 @@
                 </div>
             </div>
 
-            <!-- Question 7 : Timeline -->
             <div class="question-block">
                 <p class="question">7. Dans combien de temps veux-tu avoir signé ton premier bien ?</p>
                 <div class="options">
@@ -606,7 +524,6 @@
                 </div>
             </div>
 
-            <!-- Question 8 : Mindset -->
             <div class="question-block">
                 <p class="question">8. Comment te décrirais-tu ?</p>
                 <div class="options">
@@ -629,27 +546,24 @@
                 </div>
             </div>
 
-            <!-- Section Email + Prénom -->
             <div class="email-section">
-                <h3>Reçois ton profil d'investisseur personnalisé</h3>
+                <h3>📧 Reçois ton profil d'investisseur personnalisé</h3>
                 <p>Découvre si tu es prêt(e) à investir maintenant, ou ce qu'il te manque pour y arriver</p>
                 <input type="text" name="prenom" placeholder="Ton prénom" required>
                 <input type="email" name="email" placeholder="Ton adresse email" required>
             </div>
 
-            <button type="submit" class="submit-btn">Découvre ton profil </button>
+            <button type="submit" class="submit-btn">Découvrir mon profil 🚀</button>
         </form>
 
-        <div class="success" id="successMessage">
-            <!-- Le contenu sera généré dynamiquement -->
-        </div>
+        <div class="success" id="successMessage"></div>
     </div>
 
     <script>
         const form = document.getElementById('quizForm');
         const successMessage = document.getElementById('successMessage');
 
-      form.addEventListener('submit', async function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -666,10 +580,8 @@
                 email: formData.get('email')
             };
 
-            // Calcul du profil et des blocages
             const analyse = analyserProfil(data);
             
-            // Préparer les données pour l'envoi
             const dataToSend = {
                 ...data,
                 profil: analyse.profil,
@@ -677,26 +589,21 @@
                 blocages_detail: analyse.blocages.map(b => `• ${b.detail}`).join('\n')
             };
 
-            // Afficher le résultat immédiatement
             afficherResultat(analyse, data);
             form.style.display = 'none';
             successMessage.style.display = 'block';
             window.scrollTo(0, 0);
 
-            // Envoyer les données à Google Sheets en arrière-plan
             try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
+                await fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(dataToSend)
                 });
-                console.log('Données envoyées avec succès');
+                console.log('Données envoyées');
             } catch (error) {
-                console.error('Erreur lors de l\'envoi:', error);
-                // L'utilisateur voit quand même son résultat
+                console.error('Erreur:', error);
             }
         });
 
@@ -705,113 +612,47 @@
             let points_forts = [];
             let est_qualifie = true;
 
-            // CRITÈRE 1 : Revenus (MINIMUM 2000€/mois)
             if (data.revenus === 'faible') {
                 est_qualifie = false;
-                blocages.push({
-                    type: 'revenus',
-                    titre: '💰 Revenus insuffisants',
-                    detail: 'Avec moins de 2000€/mois, les banques ne te prêteront pas. C\'est le minimum absolu pour être bancable.',
-                    solution: 'Augmente tes revenus via une évolution professionnelle, une formation, ou un complément de revenus. Objectif : atteindre 2000€/mois net minimum.'
-                });
+                blocages.push({detail: 'Revenus insuffisants (<2000€)'});
             } else if (data.revenus === 'correct') {
-                points_forts.push('✅ Revenus conformes (2000-3000€)');
+                points_forts.push('✅ Revenus corrects (2000-3000€)');
             } else if (data.revenus === 'bon') {
                 points_forts.push('✅ Bons revenus (3000-4500€)');
             } else {
                 points_forts.push('✅ Excellents revenus (4500€+)');
             }
 
-            // CRITÈRE 2 : Épargne (MINIMUM 10 000€)
             if (data.epargne === 'peu') {
                 est_qualifie = false;
-                blocages.push({
-                    type: 'epargne',
-                    titre: '💸 Épargne insuffisante',
-                    detail: 'Avec moins de 5000€, tu n\'as pas assez pour les frais de notaire, d\'agence et d\'apport. Il te faut minimum 10 000€ pour investir.',
-                    solution: 'Épargne agressivement pendant 6-12 mois. Objectif : 10 000€ minimum pour couvrir tous les frais et sécuriser ton projet.'
-                });
+                blocages.push({detail: 'Épargne insuffisante (<5000€)'});
             } else if (data.epargne === 'correct') {
-                // Entre 5-15K : on considère que c'est limite mais acceptable si proche de 10K
-                points_forts.push('✅ Épargne correcte (5-15K€) - vise 10K€ minimum');
+                points_forts.push('✅ Épargne correcte (5-15K€)');
             } else if (data.epargne === 'bon') {
                 points_forts.push('✅ Belle épargne (15-40K€)');
             } else {
                 points_forts.push('✅ Excellente épargne (40K€+)');
             }
 
-            // CRITÈRE 3 : Endettement (MAX 30%)
             if (data.endettement === 'rp-lourd') {
                 est_qualifie = false;
-                blocages.push({
-                    type: 'endettement',
-                    titre: '🏠 Taux d\'endettement trop élevé',
-                    detail: 'Ton crédit représente plus de 30% de tes revenus. Les banques ne te prêteront pas (taux d\'endettement max = 35%, et il faut de la marge pour l\'investissement).',
-                    solution: 'Rembourse une partie de ton crédit ou augmente tes revenus pour faire baisser ce ratio sous les 30%.'
-                });
+                blocages.push({detail: 'Endettement trop élevé (>30%)'});
             } else if (data.endettement === 'rp-leger') {
-                points_forts.push('✅ Endettement gérable (<30%)');
+                points_forts.push('✅ Endettement gérable');
             } else {
-                points_forts.push('✅ Aucun endettement (capacité maximale)');
+                points_forts.push('✅ Aucun endettement');
             }
 
-            // CRITÈRE 4 : Stabilité professionnelle (CDI 6 mois+ OU 3 bilans freelance)
             if (data.stabilite === 'instable' || data.stabilite === 'freelance-debut' || data.stabilite === 'cdi-recent') {
                 est_qualifie = false;
-                if (data.stabilite === 'freelance-debut') {
-                    blocages.push({
-                        type: 'stabilite',
-                        titre: '📋 Situation professionnelle instable',
-                        detail: 'En tant que freelance avec moins de 3 bilans, les banques exigent au moins 3 années d\'activité pour prêter.',
-                        solution: 'Continue ton activité et présente 3 bilans positifs consécutifs pour prouver ta stabilité.'
-                    });
-                } else if (data.stabilite === 'cdi-recent') {
-                    blocages.push({
-                        type: 'stabilite',
-                        titre: '📋 CDI trop récent',
-                        detail: 'Avec un CDI de moins de 6 mois, les banques considèrent que tu es encore en période d\'essai ou trop récent.',
-                        solution: 'Attends d\'avoir au moins 6 mois d\'ancienneté en CDI pour maximiser tes chances.'
-                    });
-                } else {
-                    blocages.push({
-                        type: 'stabilite',
-                        titre: '📋 Situation professionnelle instable',
-                        detail: 'En CDD ou intérim, les banques exigent un CDI ou 3 ans d\'ancienneté en freelance pour prêter.',
-                        solution: 'Obtiens un CDI stable ou lance-toi en freelance et patiente 3 ans.'
-                    });
-                }
-            } else if (data.stabilite === 'stable' || data.stabilite === 'freelance-etabli') {
+                blocages.push({detail: 'Situation professionnelle instable'});
+            } else {
                 points_forts.push('✅ Situation professionnelle stable');
-            } else {
-                points_forts.push('✅ Couple en CDI stable (double sécurité)');
             }
 
-            // INFORMATIONS COMPLÉMENTAIRES (pas bloquant mais utile)
-            if (data.mindset === 'paralysie' || data.mindset === 'reve') {
-                blocages.push({
-                    type: 'mindset',
-                    titre: '🧠 Paralysie par l\'analyse',
-                    detail: 'Tu réfléchis depuis longtemps mais tu ne passes jamais à l\'action. Ce n\'est pas bloquant financièrement, mais c\'est ton principal frein psychologique.',
-                    solution: 'Tu as besoin d\'un cadre clair et d\'un accompagnement. Comme dans le sport : un coach + un plan = résultats.'
-                });
-            }
+            let profil = est_qualifie ? 'PRET' : (blocages.length <= 2 && data.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
 
-            // Détermination du profil
-            let profil;
-            if (est_qualifie) {
-                profil = 'PRET';
-            } else if (blocages.length <= 2 && data.revenus !== 'faible') {
-                profil = 'PRESQUE';
-            } else {
-                profil = 'PAS_PRET';
-            }
-
-            return {
-                profil: profil,
-                blocages: blocages,
-                points_forts: points_forts,
-                est_qualifie: est_qualifie
-            };
+            return {profil, blocages, points_forts, est_qualifie};
         }
 
         function afficherResultat(analyse, data) {
@@ -823,10 +664,38 @@
                     <div style="text-align: center;">
                         <span class="profile-badge profile-pret">🎉 TU ES PRÊT(E) À INVESTIR !</span>
                     </div>
-                    
                     <p><strong>Bonjour ${prenom}</strong>,</p>
-                    
-                    <p>Excellente nouvelle ! 🎉 Tu as <strong>tous les ingrédients</strong> pour te lancer dans l'investissement immobilier dès maintenant.</p>
-                    
-                    <div class="action-box">
-                        <h4>
+                    <p>Excellente nouvelle ! Tu as tous les ingrédients pour te lancer dès maintenant.</p>
+                    <p><strong>Tes points forts :</strong></p>
+                    <ul>${analyse.points_forts.map(p => `<li>${p}</li>`).join('')}</ul>
+                    <p style="margin-top:20px;">📧 <strong>Tu vas recevoir ton profil détaillé par email dans quelques minutes !</strong></p>
+                    <p>Vérifie ta boîte mail (et tes spams si besoin).</p>
+                `;
+            } else if (analyse.profil === 'PRESQUE') {
+                html = `
+                    <div style="text-align: center;">
+                        <span class="profile-badge profile-presque">⚠️ TU ES PRESQUE PRÊT(E) !</span>
+                    </div>
+                    <p><strong>Bonjour ${prenom}</strong>,</p>
+                    <p>Bonne nouvelle : tu es sur la bonne voie !</p>
+                    ${analyse.points_forts.length > 0 ? `<p><strong>Ce que tu as déjà :</strong></p><ul>${analyse.points_forts.map(p => `<li>${p}</li>`).join('')}</ul>` : ''}
+                    ${analyse.blocages.length > 0 ? `<div class="blocage-box"><h4>Ce qu'il te manque :</h4><ul>${analyse.blocages.map(b => `<li>${b.detail}</li>`).join('')}</ul></div>` : ''}
+                    <p>📧 <strong>Tu vas recevoir ton plan d'action par email !</strong></p>
+                `;
+            } else {
+                html = `
+                    <div style="text-align: center;">
+                        <span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span>
+                    </div>
+                    <p><strong>Bonjour ${prenom}</strong>,</p>
+                    <p>Investir maintenant serait prématuré. Voici pourquoi :</p>
+                    <div class="blocage-box"><ul>${analyse.blocages.map(b => `<li>${b.detail}</li>`).join('')}</ul></div>
+                    <p>📧 <strong>Tu vas recevoir ton plan d'action pour te préparer !</strong></p>
+                `;
+            }
+
+            successMessage.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
