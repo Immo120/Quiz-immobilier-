@@ -1,4 +1,65 @@
-<!DOCTYPE html>
+function analyserProfil(data) {
+            let blocages = [];
+            let points_forts = [];
+            let conseils = [];
+            let est_qualifie = true;
+
+            // Revenus
+            if (data.revenus === 'faible') {
+                est_qualifie = false;
+                blocages.push({
+                    type: 'revenus',
+                    detail: 'Revenus insuffisants (<2000€)',
+                    conseil: 'Tes revenus sont actuellement insuffisants pour obtenir un prêt bancaire. Voici ce que tu peux faire : cherche un complément de revenus (job à mi-temps, freelance dans ton domaine, vente en ligne). Vise une augmentation de 500-1000€/mois. Contacte-nous sur Instagram pour discuter de stratégies concrètes d\'augmentation de revenus.'
+                });
+            } else if (data.revenus === 'correct') {
+                points_forts.push('✅ Revenus corrects (2000-3000€)');
+            } else if (data.revenus === 'bon') {
+                points_forts.push('✅ Bons revenus (3000-4500€)');
+            } else {
+                points_forts.push('✅ Excellents revenus (4500€+)');
+            }
+
+            // Épargne
+            if (data.epargne === 'tres-peu') {
+                est_qualifie = false;
+                blocages.push({
+                    type: 'epargne',
+                    detail: 'Épargne insuffisante (<10000€)',
+                    conseil: 'Il te manque de l\'épargne pour couvrir les frais d\'acquisition et sécuriser ton projet. On peut te proposer un RDV d\'1h pour mettre en place une stratégie d\'épargne efficace adaptée à ta situation. Objectif : atteindre 10 000€ en 6-12 mois. Contacte-nous sur Instagram pour réserver ton créneau.'
+                });
+            } else if (data.epargne === 'correct') {
+                points_forts.push('✅ Épargne correcte (10-20K€)');
+            } else if (data.epargne === 'bon') {
+                points_forts.push('✅ Belle épargne (20-40K€)');
+            } else {
+                points_forts.push('✅ Excellente épargne (40K€+)');
+            }
+
+            // Endettement
+            if (data.endettement === 'rp-lourd') {
+                est_qualifie = false;
+                blocages.push({
+                    type: 'endettement',
+                    detail: 'Endettement trop élevé (>30%)',
+                    conseil: 'Ton taux d\'endettement actuel ne te laisse pas de marge pour un nouvel emprunt. Solutions : augmente tes revenus pour faire baisser le ratio, ou rembourse une partie de ton crédit actuel. Reviens nous voir dans 6-12 mois quand ta situation se sera améliorée.'
+                });
+            } else if (data.endettement === 'rp-leger') {
+                points_forts.push('✅ Endettement gérable');
+            } else {
+                points_forts.push('✅ Aucun endettement');
+            }
+
+            // Stabilité - CDI 6 mois+ = OK
+            if (data.stabilite === 'instable' || data.stabilite === 'freelance-debut' || data.stabilite === 'cdi-recent') {
+                est_qualifie = false;
+                if (data.stabilite === 'freelance-debut') {
+                    blocages.push({
+                        type: 'stabilite',
+                        detail: 'Situation pro instable (freelance <3 bilans)',
+                        conseil: 'En tant que freelance, tu dois présenter 3 années d\'activité avec bilans positifs. Continue ton activité, stabilise-la, et reviens vers nous quand tu auras 3 bilans. En attendant, suis nos contenus éducatifs sur Instagram pour te préparer.'
+                    });
+                } else if (data<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -380,16 +441,16 @@
                 <p class="question">2. Combien as-tu d'épargne disponible aujourd'hui ?</p>
                 <div class="options">
                     <div class="option">
-                        <input type="radio" id="ep1" name="epargne" value="peu" required>
-                        <label for="ep1">Moins de 5 000€</label>
+                        <input type="radio" id="ep1" name="epargne" value="tres-peu" required>
+                        <label for="ep1">Moins de 10 000€</label>
                     </div>
                     <div class="option">
                         <input type="radio" id="ep2" name="epargne" value="correct">
-                        <label for="ep2">5 000€ - 15 000€</label>
+                        <label for="ep2">10 000€ - 20 000€</label>
                     </div>
                     <div class="option">
                         <input type="radio" id="ep3" name="epargne" value="bon">
-                        <label for="ep3">15 000€ - 40 000€</label>
+                        <label for="ep3">20 000€ - 40 000€</label>
                     </div>
                     <div class="option">
                         <input type="radio" id="ep4" name="epargne" value="excellent">
@@ -543,6 +604,7 @@
                 <p>Découvre si tu es prêt(e) à investir maintenant, ou ce qu'il te manque pour y arriver</p>
                 <input type="text" name="prenom" placeholder="Ton prénom" required>
                 <input type="email" name="email" placeholder="Ton adresse email" required>
+                <input type="text" name="instagram" placeholder="Ton pseudo Instagram (@ton_pseudo)">
             </div>
 
             <button type="submit" class="submit-btn">Découvrir mon profil</button>
@@ -569,7 +631,8 @@
                 timeline: formData.get('timeline'),
                 mindset: formData.get('mindset'),
                 prenom: formData.get('prenom'),
-                email: formData.get('email')
+                email: formData.get('email'),
+                instagram: formData.get('instagram') || 'Non renseigné'
             };
 
             const analyse = analyserProfil(data);
