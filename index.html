@@ -1,65 +1,4 @@
-function analyserProfil(data) {
-            let blocages = [];
-            let points_forts = [];
-            let conseils = [];
-            let est_qualifie = true;
-
-            // Revenus
-            if (data.revenus === 'faible') {
-                est_qualifie = false;
-                blocages.push({
-                    type: 'revenus',
-                    detail: 'Revenus insuffisants (<2000€)',
-                    conseil: 'Tes revenus sont actuellement insuffisants pour obtenir un prêt bancaire. Voici ce que tu peux faire : cherche un complément de revenus (job à mi-temps, freelance dans ton domaine, vente en ligne). Vise une augmentation de 500-1000€/mois. Contacte-nous sur Instagram pour discuter de stratégies concrètes d\'augmentation de revenus.'
-                });
-            } else if (data.revenus === 'correct') {
-                points_forts.push('✅ Revenus corrects (2000-3000€)');
-            } else if (data.revenus === 'bon') {
-                points_forts.push('✅ Bons revenus (3000-4500€)');
-            } else {
-                points_forts.push('✅ Excellents revenus (4500€+)');
-            }
-
-            // Épargne
-            if (data.epargne === 'tres-peu') {
-                est_qualifie = false;
-                blocages.push({
-                    type: 'epargne',
-                    detail: 'Épargne insuffisante (<10000€)',
-                    conseil: 'Il te manque de l\'épargne pour couvrir les frais d\'acquisition et sécuriser ton projet. On peut te proposer un RDV d\'1h pour mettre en place une stratégie d\'épargne efficace adaptée à ta situation. Objectif : atteindre 10 000€ en 6-12 mois. Contacte-nous sur Instagram pour réserver ton créneau.'
-                });
-            } else if (data.epargne === 'correct') {
-                points_forts.push('✅ Épargne correcte (10-20K€)');
-            } else if (data.epargne === 'bon') {
-                points_forts.push('✅ Belle épargne (20-40K€)');
-            } else {
-                points_forts.push('✅ Excellente épargne (40K€+)');
-            }
-
-            // Endettement
-            if (data.endettement === 'rp-lourd') {
-                est_qualifie = false;
-                blocages.push({
-                    type: 'endettement',
-                    detail: 'Endettement trop élevé (>30%)',
-                    conseil: 'Ton taux d\'endettement actuel ne te laisse pas de marge pour un nouvel emprunt. Solutions : augmente tes revenus pour faire baisser le ratio, ou rembourse une partie de ton crédit actuel. Reviens nous voir dans 6-12 mois quand ta situation se sera améliorée.'
-                });
-            } else if (data.endettement === 'rp-leger') {
-                points_forts.push('✅ Endettement gérable');
-            } else {
-                points_forts.push('✅ Aucun endettement');
-            }
-
-            // Stabilité - CDI 6 mois+ = OK
-            if (data.stabilite === 'instable' || data.stabilite === 'freelance-debut' || data.stabilite === 'cdi-recent') {
-                est_qualifie = false;
-                if (data.stabilite === 'freelance-debut') {
-                    blocages.push({
-                        type: 'stabilite',
-                        detail: 'Situation pro instable (freelance <3 bilans)',
-                        conseil: 'En tant que freelance, tu dois présenter 3 années d\'activité avec bilans positifs. Continue ton activité, stabilise-la, et reviens vers nous quand tu auras 3 bilans. En attendant, suis nos contenus éducatifs sur Instagram pour te préparer.'
-                    });
-                } else if (data<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -327,6 +266,16 @@ function analyserProfil(data) {
             color: #2d3748;
         }
 
+        .success ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .success li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
         .profile-badge {
             display: inline-block;
             padding: 12px 30px;
@@ -351,16 +300,16 @@ function analyserProfil(data) {
             color: white;
         }
 
-        .blocage-box {
-            background: #fef3c7;
+        .conseil-box {
+            background: #FFF5E6;
             padding: 20px;
             border-radius: 12px;
             margin: 20px 0;
-            border-left: 4px solid #f59e0b;
+            border-left: 4px solid #FF9500;
         }
 
-        .blocage-box h4 {
-            color: #92400e;
+        .conseil-box h4 {
+            color: #1a1a1a;
             margin-bottom: 10px;
             font-size: 18px;
         }
@@ -641,7 +590,7 @@ function analyserProfil(data) {
                 ...data,
                 profil: analyse.profil,
                 points_forts: analyse.points_forts.join('\n'),
-                blocages_detail: analyse.blocages.map(b => `• ${b.detail}`).join('\n')
+                conseils_detail: analyse.conseils.map(c => c.detail + ' - ' + c.conseil).join('\n\n')
             };
 
             afficherResultat(analyse, data);
@@ -663,89 +612,143 @@ function analyserProfil(data) {
         });
 
         function analyserProfil(data) {
-            let blocages = [];
+            let conseils = [];
             let points_forts = [];
             let est_qualifie = true;
 
             if (data.revenus === 'faible') {
                 est_qualifie = false;
-                blocages.push({detail: 'Revenus insuffisants (<2000€)'});
+                conseils.push({
+                    detail: 'Revenus insuffisants',
+                    conseil: 'Pour augmenter tes chances d\'investir, il te faut chercher à augmenter tes revenus. Pense à un travail complémentaire ou un petit complément de revenus pour atteindre au moins 2000 euros par mois.'
+                });
             } else if (data.revenus === 'correct') {
-                points_forts.push('✅ Revenus corrects (2000-3000€)');
+                points_forts.push('Revenus corrects (2000-3000 euros)');
             } else if (data.revenus === 'bon') {
-                points_forts.push('✅ Bons revenus (3000-4500€)');
+                points_forts.push('Bons revenus (3000-4500 euros)');
             } else {
-                points_forts.push('✅ Excellents revenus (4500€+)');
+                points_forts.push('Excellents revenus (4500 euros et plus)');
             }
 
-            if (data.epargne === 'peu') {
+            if (data.epargne === 'tres-peu') {
                 est_qualifie = false;
-                blocages.push({detail: 'Épargne insuffisante (<5000€)'});
+                conseils.push({
+                    detail: 'Épargne insuffisante',
+                    conseil: 'Il te faut mettre un peu d\'argent de côté pendant 6 mois pour atteindre les 10 000 euros. Fais de gros efforts sur les plaisirs que tu prends actuellement : cinéma, restaurant, discothèque, shopping. Ces sacrifices temporaires te permettront d\'investir bientôt.'
+                });
             } else if (data.epargne === 'correct') {
-                points_forts.push('✅ Épargne correcte (5-15K€)');
+                points_forts.push('Épargne correcte (10-20K euros)');
             } else if (data.epargne === 'bon') {
-                points_forts.push('✅ Belle épargne (15-40K€)');
+                points_forts.push('Belle épargne (20-40K euros)');
             } else {
-                points_forts.push('✅ Excellente épargne (40K€+)');
+                points_forts.push('Excellente épargne (40K euros et plus)');
             }
 
             if (data.endettement === 'rp-lourd') {
                 est_qualifie = false;
-                blocages.push({detail: 'Endettement trop élevé (>30%)'});
+                conseils.push({
+                    detail: 'Endettement trop élevé',
+                    conseil: 'Ton taux d\'endettement est trop élevé. Tu dois rembourser une partie de ton crédit actuel ou augmenter tes revenus pour faire baisser ce ratio. Reviens nous voir dans 6-12 mois.'
+                });
             } else if (data.endettement === 'rp-leger') {
-                points_forts.push('✅ Endettement gérable');
+                points_forts.push('Endettement gérable');
             } else {
-                points_forts.push('✅ Aucun endettement');
+                points_forts.push('Aucun endettement');
             }
 
             if (data.stabilite === 'instable' || data.stabilite === 'freelance-debut' || data.stabilite === 'cdi-recent') {
                 est_qualifie = false;
-                blocages.push({detail: 'Situation professionnelle instable'});
+                if (data.stabilite === 'freelance-debut') {
+                    conseils.push({
+                        detail: 'Situation professionnelle instable',
+                        conseil: 'En tant que freelance, tu dois présenter 3 années d\'activité avec bilans positifs. Continue ton activité, stabilise-la, et reviens vers nous quand tu auras 3 bilans.'
+                    });
+                } else if (data.stabilite === 'cdi-recent') {
+                    conseils.push({
+                        detail: 'CDI trop récent',
+                        conseil: 'Attends d\'avoir au moins 6 mois d\'ancienneté en CDI pour maximiser tes chances. Reviens nous voir dans quelques mois.'
+                    });
+                } else {
+                    conseils.push({
+                        detail: 'Situation professionnelle instable',
+                        conseil: 'Les banques exigent un CDI stable. Concentre-toi sur l\'obtention d\'un CDI. Une fois stabilisé, reviens vers nous.'
+                    });
+                }
             } else {
-                points_forts.push('✅ Situation professionnelle stable');
+                points_forts.push('Situation professionnelle stable');
             }
 
-            let profil = est_qualifie ? 'PRET' : (blocages.length <= 2 && data.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
+            if (data.blocage === 'connaissance') {
+                conseils.push({
+                    detail: 'Manque de connaissances',
+                    conseil: 'On est là pour t\'aider. Regarde nos posts Instagram et nos vidéos YouTube pour te former gratuitement.'
+                });
+            }
 
-            return {profil, blocages, points_forts, est_qualifie};
+            let profil = est_qualifie ? 'PRET' : (conseils.length <= 2 && data.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
+
+            return {profil, conseils, points_forts, est_qualifie};
         }
 
         function afficherResultat(analyse, data) {
             const prenom = data.prenom;
+            const insta = data.instagram !== 'Non renseigné' ? data.instagram : null;
             let html = '';
 
             if (analyse.profil === 'PRET') {
                 html = `
                     <div style="text-align: center;">
-                        <span class="profile-badge profile-pret">🎉 TU ES PRÊT(E) À INVESTIR !</span>
+                        <span class="profile-badge profile-pret">TU ES PRET A INVESTIR</span>
                     </div>
                     <p><strong>Bonjour ${prenom}</strong>,</p>
-                    <p>Excellente nouvelle ! Tu as tous les ingrédients pour te lancer dès maintenant.</p>
+                    <p>Excellente nouvelle. Tu as tous les ingrédients pour te lancer dès maintenant.</p>
                     <p><strong>Tes points forts :</strong></p>
                     <ul>${analyse.points_forts.map(p => `<li>${p}</li>`).join('')}</ul>
-                    <p style="margin-top:20px;">📧 <strong>Tu vas recevoir ton profil détaillé par email dans quelques minutes !</strong></p>
+                    <p style="margin-top:20px;"><strong>Tu vas recevoir ton profil détaillé par email dans quelques minutes.</strong></p>
                     <p>Vérifie ta boîte mail (et tes spams si besoin).</p>
+                    ${insta ? `<p style="margin-top:15px;">On va aussi te contacter sur Instagram (${insta}) pour discuter de ton projet.</p>` : ''}
                 `;
-            } else if (analyse.profil === 'PRESQUE') {
+} else if (analyse.profil === 'PRESQUE') {
                 html = `
                     <div style="text-align: center;">
-                        <span class="profile-badge profile-presque">⚠️ TU ES PRESQUE PRÊT(E) !</span>
+                        <span class="profile-badge profile-presque">TU ES PRESQUE PRET</span>
                     </div>
                     <p><strong>Bonjour ${prenom}</strong>,</p>
-                    <p>Bonne nouvelle : tu es sur la bonne voie !</p>
+                    <p>Bonne nouvelle : tu es sur la bonne voie.</p>
                     ${analyse.points_forts.length > 0 ? `<p><strong>Ce que tu as déjà :</strong></p><ul>${analyse.points_forts.map(p => `<li>${p}</li>`).join('')}</ul>` : ''}
-                    ${analyse.blocages.length > 0 ? `<div class="blocage-box"><h4>Ce qu'il te manque :</h4><ul>${analyse.blocages.map(b => `<li>${b.detail}</li>`).join('')}</ul></div>` : ''}
-                    <p>📧 <strong>Tu vas recevoir ton plan d'action par email !</strong></p>
+                    ${analyse.conseils.length > 0 ? `
+                        <div class="conseil-box">
+                            <h4>Ce qu'il te manque et nos conseils :</h4>
+                            ${analyse.conseils.map(c => `
+                                <div style="margin-bottom: 15px;">
+                                    <p style="font-weight: 600; margin-bottom: 5px;">${c.detail}</p>
+                                    <p style="margin-left: 15px;">${c.conseil}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    <p style="margin-top:15px;">Regarde nos posts Instagram et nos vidéos YouTube pour continuer à te préparer.</p>
+                    <p><strong>Tu vas recevoir ton plan d'action complet par email.</strong></p>
+                    ${insta ? `<p style="margin-top:10px;">On te contacte sur ${insta}.</p>` : ''}
                 `;
             } else {
                 html = `
                     <div style="text-align: center;">
-                        <span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span>
+                        <span class="profile-badge profile-pas-pret">PAS ENCORE PRET</span>
                     </div>
                     <p><strong>Bonjour ${prenom}</strong>,</p>
-                    <p>Investir maintenant serait prématuré. Voici pourquoi :</p>
-                    <div class="blocage-box"><ul>${analyse.blocages.map(b => `<li>${b.detail}</li>`).join('')}</ul></div>
-                    <p>📧 <strong>Tu vas recevoir ton plan d'action pour te préparer !</strong></p>
+                    <p>Investir maintenant serait prématuré. Voici ce qui bloque et comment progresser :</p>
+                    <div class="conseil-box">
+                        ${analyse.conseils.map(c => `
+                            <div style="margin-bottom: 15px;">
+                                <p style="font-weight: 600; margin-bottom: 5px;">${c.detail}</p>
+                                <p style="margin-left: 15px;">${c.conseil}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <p style="margin-top:15px;">En attendant, regarde nos posts Instagram et nos vidéos YouTube. Tu peux nous poser tes questions en DM Instagram.</p>
+                    <p><strong>Tu vas recevoir un plan d'action détaillé par email.</strong></p>
+                    ${insta ? `<p style="margin-top:10px;">On reste en contact sur ${insta}.</p>` : ''}
                 `;
             }
 
