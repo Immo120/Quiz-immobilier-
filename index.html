@@ -583,7 +583,7 @@
                 est_qualifie = false;
                 conseils.push({
                     detail: 'Revenus insuffisants',
-                    conseil: 'Pour augmenter tes chances d\'investir, il te faut chercher à augmenter tes revenus. Pense à un travail complémentaire ou un petit complément de revenus pour atteindre au moins 2000 euros par mois.'
+                    conseil: 'Pour augmenter tes chances d\'investir, il te faut chercher à augmenter tes revenus.'
                 });
             } else if (data.revenus === 'correct') {
                 points_forts.push('Revenus corrects (2000-3000 euros)');
@@ -597,7 +597,7 @@
                 est_qualifie = false;
                 conseils.push({
                     detail: 'Épargne insuffisante',
-                    conseil: 'Il te faut mettre un peu d\'argent de côté pendant 6 mois pour atteindre les 10 000 euros. Fais de gros efforts sur les plaisirs que tu prends actuellement : cinéma, restaurant, discothèque, shopping. Ces sacrifices temporaires te permettront d\'investir bientôt.'
+                    conseil: 'Il te faut constituer une épargne de sécurité.'
                 });
             } else if (data.epargne === 'correct') {
                 points_forts.push('Épargne correcte (10-20K euros)');
@@ -611,7 +611,7 @@
                 est_qualifie = false;
                 conseils.push({
                     detail: 'Endettement trop élevé',
-                    conseil: 'Ton taux d\'endettement est trop élevé. Tu dois rembourser une partie de ton crédit actuel ou augmenter tes revenus pour faire baisser ce ratio. Reviens nous voir dans 6-12 mois.'
+                    conseil: 'Ton taux d\'endettement doit être optimisé.'
                 });
             } else if (data.endettement === 'rp-leger') {
                 points_forts.push('Endettement gérable');
@@ -621,31 +621,12 @@
 
             if (data.stabilite === 'instable' || data.stabilite === 'freelance-debut' || data.stabilite === 'cdi-recent') {
                 est_qualifie = false;
-                if (data.stabilite === 'freelance-debut') {
-                    conseils.push({
-                        detail: 'Situation professionnelle instable',
-                        conseil: 'En tant que freelance, tu dois présenter 3 années d\'activité avec bilans positifs. Continue ton activité, stabilise-la, et reviens vers nous quand tu auras 3 bilans.'
-                    });
-                } else if (data.stabilite === 'cdi-recent') {
-                    conseils.push({
-                        detail: 'CDI trop récent',
-                        conseil: 'Attends d\'avoir au moins 6 mois d\'ancienneté en CDI pour maximiser tes chances. Reviens nous voir dans quelques mois.'
-                    });
-                } else {
-                    conseils.push({
-                        detail: 'Situation professionnelle instable',
-                        conseil: 'Les banques exigent un CDI stable. Concentre-toi sur l\'obtention d\'un CDI. Une fois stabilisé, reviens vers nous.'
-                    });
-                }
+                conseils.push({
+                    detail: 'Situation professionnelle à stabiliser',
+                    conseil: 'Il te faut consolider ta situation professionnelle.'
+                });
             } else {
                 points_forts.push('Situation professionnelle stable');
-            }
-
-            if (data.blocage === 'connaissance') {
-                conseils.push({
-                    detail: 'Manque de connaissances',
-                    conseil: 'On est là pour t\'aider. Regarde nos posts Instagram et nos vidéos YouTube pour te former gratuitement.'
-                });
             }
 
             let profil = est_qualifie ? 'PRET' : (conseils.length <= 2 && data.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
@@ -688,4 +669,21 @@
             } else {
                 html = `
                     <div style="text-align: center;">
-                        <span class="profile-badge profile-pas-pret">🛑 PAS ENCORE
+                        <span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span>
+                    </div>
+                    <p style="text-align: center; font-size: 18px; margin-top: 20px;"><strong>Bonjour ${prenom}</strong>,</p>
+                    <p style="text-align: center; font-size: 16px; line-height: 1.6; margin-top: 15px;">
+                        Ce n'est pas encore le moment, mais ça viendra ! 💪<br>
+                        <strong>Ton plan d'action détaillé pour les 12-18 prochains mois t'a été envoyé par email.</strong>
+                    </p>
+                    <p style="text-align: center; margin-top: 20px; color: #666;">
+                        📧 Vérifie ta boîte mail (et tes spams si besoin)
+                    </p>
+                `;
+            }
+
+            successMessage.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
