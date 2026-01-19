@@ -253,29 +253,6 @@
             display: none;
         }
 
-        .success h2 {
-            margin-bottom: 20px;
-            font-size: 28px;
-            text-align: center;
-        }
-
-        .success p {
-            font-size: 17px;
-            line-height: 1.7;
-            margin-bottom: 15px;
-            color: #2d3748;
-        }
-
-        .success ul {
-            margin: 15px 0;
-            padding-left: 25px;
-        }
-
-        .success li {
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
         .profile-badge {
             display: inline-block;
             padding: 12px 30px;
@@ -298,20 +275,6 @@
         .profile-pas-pret {
             background: #ef4444;
             color: white;
-        }
-
-        .conseil-box {
-            background: #FFF5E6;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border-left: 4px solid #FF9500;
-        }
-
-        .conseil-box h4 {
-            color: #1a1a1a;
-            margin-bottom: 10px;
-            font-size: 18px;
         }
 
         @media (max-width: 768px) {
@@ -692,68 +655,37 @@
 
         function afficherResultat(analyse, data) {
             const prenom = data.prenom;
-            const insta = data.instagram !== 'Non renseigné' ? data.instagram : null;
             let html = '';
 
             if (analyse.profil === 'PRET') {
                 html = `
                     <div style="text-align: center;">
-                        <span class="profile-badge profile-pret">TU ES PRET A INVESTIR</span>
+                        <span class="profile-badge profile-pret">✅ TU ES PRÊT À INVESTIR</span>
                     </div>
-                    <p><strong>Bonjour ${prenom}</strong>,</p>
-                    <p>Excellente nouvelle. Tu as tous les ingrédients pour te lancer dès maintenant.</p>
-                    <p><strong>Tes points forts :</strong></p>
-                    <ul>${analyse.points_forts.map(p => `<li>${p}</li>`).join('')}</ul>
-                    <p style="margin-top:20px;"><strong>Tu vas recevoir ton profil détaillé par email dans quelques minutes.</strong></p>
-                    <p>Vérifie ta boîte mail (et tes spams si besoin).</p>
-                    ${insta ? `<p style="margin-top:15px;">On va aussi te contacter sur Instagram (${insta}) pour discuter de ton projet.</p>` : ''}
+                    <p style="text-align: center; font-size: 18px; margin-top: 20px;"><strong>Bonjour ${prenom}</strong>,</p>
+                    <p style="text-align: center; font-size: 16px; line-height: 1.6; margin-top: 15px;">
+                        Excellente nouvelle ! 🎉<br>
+                        <strong>Ton profil détaillé et les prochaines étapes t'ont été envoyés par email.</strong>
+                    </p>
+                    <p style="text-align: center; margin-top: 20px; color: #666;">
+                        📧 Vérifie ta boîte mail (et tes spams si besoin)
+                    </p>
                 `;
-} else if (analyse.profil === 'PRESQUE') {
+            } else if (analyse.profil === 'PRESQUE') {
                 html = `
                     <div style="text-align: center;">
-                        <span class="profile-badge profile-presque">TU ES PRESQUE PRET</span>
+                        <span class="profile-badge profile-presque">⚠️ TU SERAS BIENTÔT PRÊT</span>
                     </div>
-                    <p><strong>Bonjour ${prenom}</strong>,</p>
-                    <p>Bonne nouvelle : tu es sur la bonne voie.</p>
-                    ${analyse.points_forts.length > 0 ? `<p><strong>Ce que tu as déjà :</strong></p><ul>${analyse.points_forts.map(p => `<li>${p}</li>`).join('')}</ul>` : ''}
-                    ${analyse.conseils.length > 0 ? `
-                        <div class="conseil-box">
-                            <h4>Ce qu'il te manque et nos conseils :</h4>
-                            ${analyse.conseils.map(c => `
-                                <div style="margin-bottom: 15px;">
-                                    <p style="font-weight: 600; margin-bottom: 5px;">${c.detail}</p>
-                                    <p style="margin-left: 15px;">${c.conseil}</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                    ` : ''}
-                    <p style="margin-top:15px;">Regarde nos posts Instagram et nos vidéos YouTube pour continuer à te préparer.</p>
-                    <p><strong>Tu vas recevoir ton plan d'action complet par email.</strong></p>
-                    ${insta ? `<p style="margin-top:10px;">On te contacte sur ${insta}.</p>` : ''}
+                    <p style="text-align: center; font-size: 18px; margin-top: 20px;"><strong>Bonjour ${prenom}</strong>,</p>
+                    <p style="text-align: center; font-size: 16px; line-height: 1.6; margin-top: 15px;">
+                        Bonne nouvelle : tu es sur la bonne voie ! 💪<br>
+                        <strong>Ton diagnostic personnalisé et ton plan d'action t'ont été envoyés par email.</strong>
+                    </p>
+                    <p style="text-align: center; margin-top: 20px; color: #666;">
+                        📧 Vérifie ta boîte mail (et tes spams si besoin)
+                    </p>
                 `;
             } else {
                 html = `
                     <div style="text-align: center;">
-                        <span class="profile-badge profile-pas-pret">PAS ENCORE PRET</span>
-                    </div>
-                    <p><strong>Bonjour ${prenom}</strong>,</p>
-                    <p>Investir maintenant serait prématuré. Voici ce qui bloque et comment progresser :</p>
-                    <div class="conseil-box">
-                        ${analyse.conseils.map(c => `
-                            <div style="margin-bottom: 15px;">
-                                <p style="font-weight: 600; margin-bottom: 5px;">${c.detail}</p>
-                                <p style="margin-left: 15px;">${c.conseil}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <p style="margin-top:15px;">En attendant, regarde nos posts Instagram et nos vidéos YouTube. Tu peux nous poser tes questions en DM Instagram.</p>
-                    <p><strong>Tu vas recevoir un plan d'action détaillé par email.</strong></p>
-                    ${insta ? `<p style="margin-top:10px;">On reste en contact sur ${insta}.</p>` : ''}
-                `;
-            }
-
-            successMessage.innerHTML = html;
-        }
-    </script>
-</body>
-</html>
+                        <span class="profile-badge profile-pas-pret">🛑 PAS ENCORE
