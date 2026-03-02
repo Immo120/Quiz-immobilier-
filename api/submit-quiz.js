@@ -9,6 +9,8 @@ export default async function handler(req, res) {
   const { email, prenom, profil } = req.body;
   const API_KEY = process.env.SYSTEMEIO_API_KEY;
 
+  let contactId = null;
+
   // APPEL 1 — Créer le contact
   const contactResponse = await fetch("https://api.systeme.io/api/contacts", {
     method: "POST",
@@ -25,12 +27,32 @@ export default async function handler(req, res) {
   });
 
   const contactData = await contactResponse.json();
-  console.log("Contact créé:", JSON.stringify(contactData));
+
+  if (contactData.id) {
+    // Contact créé avec succès
+    contactId = contactData.id;
+  } else {
+    // Contact existant — on le récupère par email
+    const searchResponse = await fetch(
+      `https://api.systeme.io/api/contacts?email=${encodeURIComponent(email)}`,
+      {
+        method: "GET",
+        headers: {
+          "X-API-Key": API_KEY,
+          "accept": "application/json",
+        },
+      }
+    );
+    const searchData = await searchResponse.json();
+    if (searchData.items && searchData.items.length > 0) {
+      contactId = searchData.items[0].id;
+    }
+  }
 
   // APPEL 2 — Ajouter le tag quiz-immo
-  if (contactData.id) {
-    const tagResponse = await fetch(
-      `https://api.systeme.io/api/contacts/${contactData.id}/tags`,
+  if (contactId) {
+    await fetch(
+      `https://api.systeme.io/api/contacts/${contactId}/tags`,
       {
         method: "POST",
         headers: {
@@ -41,9 +63,8 @@ export default async function handler(req, res) {
         body: JSON.stringify({ name: "quiz-immo" }),
       }
     );
-    const tagData = await tagResponse.json();
-    console.log("Tag ajouté:", JSON.stringify(tagData));
   }
 
-  res.status(200).json({ success: true });
+  console.log("Contact ID:", contactId);
+  res.status(200).json({ success: true, contactId });
 }
