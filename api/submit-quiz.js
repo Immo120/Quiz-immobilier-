@@ -26,12 +26,13 @@ export default async function handler(req, res) {
       "Content-Type": "application/json",
       "accept": "application/json",
     },
-    body: JSON.stringify({
-      email,
-      firstName: prenom,
-      fields: [{ slug: "profil_investisseur", value: profil }],
-      tags: ["quiz-immo"],
-    }),
+   // Remplace la partie tags dans le body par :
+body: JSON.stringify({
+  email,
+  firstName: prenom,
+  fields: [{ slug: "profil_investisseur", value: profil }],
+  tags: [{ name: "quiz-immo" }],  // ← objet avec name au lieu d'une simple string
+}),
   });
 
   const data = await response.json();
