@@ -6,36 +6,44 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).end();
 
-  let body = req.body;
+  const { email, prenom, profil } = req.body;
+  const API_KEY = process.env.SYSTEMEIO_API_KEY;
 
-  // Parse le body si ce n'est pas déjà un objet
-  if (typeof body === "string") {
-    try {
-      body = JSON.parse(body);
-    } catch (e) {
-      return res.status(400).json({ error: "Invalid JSON" });
-    }
-  }
-
-  const { email, prenom, profil } = body;
-
-  const response = await fetch("https://api.systeme.io/api/contacts", {
+  // APPEL 1 — Créer le contact
+  const contactResponse = await fetch("https://api.systeme.io/api/contacts", {
     method: "POST",
     headers: {
-      "X-API-Key": process.env.SYSTEMEIO_API_KEY,
+      "X-API-Key": API_KEY,
       "Content-Type": "application/json",
       "accept": "application/json",
     },
-   // Remplace la partie tags dans le body par :
-body: JSON.stringify({
-  email,
-  firstName: prenom,
-  fields: [{ slug: "profil_investisseur", value: profil }],
-  tags: [{ name: "quiz-immo" }],  // ← objet avec name au lieu d'une simple string
-}),
+    body: JSON.stringify({
+      email,
+      firstName: prenom,
+      fields: [{ slug: "profil_investisseur", value: profil }],
+    }),
   });
 
-  const data = await response.json();
-  console.log("Systeme.io response:", JSON.stringify(data));
-  res.status(response.ok ? 200 : 500).json(data);
+  const contactData = await contactResponse.json();
+  console.log("Contact créé:", JSON.stringify(contactData));
+
+  // APPEL 2 — Ajouter le tag quiz-immo
+  if (contactData.id) {
+    const tagResponse = await fetch(
+      `https://api.systeme.io/api/contacts/${contactData.id}/tags`,
+      {
+        method: "POST",
+        headers: {
+          "X-API-Key": API_KEY,
+          "Content-Type": "application/json",
+          "accept": "application/json",
+        },
+        body: JSON.stringify({ name: "quiz-immo" }),
+      }
+    );
+    const tagData = await tagResponse.json();
+    console.log("Tag ajouté:", JSON.stringify(tagData));
+  }
+
+  res.status(200).json({ success: true });
 }
