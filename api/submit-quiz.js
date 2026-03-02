@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
   let contactId = null;
 
-  // APPEL 1 — Créer le contact
+  // APPEL 1 — Créer ou récupérer le contact
   const contactResponse = await fetch("https://api.systeme.io/api/contacts", {
     method: "POST",
     headers: {
@@ -29,18 +29,13 @@ export default async function handler(req, res) {
   const contactData = await contactResponse.json();
 
   if (contactData.id) {
-    // Contact créé avec succès
     contactId = contactData.id;
   } else {
-    // Contact existant — on le récupère par email
     const searchResponse = await fetch(
       `https://api.systeme.io/api/contacts?email=${encodeURIComponent(email)}`,
       {
         method: "GET",
-        headers: {
-          "X-API-Key": API_KEY,
-          "accept": "application/json",
-        },
+        headers: { "X-API-Key": API_KEY, "accept": "application/json" },
       }
     );
     const searchData = await searchResponse.json();
@@ -49,9 +44,21 @@ export default async function handler(req, res) {
     }
   }
 
-  // APPEL 2 — Ajouter le tag quiz-immo
-  if (contactId) {
-    await fetch(
+  // APPEL 2 — Récupérer l'ID du tag "quiz-immo"
+  const tagsResponse = await fetch("https://api.systeme.io/api/tags", {
+    method: "GET",
+    headers: { "X-API-Key": API_KEY, "accept": "application/json" },
+  });
+  const tagsData = await tagsResponse.json();
+  console.log("Tags disponibles:", JSON.stringify(tagsData));
+
+  const tag = tagsData.items?.find(t => t.name === "quiz-immo");
+  const tagId = tag?.id;
+  console.log("Tag ID trouvé:", tagId);
+
+  // APPEL 3 — Appliquer le tag au contact
+  if (contactId && tagId) {
+    const applyTag = await fetch(
       `https://api.systeme.io/api/contacts/${contactId}/tags`,
       {
         method: "POST",
@@ -60,11 +67,12 @@ export default async function handler(req, res) {
           "Content-Type": "application/json",
           "accept": "application/json",
         },
-        body: JSON.stringify({ name: "quiz-immo" }),
+        body: JSON.stringify({ tagId }),
       }
     );
+    const applyData = await applyTag.json();
+    console.log("Résultat application tag:", JSON.stringify(applyData));
   }
 
-  console.log("Contact ID:", contactId);
-  res.status(200).json({ success: true, contactId });
+  res.status(200).json({ success: true, contactId, tagId });
 }
