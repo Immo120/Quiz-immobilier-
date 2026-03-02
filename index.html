@@ -568,9 +568,24 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(dataToSend)
                 });
-                console.log('Données envoyées');
+                console.log('Données envoyées au Google Sheet');
             } catch (error) {
-                console.error('Erreur:', error);
+                console.error('Erreur Google Sheet:', error);
+            }
+
+            try {
+                await fetch('/api/submit-quiz', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        email: data.email,
+                        prenom: data.prenom,
+                        profil: analyse.profil
+                    })
+                });
+                console.log('Contact envoyé à Systeme.io ✅');
+            } catch (error) {
+                console.error('Erreur Systeme.io:', error);
             }
         });
 
