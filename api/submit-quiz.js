@@ -6,7 +6,18 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).end();
 
-  const { email, prenom, profil } = req.body;
+  let body = req.body;
+
+  // Parse le body si ce n'est pas déjà un objet
+  if (typeof body === "string") {
+    try {
+      body = JSON.parse(body);
+    } catch (e) {
+      return res.status(400).json({ error: "Invalid JSON" });
+    }
+  }
+
+  const { email, prenom, profil } = body;
 
   const response = await fetch("https://api.systeme.io/api/contacts", {
     method: "POST",
@@ -24,5 +35,6 @@ export default async function handler(req, res) {
   });
 
   const data = await response.json();
+  console.log("Systeme.io response:", JSON.stringify(data));
   res.status(response.ok ? 200 : 500).json(data);
 }
