@@ -67,8 +67,6 @@
 
         .container {
             background: white;
-            border-radius: 0;
-            box-shadow: none;
             max-width: 750px;
             width: 100%;
             margin: -30px auto 40px auto;
@@ -114,19 +112,19 @@
             animation: fadeIn 0.5s ease-out forwards;
         }
 
-        .question-block:nth-child(1) { animation-delay: 0.1s; }
-        .question-block:nth-child(2) { animation-delay: 0.2s; }
-        .question-block:nth-child(3) { animation-delay: 0.3s; }
-        .question-block:nth-child(4) { animation-delay: 0.4s; }
-        .question-block:nth-child(5) { animation-delay: 0.5s; }
-        .question-block:nth-child(6) { animation-delay: 0.6s; }
-        .question-block:nth-child(7) { animation-delay: 0.7s; }
-        .question-block:nth-child(8) { animation-delay: 0.8s; }
+        .question-block:nth-child(1)  { animation-delay: 0.1s; }
+        .question-block:nth-child(2)  { animation-delay: 0.2s; }
+        .question-block:nth-child(3)  { animation-delay: 0.3s; }
+        .question-block:nth-child(4)  { animation-delay: 0.4s; }
+        .question-block:nth-child(5)  { animation-delay: 0.5s; }
+        .question-block:nth-child(6)  { animation-delay: 0.6s; }
+        .question-block:nth-child(7)  { animation-delay: 0.7s; }
+        .question-block:nth-child(8)  { animation-delay: 0.8s; }
+        .question-block:nth-child(9)  { animation-delay: 0.9s; }
+        .question-block:nth-child(10) { animation-delay: 1.0s; }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
 
         .question {
@@ -262,55 +260,23 @@
             font-size: 22px;
         }
 
-        .profile-pret {
-            background: #10b981;
-            color: white;
-        }
-
-        .profile-presque {
-            background: #f59e0b;
-            color: white;
-        }
-
-        .profile-pas-pret {
-            background: #ef4444;
-            color: white;
-        }
+        .profile-pret     { background: #10b981; color: white; }
+        .profile-presque  { background: #f59e0b; color: white; }
+        .profile-pas-pret { background: #ef4444; color: white; }
 
         @media (max-width: 768px) {
-            .header {
-                padding: 40px 20px;
-            }
-
-            .logo {
-                width: 100px;
-                height: 100px;
-            }
-
-            h1 {
-                font-size: 32px;
-            }
-
-            .subtitle {
-                font-size: 17px;
-            }
-
-            .container {
-                padding: 35px 25px;
-                margin: -20px 20px 20px 20px;
-            }
-
-            .question {
-                font-size: 17px;
-            }
-
-            .intro-text {
-                font-size: 15px;
-            }
+            .header { padding: 40px 20px; }
+            .logo { width: 100px; height: 100px; }
+            h1 { font-size: 32px; }
+            .subtitle { font-size: 17px; }
+            .container { padding: 35px 25px; margin: -20px 20px 20px 20px; }
+            .question { font-size: 17px; }
+            .intro-text { font-size: 15px; }
         }
     </style>
 </head>
 <body>
+
     <div class="header">
         <div class="header-content">
             <div class="logo">
@@ -327,6 +293,8 @@
         </p>
 
         <form id="quizForm">
+
+            <!-- Q1 : Revenus -->
             <div class="question-block">
                 <p class="question">1. Quels sont tes revenus mensuels nets ?</p>
                 <div class="options">
@@ -349,29 +317,30 @@
                 </div>
             </div>
 
-              <div class="question-block">
-                <p class="question">2. Quelle est ta situation professionnelle ?</p>
+            <!-- Q2 : Corps de métier (collecté mais non analysé) -->
+            <div class="question-block">
+                <p class="question">2. Quelle est ta profession ?</p>
                 <div class="options">
                     <div class="option">
-                        <input type="radio" id="rev1" name="revenus" value="faible" required>
-                        <label for="rev1">Gendarme/Militaire</label>
+                        <input type="radio" id="prof1" name="profession" value="gendarme-militaire" required>
+                        <label for="prof1">Gendarme / Militaire</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="rev2" name="revenus" value="correct">
-                        <label for="rev2">Policier</label>
+                        <input type="radio" id="prof2" name="profession" value="policier">
+                        <label for="prof2">Policier</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="rev3" name="revenus" value="bon">
-                        <label for="rev3">Pompier pro</label>
+                        <input type="radio" id="prof3" name="profession" value="pompier">
+                        <label for="prof3">Pompier pro</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="rev4" name="situation" value="excellent">
-                        <label for="rev4">Autre fonctionnaire ou salarié du secteur privé</label>
+                        <input type="radio" id="prof4" name="profession" value="autre">
+                        <label for="prof4">Autre fonctionnaire ou salarié du secteur privé</label>
                     </div>
                 </div>
             </div>
-            
 
+            <!-- Q3 : Épargne -->
             <div class="question-block">
                 <p class="question">3. Combien as-tu d'épargne disponible aujourd'hui ?</p>
                 <div class="options">
@@ -394,6 +363,7 @@
                 </div>
             </div>
 
+            <!-- Q4 : Endettement -->
             <div class="question-block">
                 <p class="question">4. As-tu déjà un crédit immobilier en cours (résidence principale) ?</p>
                 <div class="options">
@@ -416,8 +386,9 @@
                 </div>
             </div>
 
+            <!-- Q5 : Stabilité professionnelle -->
             <div class="question-block">
-                <p class="question">5. Quelle est ta situation professionnelle ?</p>
+                <p class="question">5. Quelle est la stabilité de ta situation professionnelle ?</p>
                 <div class="options">
                     <div class="option">
                         <input type="radio" id="stab1" name="stabilite" value="instable" required>
@@ -433,7 +404,7 @@
                     </div>
                     <div class="option">
                         <input type="radio" id="stab4" name="stabilite" value="stable">
-                        <label for="stab4">CDI stable (6 mois+) ou militaire ...</label>
+                        <label for="stab4">CDI stable (6 mois+) ou militaire / fonctionnaire</label>
                     </div>
                     <div class="option">
                         <input type="radio" id="stab5" name="stabilite" value="freelance-etabli">
@@ -446,55 +417,57 @@
                 </div>
             </div>
 
+            <!-- Q6 : Blocage -->
             <div class="question-block">
                 <p class="question">6. Qu'est-ce qui te bloque aujourd'hui ?</p>
                 <div class="options">
                     <div class="option">
-                        <input type="radio" id="mot1" name="blocage" value="argent" required>
-                        <label for="mot1">Je n'ai pas assez d'argent</label>
+                        <input type="radio" id="bloc1" name="blocage" value="argent" required>
+                        <label for="bloc1">Je n'ai pas assez d'argent</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="mot2" name="blocage" value="peur">
-                        <label for="mot2">J'ai peur de me tromper / de faire une erreur</label>
+                        <input type="radio" id="bloc2" name="blocage" value="peur">
+                        <label for="bloc2">J'ai peur de me tromper / de faire une erreur</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="mot3" name="blocage" value="connaissance">
-                        <label for="mot3">Je ne sais pas par où commencer</label>
+                        <input type="radio" id="bloc3" name="blocage" value="connaissance">
+                        <label for="bloc3">Je ne sais pas par où commencer</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="mot4" name="blocage" value="temps">
-                        <label for="mot4">Je n'ai pas le temps de m'en occuper</label>
+                        <input type="radio" id="bloc4" name="blocage" value="temps">
+                        <label for="bloc4">Je n'ai pas le temps de m'en occuper</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="mot5" name="blocage" value="rien">
-                        <label for="mot5">Rien, je suis prêt(e) à passer à l'action maintenant</label>
+                        <input type="radio" id="bloc5" name="blocage" value="rien">
+                        <label for="bloc5">Rien, je suis prêt(e) à passer à l'action maintenant</label>
                     </div>
                 </div>
             </div>
 
-    <div class="question-block">
-                <p class="question">7. Tu es actullement logé ... ?</p>
+            <!-- Q7 : Logement (collecté mais non analysé) -->
+            <div class="question-block">
+                <p class="question">7. Tu es actuellement logé(e) ... ?</p>
                 <div class="options">
                     <div class="option">
-                        <input type="radio" id="mot1" name="blocage" value="argent" required>
-                        <label for="mot1">En logement de fonction / LCNAS</label>
+                        <input type="radio" id="log1" name="logement" value="fonction" required>
+                        <label for="log1">En logement de fonction / LCNAS</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="mot2" name="blocage" value="peur">
-                        <label for="mot2">Location à l'extérieur</label>
+                        <input type="radio" id="log2" name="logement" value="locataire">
+                        <label for="log2">Location à l'extérieur</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="mot3" name="blocage" value="connaissance">
-                        <label for="mot3">Porpriétaire de ta résidence principale</label>
+                        <input type="radio" id="log3" name="logement" value="proprietaire-rp">
+                        <label for="log3">Propriétaire de ta résidence principale</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="mot4" name="logement" value="temps">
-                        <label for="mot4">Propriétaire avec déjà un investissement locatif</label>
+                        <input type="radio" id="log4" name="logement" value="proprietaire-invest">
+                        <label for="log4">Propriétaire avec déjà un investissement locatif</label>
                     </div>
-                   </div>
+                </div>
             </div>
 
-            
+            <!-- Q8 : Objectif -->
             <div class="question-block">
                 <p class="question">8. Pourquoi veux-tu investir dans l'immobilier ?</p>
                 <div class="options">
@@ -517,6 +490,7 @@
                 </div>
             </div>
 
+            <!-- Q9 : Timeline -->
             <div class="question-block">
                 <p class="question">9. Dans combien de temps veux-tu avoir signé ton premier bien ?</p>
                 <div class="options">
@@ -535,6 +509,7 @@
                 </div>
             </div>
 
+            <!-- Q10 : Mindset -->
             <div class="question-block">
                 <p class="question">10. Comment te décrirais-tu ?</p>
                 <div class="options">
@@ -557,6 +532,7 @@
                 </div>
             </div>
 
+            <!-- Collecte email -->
             <div class="email-section">
                 <h3>Reçois ton profil d'investisseur personnalisé</h3>
                 <p>Découvre si tu es prêt(e) à investir maintenant, ou ce qu'il te manque pour y arriver</p>
@@ -580,21 +556,23 @@
 
             const formData = new FormData(form);
             const data = {
-                revenus: formData.get('revenus'),
-                epargne: formData.get('epargne'),
-                endettement: formData.get('endettement'),
-                stabilite: formData.get('stabilite'),
-                blocage: formData.get('blocage'),
-                objectif: formData.get('objectif'),
-                timeline: formData.get('timeline'),
-                mindset: formData.get('mindset'),
-                prenom: formData.get('prenom'),
-                email: formData.get('email'),
-                instagram: formData.get('instagram') || 'Non renseigné'
+                revenus:    formData.get('revenus'),
+                profession: formData.get('profession'),   // Q2 — collecté, non analysé
+                epargne:    formData.get('epargne'),
+                endettement:formData.get('endettement'),
+                stabilite:  formData.get('stabilite'),
+                blocage:    formData.get('blocage'),
+                logement:   formData.get('logement'),     // Q7 — collecté, non analysé
+                objectif:   formData.get('objectif'),
+                timeline:   formData.get('timeline'),
+                mindset:    formData.get('mindset'),
+                prenom:     formData.get('prenom'),
+                email:      formData.get('email'),
+                instagram:  formData.get('instagram') || 'Non renseigné'
             };
 
             const analyse = analyserProfil(data);
-            
+
             const dataToSend = {
                 ...data,
                 profil: analyse.profil,
@@ -624,9 +602,9 @@
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
-                        email: data.email,
-                        prenom: data.prenom,
-                        profil: analyse.profil
+                        email:   data.email,
+                        prenom:  data.prenom,
+                        profil:  analyse.profil
                     })
                 });
                 console.log('Contact envoyé à Systeme.io ✅');
@@ -640,57 +618,71 @@
             let points_forts = [];
             let est_qualifie = true;
 
+            // Revenus
             if (data.revenus === 'faible') {
                 est_qualifie = false;
                 conseils.push({
                     detail: 'Revenus insuffisants',
-                    conseil: 'Pour augmenter tes chances d\'investir, il te faut chercher à augmenter tes revenus.'
+                    conseil: "Pour augmenter tes chances d'investir, il te faut chercher à augmenter tes revenus."
                 });
             } else if (data.revenus === 'correct') {
-                points_forts.push('Revenus corrects (2000-3000 euros)');
+                points_forts.push('Revenus corrects (2 000 - 3 000€)');
             } else if (data.revenus === 'bon') {
-                points_forts.push('Bons revenus (3000-4500 euros)');
+                points_forts.push('Bons revenus (3 000 - 4 500€)');
             } else {
-                points_forts.push('Excellents revenus (4500 euros et plus)');
+                points_forts.push('Excellents revenus (4 500€ et plus)');
             }
 
+            // Épargne
             if (data.epargne === 'tres-peu') {
                 est_qualifie = false;
                 conseils.push({
                     detail: 'Épargne insuffisante',
-                    conseil: 'Il te faut constituer une épargne de sécurité.'
+                    conseil: "Il te faut constituer une épargne de sécurité d'au moins 8 000€."
                 });
             } else if (data.epargne === 'correct') {
-                points_forts.push('Épargne correcte (10-40K euros)');
+                points_forts.push('Épargne correcte (8 000 - 10 000€)');
+            } else if (data.epargne === 'bon') {
+                points_forts.push('Bonne épargne (10 000 - 40 000€)');
             } else {
-                points_forts.push('Excellente épargne (40K euros et plus)');
+                points_forts.push('Excellente épargne (40 000€ et plus)');
             }
 
+            // Endettement
             if (data.endettement === 'rp-lourd') {
                 est_qualifie = false;
                 conseils.push({
                     detail: 'Endettement trop élevé',
-                    conseil: 'Ton taux d\'endettement doit être optimisé.'
+                    conseil: "Ton taux d'endettement doit être optimisé avant d'investir."
                 });
             } else if (data.endettement === 'rp-leger') {
                 points_forts.push('Endettement gérable');
             } else {
-                points_forts.push('Aucun endettement');
+                points_forts.push('Aucun endettement immobilier');
             }
 
-            if (data.stabilite === 'instable' || data.stabilite === 'freelance-debut' || data.stabilite === 'cdi-recent') {
+            // Stabilité professionnelle
+            if (['instable', 'freelance-debut', 'cdi-recent'].includes(data.stabilite)) {
                 est_qualifie = false;
                 conseils.push({
                     detail: 'Situation professionnelle à stabiliser',
-                    conseil: 'Il te faut consolider ta situation professionnelle.'
+                    conseil: "Il te faut consolider ta situation professionnelle pour rassurer les banques."
                 });
             } else {
                 points_forts.push('Situation professionnelle stable');
             }
 
-            let profil = est_qualifie ? 'PRET' : (conseils.length <= 2 && data.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
+            // Calcul du profil final
+            let profil;
+            if (est_qualifie) {
+                profil = 'PRET';
+            } else if (conseils.length <= 2 && data.revenus !== 'faible') {
+                profil = 'PRESQUE';
+            } else {
+                profil = 'PAS_PRET';
+            }
 
-            return {profil, conseils, points_forts, est_qualifie};
+            return { profil, conseils, points_forts, est_qualifie };
         }
 
         function afficherResultat(analyse, data) {
@@ -709,8 +701,7 @@
                     </p>
                     <p style="text-align: center; margin-top: 20px; color: #666;">
                         📧 Vérifie ta boîte mail (et tes spams si besoin)
-                    </p>
-                `;
+                    </p>`;
             } else if (analyse.profil === 'PRESQUE') {
                 html = `
                     <div style="text-align: center;">
@@ -723,8 +714,7 @@
                     </p>
                     <p style="text-align: center; margin-top: 20px; color: #666;">
                         📧 Vérifie ta boîte mail (et tes spams si besoin)
-                    </p>
-                `;
+                    </p>`;
             } else {
                 html = `
                     <div style="text-align: center;">
@@ -737,8 +727,7 @@
                     </p>
                     <p style="text-align: center; margin-top: 20px; color: #666;">
                         📧 Vérifie ta boîte mail (et tes spams si besoin)
-                    </p>
-                `;
+                    </p>`;
             }
 
             successMessage.innerHTML = html;
