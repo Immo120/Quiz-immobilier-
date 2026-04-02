@@ -20,7 +20,7 @@
             background: radial-gradient(circle at top right, #e2e8f0, #f0f4f8);
         }
 
-        /* --- HEADER (MOBILE FIRST) --- */
+        /* --- HEADER --- */
         .header {
             width: 100%; background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
             padding: 20px 10px; text-align: center; color: white;
@@ -33,7 +33,7 @@
         .header p { font-size: 12px; color: #ccc; margin-bottom: 5px; }
         .header-badge { display: inline-block; background: #FF9500; color: #1a1a1a; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 900; }
 
-        /* --- CONTENEUR QUIZ (MOBILE FIRST) --- */
+        /* --- CONTENEUR QUIZ (Base Mobile) --- */
         .quiz-container {
             flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; padding: 15px; overflow: hidden;
         }
@@ -45,12 +45,12 @@
             max-height: 80vh; overflow-y: auto; animation: fadeIn 0.3s ease-out;
         }
         .step.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .question-title { font-size: 19px; font-weight: 800; color: #1a202c; margin-bottom: 20px; text-align: center; }
         .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; width: 100%; }
         .option-card { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.2s; font-size: 15px; font-weight: 600; color: #4a5568; text-align: center; }
-        .option-card:hover { border-color: #FF9500; background: #fffaf0; }
+        .option-card:hover { border-color: #FF9500; background: #fffaf0; transform: translateY(-2px); }
 
         /* --- FOOTER --- */
         .progress-footer { width: 100%; background: white; padding: 15px; box-shadow: 0 -5px 15px rgba(0,0,0,0.05); display: flex; justify-content: center; flex-shrink: 0; }
@@ -63,42 +63,56 @@
         .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-size: 17px; font-weight: 800; cursor: pointer; }
 
         /* =============================================
-           MODE ORDINATEUR (S'applique au dessus de 1024px)
+           MODE ORDINATEUR (C'est ici qu'on change tout)
            ============================================= */
         @media (min-width: 1024px) {
-            .header { padding: 50px 20px; }
-            .header h1 { font-size: 40px; }
-            .header p { font-size: 18px; margin-bottom: 15px; }
-            .logo { width: 90px; height: 90px; margin-bottom: 15px; }
-            .header-badge { font-size: 14px; padding: 5px 20px; }
+            .header { padding: 40px 0; }
+            .header h1 { font-size: 45px; letter-spacing: 2px; }
+            .header p { font-size: 20px; margin-top: 10px; }
+            .logo { width: 100px; height: 100px; margin-bottom: 20px; }
+            .header-badge { font-size: 16px; padding: 8px 25px; margin-top: 15px; }
 
-            /* On élargit considérablement le formulaire sur PC */
-            #quizForm { max-width: 1100px; }
+            /* On explose la largeur pour l'ordinateur */
+            #quizForm { 
+                max-width: 1200px; /* Largeur maximale pour remplir l'écran */
+            }
 
             .step { 
-                padding: 80px; 
-                min-height: 550px; /* Force la carte à être haute */
+                padding: 60px 80px; 
+                min-height: 500px; /* Force une hauteur élégante */
                 display: none; 
                 flex-direction: column;
                 justify-content: center; 
+                border-radius: 40px; /* Bordures plus rondes sur PC */
             }
             .step.active { display: flex; }
 
-            .question-title { font-size: 38px; margin-bottom: 50px; }
+            .question-title { 
+                font-size: 42px; 
+                margin-bottom: 60px; 
+                color: #1a1a1a;
+            }
             
             .options-grid { 
-                grid-template-columns: 1fr 1fr; /* 2 colonnes sur PC */
-                gap: 30px; 
+                grid-template-columns: 1fr 1fr; /* 2 colonnes larges */
+                gap: 40px; 
             }
+            
             .option-card { 
-                padding: 40px 25px; 
-                font-size: 22px; 
-                border-radius: 20px;
+                padding: 45px 30px; 
+                font-size: 24px; 
+                border-radius: 25px;
+                border-width: 3px;
             }
 
-            .progress-footer { padding: 30px; }
-            .progress-wrapper { max-width: 1100px; }
-            .progress-bg { height: 12px; }
+            .progress-footer { padding: 40px; }
+            .progress-wrapper { max-width: 1200px; }
+            .progress-bg { height: 15px; border-radius: 20px; }
+            .progress-text { font-size: 18px; margin-left: 15px; }
+            
+            /* Formulaire final sur PC */
+            .final-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+            .btn-submit { grid-column: span 2; margin-top: 20px; font-size: 24px; padding: 25px; }
         }
     </style>
 </head>
@@ -215,17 +229,17 @@
             </div>
 
             <div class="step" data-step="11">
-                <p class="question-title">Dernière étape ! 🚀</p>
-                <div style="width:100%; max-width:400px; margin: 0 auto;">
+                <p class="question-title">C'est presque fini ! 🚀</p>
+                <div class="final-container">
                     <input type="text" id="prenom" placeholder="Ton prénom" required>
                     <input type="email" id="email" placeholder="Ton adresse email" required>
                     <input type="tel" id="telephone" placeholder="Ton numéro" required>
                     <input type="text" id="instagram" placeholder="Pseudo Instagram" required>
-                    <button type="submit" class="btn-submit">OBTENIR MES RÉSULTATS</button>
+                    <button type="submit" class="btn-submit">VOIR MON DIAGNOSTIC</button>
                 </div>
             </div>
         </form>
-        <div id="successScreen" style="display:none; width:100%; max-width:600px; margin:0 auto; background:white; padding:40px; border-radius:20px; text-align:center;"></div>
+        <div id="successScreen" style="display:none; width:100%; max-width:800px; margin:0 auto; background:white; padding:50px; border-radius:30px; text-align:center;"></div>
     </div>
 
     <div class="progress-footer" id="progressWrapper">
@@ -271,11 +285,11 @@
             screen.style.display = 'block';
 
             if (profil === 'PRET') {
-                screen.innerHTML = `<h2 style="color:#10b981;margin-bottom:20px;font-size:28px;">✅ TU ES PRÊT !</h2><p style="font-size:18px;">Félicitations <strong>${prenom}</strong> ! Ton profil est idéal pour investir. Regarde tes mails !</p>`;
+                screen.innerHTML = `<h2 style="color:#10b981;margin-bottom:20px;font-size:32px;">✅ TU ES PRÊT !</h2><p style="font-size:20px;">Félicitations <strong>${prenom}</strong> ! Ton profil est idéal. Regarde vite tes emails !</p>`;
             } else if (profil === 'PRESQUE') {
-                screen.innerHTML = `<h2 style="color:#f59e0b;margin-bottom:20px;font-size:28px;">⚠️ PRESQUE PRÊT</h2><p style="font-size:18px;">Tu y es presque <strong>${prenom}</strong> ! Ton plan personnalisé t'attend par email.</p>`;
+                screen.innerHTML = `<h2 style="color:#f59e0b;margin-bottom:20px;font-size:32px;">⚠️ PRESQUE PRÊT</h2><p style="font-size:20px;">Tu y es presque <strong>${prenom}</strong> ! Ton plan personnalisé t'attend par email.</p>`;
             } else {
-                screen.innerHTML = `<h2 style="color:#ef4444;margin-bottom:20px;font-size:28px;">🛑 PAS ENCORE</h2><p style="font-size:18px;">C'est un peu tôt <strong>${prenom}</strong>. On t'envoie un plan d'action concret par email.</p>`;
+                screen.innerHTML = `<h2 style="color:#ef4444;margin-bottom:20px;font-size:32px;">🛑 PAS ENCORE</h2><p style="font-size:20px;">C'est un peu tôt <strong>${prenom}</strong>. Mais on va t'aider ! Regarde tes emails.</p>`;
             }
 
             try {
