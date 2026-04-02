@@ -2,96 +2,94 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Diagnostic Immo 120</title>
     <style>
-        /* --- RESET & BASE --- */
+        /* --- BLOCAGE DU SCROLL (PAGE FIXE) --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
+        
+        html, body { 
+            height: 100%; 
+            width: 100%; 
             font-family: 'Segoe UI', Roboto, sans-serif; 
             background: #f0f4f8; 
-            display: flex; flex-direction: column; min-height: 100vh;
+            overflow: hidden; /* Empêche de monter/descendre */
+            position: fixed;
         }
 
-        /* --- HEADER (LOGO + BANDEAU RÉTABLIS) --- */
+        body { display: flex; flex-direction: column; }
+
+        /* --- HEADER --- */
         .header {
-            width: 100%; background: #1a1a1a; padding: 25px 15px;
+            width: 100%; background: #1a1a1a; padding: 15px;
             text-align: center; color: white; border-bottom: 4px solid #FF9500;
+            flex-shrink: 0;
         }
         .logo-container {
-            width: 70px; height: 70px; background: white; border-radius: 50%;
+            width: 60px; height: 60px; background: white; border-radius: 50%;
             display: inline-flex; align-items: center; justify-content: center;
-            margin-bottom: 12px; overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin-bottom: 8px; overflow: hidden;
         }
         .logo-container img { width: 85%; height: 85%; object-fit: contain; }
-        .header h1 { font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .header h1 { font-size: 1.1rem; text-transform: uppercase; margin-bottom: 5px; }
         
-        /* LE PETIT BANDEAU ORANGE */
         .header-badge { 
-            display: inline-block; 
-            background: #FF9500; 
-            color: #000; 
-            padding: 5px 15px; 
-            border-radius: 20px; 
-            font-size: 11px; 
-            font-weight: 900; 
+            display: inline-block; background: #FF9500; color: #000; 
+            padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 900; 
             text-transform: uppercase;
         }
 
-        /* --- QUIZ CONTAINER (ANTI-EMPILAGE) --- */
+        /* --- CONTENEUR CENTRAL --- */
         .quiz-container {
-            flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;
+            flex: 1; display: flex; justify-content: center; align-items: center; 
+            padding: 15px; overflow: hidden;
         }
-        #quizForm { width: 100%; max-width: 550px; }
+        #quizForm { width: 100%; max-width: 500px; }
 
-        /* SÉCURITÉ ABSOLUE : display: none !important */
         .step {
             display: none !important; 
-            background: white; padding: 30px; border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%;
+            background: white; padding: 25px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%;
         }
 
         .step.active {
             display: block !important;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.3s ease;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .question-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; text-align: center; color: #1a202c; line-height: 1.4; }
-        .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .question-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 20px; text-align: center; color: #1a202c; }
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
         .option-card { 
-            background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 15px; 
-            padding: 20px; cursor: pointer; text-align: center; font-weight: 600; color: #4a5568;
-            transition: all 0.2s ease;
+            background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; 
+            padding: 15px; cursor: pointer; text-align: center; font-weight: 600; color: #4a5568;
+            transition: 0.2s;
         }
-        .option-card:hover { border-color: #FF9500; background: #fffaf0; transform: scale(1.02); }
+        .option-card:hover { border-color: #FF9500; background: #fffaf0; }
 
         /* FORMULAIRE FINAL */
-        .final-container input { width: 100%; padding: 15px; margin-bottom: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; }
-        .btn-submit { width: 100%; padding: 20px; background: #1a1a1a; color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: 800; cursor: pointer; }
+        .final-container input { width: 100%; padding: 12px; margin-bottom: 10px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; }
+        .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 800; font-size: 18px; cursor: pointer; }
 
         /* FOOTER PROGRESSION */
-        .progress-footer { width: 100%; background: white; padding: 20px; border-top: 1px solid #eee; }
-        .progress-wrapper { width: 100%; max-width: 550px; margin: 0 auto; display: flex; align-items: center; gap: 15px; }
-        .progress-bg { flex: 1; height: 10px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; background: #FF9500; width: 0%; transition: width 0.4s ease; }
-        .progress-text { font-weight: 800; color: #FF9500; min-width: 40px; }
+        .progress-footer { width: 100%; background: white; padding: 15px; border-top: 1px solid #eee; flex-shrink: 0; }
+        .progress-wrapper { width: 100%; max-width: 500px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
+        .progress-bg { flex: 1; height: 8px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: #FF9500; width: 0%; transition: width 0.3s; }
+        .progress-text { font-weight: 800; color: #FF9500; font-size: 12px; }
 
-        /* --- VERSION ORDINATEUR / MODE ANDROID LARGE --- */
+        /* --- MODE ORDINATEUR --- */
         @media (min-width: 950px) {
-            #quizForm { max-width: 1100px !important; }
+            #quizForm { max-width: 1000px !important; }
             .step.active {
-                display: flex !important;
-                flex-direction: column;
-                justify-content: center;
-                min-height: 520px; padding: 60px;
+                display: flex !important; flex-direction: column; justify-content: center;
+                min-height: 450px; padding: 50px;
             }
-            .question-title { font-size: 2.6rem; margin-bottom: 45px; }
-            .options-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
-            .option-card { padding: 45px 20px; font-size: 1.5rem; border-width: 3px; }
-            .progress-wrapper { max-width: 1100px; }
+            .question-title { font-size: 2.2rem; margin-bottom: 35px; }
+            .options-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .option-card { padding: 35px; font-size: 1.4rem; border-width: 3px; }
+            .progress-wrapper { max-width: 1000px; }
         }
     </style>
 </head>
@@ -99,7 +97,7 @@
 
     <div class="header">
         <div class="logo-container">
-            <img src="Immo 120_20251031_094012_0000.svg" alt="Logo Immo 120">
+            <img src="Immo 120_20251031_094012_0000.svg" alt="Logo">
         </div>
         <h1>ES-TU PRÊT À INVESTIR ?</h1>
         <div class="header-badge">Diagnostic Gratuit - Immo 120</div>
@@ -123,7 +121,7 @@
                     <div class="option-card" onclick="nextStep('profession', 'Gendarme/Militaire')">Gendarme / Militaire</div>
                     <div class="option-card" onclick="nextStep('profession', 'Policier/Pompier')">Policier / Pompier</div>
                     <div class="option-card" onclick="nextStep('profession', 'Salarie CDI')">Salarié CDI</div>
-                    <div class="option-card" onclick="nextStep('profession', 'Indépendant/Autre')">Indépendant / Autre</div>
+                    <div class="option-card" onclick="nextStep('profession', 'Autre')">Autre</div>
                 </div>
             </div>
 
@@ -141,79 +139,77 @@
                 <p class="question-title">4. As-tu déjà un crédit immobilier en cours ?</p>
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('credit', 'Aucun')">Non, aucun</div>
-                    <div class="option-card" onclick="nextStep('credit', 'RP en cours')">Oui, pour ma résidence</div>
-                    <div class="option-card" onclick="nextStep('credit', 'Investissement')">Oui, déjà investi</div>
+                    <div class="option-card" onclick="nextStep('credit', 'RP')">Oui, Résidence Principale</div>
+                    <div class="option-card" onclick="nextStep('credit', 'Investissement')">Oui, Investissement</div>
                 </div>
             </div>
 
             <div class="step" data-step="5">
-                <p class="question-title">5. Stabilité de ta situation professionnelle ?</p>
+                <p class="question-title">5. Stabilité de ta situation pro ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('stabilite', 'Instable')">Période d'essai / CDD</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'Stable')">CDI confirmé / Militaire</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'Très stable')">Fonctionnaire + Conjoint</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'Instable')">CDD / Intérim</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'Stable')">CDI / Militaire</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'Tres stable')">Fonctionnaire / Couple</div>
                 </div>
             </div>
 
             <div class="step" data-step="6">
-                <p class="question-title">6. Qu'est-ce qui te bloque le plus ?</p>
+                <p class="question-title">6. Qu'est-ce qui te bloque aujourd'hui ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('blocage', 'Apport')">Le manque d'apport</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'Peur')">La peur de l'erreur</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'Banque')">Le refus bancaire</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'Aucun')">Rien, je suis chaud !</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'Argent')">Manque d'argent</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'Peur')">Peur de l'erreur</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'Banque')">Refus de banque</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'Rien')">Rien, je suis prêt !</div>
                 </div>
             </div>
 
             <div class="step" data-step="7">
-                <p class="question-title">7. Quel est ton type de logement actuel ?</p>
+                <p class="question-title">7. Tu es actuellement logé(e)... ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('logement', 'Parent/Fonction')">Parent / Logement fonction</div>
+                    <div class="option-card" onclick="nextStep('logement', 'Fonction')">Logement fonction</div>
                     <div class="option-card" onclick="nextStep('logement', 'Locataire')">Locataire</div>
-                    <div class="option-card" onclick="nextStep('logement', 'Propriétaire')">Propriétaire</div>
+                    <div class="option-card" onclick="nextStep('logement', 'Propriétaire')">Propriétaire RP</div>
                 </div>
             </div>
 
             <div class="step" data-step="8">
-                <p class="question-title">8. Quel est ton objectif principal ?</p>
+                <p class="question-title">8. Pourquoi veux-tu investir ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('objectif', 'Revenus')">Cashflow immédiat</div>
-                    <div class="option-card" onclick="nextStep('objectif', 'Patrimoine')">Préparer ma retraite</div>
-                    <div class="option-card" onclick="nextStep('objectif', 'Liberté')">Liberté financière</div>
+                    <div class="option-card" onclick="nextStep('objectif', 'Revenus')">Revenus (Cashflow)</div>
+                    <div class="option-card" onclick="nextStep('objectif', 'Securite')">Sécurité Retraite</div>
+                    <div class="option-card" onclick="nextStep('objectif', 'Liberte')">Liberté financière</div>
                 </div>
             </div>
 
             <div class="step" data-step="9">
-                <p class="question-title">9. Quand souhaites-tu investir ?</p>
+                <p class="question-title">9. Quand veux-tu signer ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('temps', 'Immédiat')">Immédiatement</div>
+                    <div class="option-card" onclick="nextStep('temps', 'Immédiat')">Le plus vite possible</div>
                     <div class="option-card" onclick="nextStep('temps', '6 mois')">D'ici 6 mois</div>
-                    <div class="option-card" onclick="nextStep('temps', 'Réflexion')">Je me renseigne</div>
+                    <div class="option-card" onclick="nextStep('temps', 'Réflexion')">En réflexion</div>
                 </div>
             </div>
 
             <div class="step" data-step="10">
-                <p class="question-title">10. Es-tu prêt à passer à l'action ?</p>
+                <p class="question-title">10. Ton état d'esprit actuel ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('mindset', 'Prêt')">Oui, je fonce</div>
-                    <div class="option-card" onclick="nextStep('mindset', 'Accompagné')">Oui, avec de l'aide</div>
-                    <div class="option-card" onclick="nextStep('mindset', 'Hésitant')">Pas encore sûr</div>
+                    <div class="option-card" onclick="nextStep('mindset', 'Determinée')">Déterminé(e)</div>
+                    <div class="option-card" onclick="nextStep('mindset', 'Besoin aide')">Besoin d'aide</div>
                 </div>
             </div>
 
             <div class="step" data-step="11">
-                <p class="question-title">Dernière étape ! 🚀</p>
+                <p class="question-title">C'est fini ! 🚀</p>
                 <div class="final-container">
                     <input type="text" id="prenom" placeholder="Prénom" required>
                     <input type="email" id="email" placeholder="Email" required>
-                    <input type="tel" id="telephone" placeholder="Numéro de téléphone" required>
-                    <input type="text" id="instagram" placeholder="Pseudo Instagram" required>
-                    <button type="submit" class="btn-submit">OBTENIR MON DIAGNOSTIC</button>
+                    <input type="tel" id="telephone" placeholder="Téléphone" required>
+                    <input type="text" id="instagram" placeholder="Pseudo Instagram">
+                    <button type="submit" class="btn-submit">VOIR MON RÉSULTAT</button>
                 </div>
             </div>
         </form>
-
-        <div id="resultScreen" style="display:none; width:100%; max-width:850px; text-align:center; background:white; padding:50px; border-radius:30px;"></div>
+        <div id="resultScreen" style="display:none; text-align:center; background:white; padding:40px; border-radius:20px; max-width:500px;"></div>
     </div>
 
     <div class="progress-footer" id="footerBar">
@@ -233,10 +229,7 @@
             document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
             currentStep++;
             const next = document.querySelector(`.step[data-step="${currentStep}"]`);
-            if (next) {
-                next.classList.add('active');
-                updateProgress();
-            }
+            if (next) { next.classList.add('active'); updateProgress(); }
         }
 
         function updateProgress() {
@@ -247,13 +240,11 @@
 
         document.getElementById('quizForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             answers.prenom = document.getElementById('prenom').value;
             answers.email = document.getElementById('email').value;
             answers.telephone = document.getElementById('telephone').value;
             answers.instagram = document.getElementById('instagram').value;
 
-            // Logique de profil
             let score = 0;
             if (answers.revenus !== 'Moins de 2000€') score++;
             if (answers.epargne !== 'Moins de 8000€') score++;
@@ -267,19 +258,11 @@
             const res = document.getElementById('resultScreen');
             res.style.display = 'block';
 
-            if(profil === "PRÊT") {
-                res.innerHTML = `<h2 style="color:#10b981;font-size:35px;">✅ TU ES PRÊT !</h2><p style="margin-top:20px;font-size:18px;"><b>${answers.prenom}</b>, ton profil est excellent. Un expert Immo 120 te contactera sous peu.</p>`;
-            } else if(profil === "PRESQUE PRÊT") {
-                res.innerHTML = `<h2 style="color:#f59e0b;font-size:35px;">⚠️ PRESQUE PRÊT</h2><p style="margin-top:20px;font-size:18px;"><b>${answers.prenom}</b>, on y est presque. On t'envoie la marche à suivre par email.</p>`;
-            } else {
-                res.innerHTML = `<h2 style="color:#ef4444;font-size:35px;">🛑 PAS ENCORE PRÊT</h2><p style="margin-top:20px;font-size:18px;"><b>${answers.prenom}</b>, ton dossier demande encore un peu de préparation. Regarde tes emails !</p>`;
-            }
+            res.innerHTML = `<h2>Merci ${answers.prenom} !</h2><p style="margin-top:20px; font-size:18px;">Ton profil : <b>${profil}</b>.<br>On revient vers toi rapidement.</p>`;
 
             try {
                 await fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify(answers)
+                    method: 'POST', mode: 'no-cors', body: JSON.stringify(answers)
                 });
             } catch (err) {}
         });
