@@ -3,91 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Diagnostic Immo 120 - Es-tu prêt ?</title>
+    <title>Diagnostic Immo 120</title>
     <style>
-        /* Verrouillage de l'écran principal */
+        /* Reset complet pour éviter les décalages */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
         html, body { 
-            margin: 0; padding: 0; height: 100%; width: 100%; 
+            height: 100%; 
+            width: 100%; 
             overflow: hidden; 
-            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             background: #f0f4f8;
         }
 
         body {
             display: flex;
             flex-direction: column;
+            align-items: center;
             background: radial-gradient(circle at top right, #e2e8f0, #f0f4f8);
-            align-items: center; /* Centre horizontalement tout le contenu du body */
         }
 
         /* --- HEADER --- */
         .header {
+            width: 100%;
             background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
-            padding: 20px 15px;
+            padding: 20px 10px;
             text-align: center;
             color: white;
             border-bottom: 3px solid #FF9500;
             flex-shrink: 0;
-            width: 100%; /* Prend toute la largeur */
         }
 
-        .header-content { max-width: 900px; margin: 0 auto; }
+        .header-content { 
+            width: 100%;
+            max-width: 800px; 
+            margin: 0 auto; 
+        }
 
         .logo {
-            width: 55px; height: 55px;
+            width: 50px; height: 50px;
             background: white; border-radius: 50%;
             display: inline-flex; align-items: center; justify-content: center;
-            margin-bottom: 8px; padding: 6px;
-            box-shadow: 0 4px 10px rgba(255,149,0,0.3);
+            margin-bottom: 8px; padding: 5px;
         }
-        .logo img { width: 100%; height: 100%; object-fit: contain; }
+        .logo img { width: 85%; height: 85%; object-fit: contain; }
 
-        .header h1 { font-size: 20px; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; }
-        .header p { font-size: 13px; color: #ccc; margin-bottom: 8px; line-height: 1.3; }
-        
+        .header h1 { font-size: 18px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
+        .header p { font-size: 12px; color: #ccc; margin-bottom: 5px; }
         .header-badge {
             display: inline-block; background: #FF9500; color: #1a1a1a;
-            padding: 4px 12px; border-radius: 20px; font-size: 11px;
-            font-weight: 900;
+            padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 900;
         }
 
-        /* --- CONTENEUR CENTRAL (Le secret du centrage est ici) --- */
+        /* --- CONTENEUR DE QUIZ --- */
         .quiz-container {
             flex: 1;
-            width: 100%; /* Important pour que le centrage fonctionne */
+            width: 100%;
+            max-width: 100%;
             display: flex;
-            align-items: center; 
-            justify-content: center; /* Centre horizontalement la carte */
+            justify-content: center; /* Centre horizontalement */
+            align-items: center;     /* Centre verticalement */
             padding: 15px;
             overflow: hidden;
         }
 
         #quizForm { 
             width: 100%; 
-            max-width: 850px; 
-            margin: 0 auto; /* Force le centrage au milieu de la zone */
+            max-width: 600px; /* Largeur idéale pour la carte */
+            margin: 0 auto; 
         }
 
+        /* La Carte blanche */
         .step {
             display: none;
             background: white;
             padding: 25px;
-            border-radius: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             width: 100%;
-            max-height: 85vh;
+            max-height: 80vh;
             overflow-y: auto;
-            animation: fadeIn 0.4s ease-out;
+            animation: fadeIn 0.3s ease-out;
         }
         .step.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
         .question-title {
-            font-size: 20px; font-weight: 800; color: #1a202c;
-            margin-bottom: 25px; text-align: center; line-height: 1.3;
+            font-size: 19px; font-weight: 800; color: #1a202c;
+            margin-bottom: 20px; text-align: center;
         }
 
+        /* Grille de réponses */
         .options-grid { 
             display: grid; 
             grid-template-columns: 1fr; 
@@ -97,48 +108,41 @@
 
         .option-card {
             background: #f8fafc; border: 2px solid #e2e8f0;
-            border-radius: 15px; padding: 18px; cursor: pointer;
-            transition: all 0.2s; font-size: 16px; font-weight: 600;
+            border-radius: 12px; padding: 18px; cursor: pointer;
+            transition: all 0.2s; font-size: 15px; font-weight: 600;
             color: #4a5568; text-align: center;
-        }
-
-        .option-card:hover { border-color: #FF9500; background: #fffaf0; transform: translateY(-2px); }
-
-        /* --- FOOTER FIXE --- */
-        .progress-footer {
-            background: white; padding: 15px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
             width: 100%;
         }
-        .progress-wrapper { flex: 1; max-width: 800px; display: flex; align-items: center; gap: 15px; }
-        .progress-bg { flex: 1; height: 10px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
+
+        .option-card:hover { border-color: #FF9500; background: #fffaf0; }
+
+        /* --- FOOTER --- */
+        .progress-footer {
+            width: 100%;
+            background: white; padding: 15px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+            display: flex; justify-content: center;
+            flex-shrink: 0;
+        }
+        .progress-wrapper { width: 100%; max-width: 600px; display: flex; align-items: center; gap: 10px; }
+        .progress-bg { flex: 1; height: 8px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: linear-gradient(90deg, #FF9500, #FF6B00); width: 0%; transition: width 0.4s ease; }
-        .progress-text { font-weight: 800; color: #FF9500; min-width: 45px; font-size: 14px; }
+        .progress-text { font-weight: 800; color: #FF9500; font-size: 13px; min-width: 35px; }
 
-        /* Formulaire final */
-        input { width: 100%; padding: 16px; margin-bottom: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; box-sizing: border-box; }
-        .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: 800; cursor: pointer; }
+        /* Inputs */
+        input { width: 100%; padding: 15px; margin-bottom: 10px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; }
+        .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-size: 17px; font-weight: 800; cursor: pointer; }
 
-        /* Styles Succès */
-        .profile-badge { display: inline-block; padding: 12px 25px; border-radius: 50px; color: white; font-weight: 800; margin-bottom: 20px; }
-        .profile-pret { background: #10b981; }
-        .profile-presque { background: #f59e0b; }
-        .profile-pas-pret { background: #ef4444; }
-
-        /* --- RESPONSIVE PC --- */
+        /* --- DESKTOP --- */
         @media (min-width: 1024px) {
-            .header { padding: 45px 20px; }
-            .header h1 { font-size: 38px; }
-            .header p { font-size: 18px; margin-bottom: 15px; }
-            .header-badge { font-size: 14px; padding: 6px 20px; }
-            .logo { width: 80px; height: 80px; margin-bottom: 15px; }
-            .step { padding: 50px; }
-            .question-title { font-size: 32px; }
-            .options-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
-            .option-card { padding: 25px; font-size: 19px; }
-            .progress-footer { padding: 25px; }
+            .header { padding: 40px 20px; }
+            .header h1 { font-size: 32px; }
+            .header p { font-size: 16px; }
+            .logo { width: 70px; height: 70px; }
+            #quizForm { max-width: 800px; }
+            .options-grid { grid-template-columns: 1fr 1fr; }
+            .question-title { font-size: 28px; }
+            .step { padding: 40px; }
         }
     </style>
 </head>
@@ -150,7 +154,7 @@
                 <img src="Immo 120_20251031_094012_0000.svg" alt="Logo">
             </div>
             <h1>ES-TU PRÊT À INVESTIR ?</h1>
-            <p>Réponds au diagnostic pour obtenir ton plan d'action immédiat.</p>
+            <p>Ton diagnostic immobilier personnalisé en 2 minutes.</p>
             <div class="header-badge">DIAGNOSTIC GRATUIT - IMMO 120</div>
         </div>
     </div>
@@ -256,16 +260,16 @@
 
             <div class="step" data-step="11">
                 <p class="question-title">Dernière étape ! 🚀</p>
-                <div style="max-width:500px; margin: 0 auto;">
+                <div style="width:100%; max-width:400px; margin: 0 auto;">
                     <input type="text" id="prenom" placeholder="Ton prénom" required>
                     <input type="email" id="email" placeholder="Ton adresse email" required>
-                    <input type="tel" id="telephone" placeholder="Ton numéro de téléphone" required>
-                    <input type="text" id="instagram" placeholder="Ton pseudo Instagram" required>
-                    <button type="submit" class="btn-submit">DÉCOUVRIR MON PROFIL</button>
+                    <input type="tel" id="telephone" placeholder="Ton numéro" required>
+                    <input type="text" id="instagram" placeholder="Pseudo Instagram" required>
+                    <button type="submit" class="btn-submit">OBTENIR MES RÉSULTATS</button>
                 </div>
             </div>
         </form>
-        <div id="successScreen" style="display:none; width:100%; max-width:600px; margin: 0 auto; background:white; padding:30px; border-radius:25px; box-shadow:0 10px 30px rgba(0,0,0,0.1);"></div>
+        <div id="successScreen" style="display:none; width:100%; max-width:500px; margin:0 auto; background:white; padding:30px; border-radius:20px; text-align:center;"></div>
     </div>
 
     <div class="progress-footer" id="progressWrapper">
@@ -302,30 +306,21 @@
             answers.telephone = document.getElementById('telephone').value;
             answers.instagram = document.getElementById('instagram').value;
 
-            let qualifie = true;
-            if (answers.revenus === 'faible' || answers.epargne === 'tres-peu' || answers.endettement === 'rp-lourd' || answers.stabilite === 'instable') qualifie = false;
+            let qualifie = (answers.revenus !== 'faible' && answers.epargne !== 'tres-peu' && answers.stabilite !== 'instable');
             let profil = qualifie ? 'PRET' : (answers.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
-            
+
             document.getElementById('quizForm').style.display = 'none';
             document.getElementById('progressWrapper').style.display = 'none';
             const screen = document.getElementById('successScreen');
             screen.style.display = 'block';
 
-            let html = '';
             if (profil === 'PRET') {
-                html = `<div style="text-align:center;"><span class="profile-badge profile-pret">✅ TU ES PRÊT !</span></div>
-                        <p style="text-align:center; font-size:18px;"><strong>Félicitations ${prenom}</strong>,</p>
-                        <p style="text-align:center; font-size:16px; margin-top:15px; line-height:1.6;">Ton profil est idéal. Ton diagnostic et ton plan d'action immédiat t'attendent dans ta boîte mail !</p>`;
+                screen.innerHTML = `<h2 style="color:#10b981;margin-bottom:15px;">✅ TU ES PRÊT !</h2><p>Félicitations <strong>${prenom}</strong> ! Ton profil est idéal. Regarde tes mails !</p>`;
             } else if (profil === 'PRESQUE') {
-                html = `<div style="text-align:center;"><span class="profile-badge profile-presque">⚠️ PRESQUE PRÊT</span></div>
-                        <p style="text-align:center; font-size:18px;"><strong>Bravo ${prenom}</strong>,</p>
-                        <p style="text-align:center; font-size:16px; margin-top:15px; line-height:1.6;">Tu es sur la bonne voie ! Ton diagnostic et ton plan personnalisé t'ont été envoyés par email.</p>`;
+                screen.innerHTML = `<h2 style="color:#f59e0b;margin-bottom:15px;">⚠️ PRESQUE PRÊT</h2><p>Tu y es presque <strong>${prenom}</strong> ! Ton plan personnalisé t'attend par email.</p>`;
             } else {
-                html = `<div style="text-align:center;"><span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span></div>
-                        <p style="text-align:center; font-size:18px;"><strong>Bonjour ${prenom}</strong>,</p>
-                        <p style="text-align:center; font-size:16px; margin-top:15px; line-height:1.6;">Ce n'est pas encore le moment, mais on va t'aider. Ton plan sur 12-18 mois t'attend par email.</p>`;
+                screen.innerHTML = `<h2 style="color:#ef4444;margin-bottom:15px;">🛑 PAS ENCORE</h2><p>C'est un peu tôt <strong>${prenom}</strong>. On t'envoie un plan d'action par email.</p>`;
             }
-            screen.innerHTML = html;
 
             try {
                 await fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
