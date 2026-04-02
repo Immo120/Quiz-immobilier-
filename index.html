@@ -5,38 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Diagnostic Immo 120</title>
     <style>
-        /* RESET & BLOCAGE DU SCROLL */
+        /* --- DESIGN LARGE ET BLOCAGE SCROLL --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { 
             height: 100%; width: 100%; 
             overflow: hidden; 
-            position: fixed;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f0f4f8;
+            position: fixed; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #f0f4f8; 
         }
         body { display: flex; flex-direction: column; align-items: center; }
 
-        /* HEADER */
-        .header {
-            width: 100%; background: #1a1a1a;
-            padding: 15px; text-align: center; color: white;
-            border-bottom: 4px solid #FF9500; flex-shrink: 0;
+        .header { 
+            width: 100%; background: #1a1a1a; padding: 15px; 
+            text-align: center; color: white; border-bottom: 4px solid #FF9500; 
+            flex-shrink: 0; 
         }
         .logo { width: 55px; height: 55px; background: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; padding: 5px; }
         .logo img { width: 100%; height: 100%; object-fit: contain; }
-        .header h1 { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
-        .header-badge { display: inline-block; background: #FF9500; color: #1a1a1a; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 900; }
+        .header h1 { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; }
 
-        /* CONTENEUR QUIZ */
-        .quiz-container {
-            flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; padding: 15px; overflow: hidden;
-        }
+        .quiz-container { flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; padding: 15px; overflow: hidden; }
         #quizForm { width: 100%; max-width: 600px; }
 
-        .step {
-            display: none !important; background: white; padding: 25px; border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%;
-        }
+        .step { display: none !important; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; }
         .step.active { display: block !important; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -49,25 +41,26 @@
         }
         .option-card:hover { border-color: #FF9500; background: #FFF5E6; }
 
-        /* FOOTER & PROGRESSION */
+        /* --- STYLE DES PASTILLES ORIGINALES --- */
+        .profile-badge { display: inline-block; padding: 8px 20px; border-radius: 50px; color: white; font-weight: bold; font-size: 14px; margin-bottom: 15px; text-transform: uppercase; }
+        .profile-pret { background-color: #10b981; }
+        .profile-presque { background-color: #f59e0b; }
+        .profile-pas-pret { background-color: #ef4444; }
+
         .progress-footer { width: 100%; background: white; padding: 15px; border-top: 1px solid #eee; flex-shrink: 0; }
-        .progress-wrapper { width: 100%; max-width: 600px; margin: 0 auto; display: flex; align-items: center; gap: 15px; }
-        .progress-bg { flex: 1; height: 100%; height: 10px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
+        .progress-bg { width: 100%; max-width: 600px; height: 10px; background: #edf2f7; border-radius: 10px; margin: 0 auto; overflow: hidden; }
         .progress-fill { height: 100%; background: #FF9500; width: 0%; transition: width 0.4s; }
-        .progress-text { font-weight: 800; color: #FF9500; font-size: 14px; min-width: 40px; }
 
-        /* FORMULAIRE FINAL */
-        .final-container input { width: 100%; padding: 14px; margin-bottom: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; }
-        .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 800; font-size: 18px; cursor: pointer; }
+        .final-inputs input { width: 100%; padding: 14px; margin-bottom: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; }
+        .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; }
 
-        /* VERSION ORDINATEUR (LARGE) */
         @media (min-width: 1024px) {
             #quizForm { max-width: 1000px; }
-            .step.active { display: flex !important; flex-direction: column; justify-content: center; min-height: 450px; padding: 50px; }
+            .step.active { display: flex !important; flex-direction: column; justify-content: center; min-height: 500px; padding: 50px; }
             .question-title { font-size: 2.2rem; margin-bottom: 40px; }
             .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
             .option-card { padding: 35px; font-size: 1.4rem; }
-            .final-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+            .final-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
             .btn-submit { grid-column: span 2; font-size: 22px; }
         }
     </style>
@@ -75,11 +68,8 @@
 <body>
 
     <div class="header">
-        <div class="logo">
-            <img src="Immo 120_20251031_094012_0000.svg" alt="Logo">
-        </div>
+        <div class="logo"><img src="Immo 120_20251031_094012_0000.svg" alt="Logo"></div>
         <h1>ES-TU PRÊT À INVESTIR ?</h1>
-        <div class="header-badge">DIAGNOSTIC GRATUIT - IMMO 120</div>
     </div>
 
     <div class="quiz-container">
@@ -93,7 +83,6 @@
                     <div class="option-card" onclick="nextStep('revenus', 'excellent')">Plus de 4 500€/mois</div>
                 </div>
             </div>
-
             <div class="step" data-step="2">
                 <p class="question-title">2. Quelle est ta profession ?</p>
                 <div class="options-grid">
@@ -103,7 +92,6 @@
                     <div class="option-card" onclick="nextStep('profession', 'autre')">Autre fonctionnaire ou salarié</div>
                 </div>
             </div>
-
             <div class="step" data-step="3">
                 <p class="question-title">3. Combien as-tu d'épargne disponible ?</p>
                 <div class="options-grid">
@@ -113,47 +101,42 @@
                     <div class="option-card" onclick="nextStep('epargne', 'excellent')">Plus de 40 000€</div>
                 </div>
             </div>
-
             <div class="step" data-step="4">
                 <p class="question-title">4. As-tu déjà un crédit immobilier (RP) ?</p>
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('endettement', 'aucun')">Non, aucun crédit immo</div>
                     <div class="option-card" onclick="nextStep('endettement', 'locataire')">Je suis locataire</div>
-                    <div class="option-card" onclick="nextStep('endettement', 'rp-leger')">Oui, mensualité raisonnable (&lt;30%)</div>
-                    <div class="option-card" onclick="nextStep('endettement', 'rp-lourd')">Oui, mensualité élevée (&gt;30%)</div>
+                    <div class="option-card" onclick="nextStep('endettement', 'rp-leger')">Oui, crédit raisonnable (&lt;30%)</div>
+                    <div class="option-card" onclick="nextStep('endettement', 'rp-lourd')">Oui, crédit élevé (&gt;30%)</div>
                 </div>
             </div>
-
             <div class="step" data-step="5">
                 <p class="question-title">5. Stabilité de ta situation pro ?</p>
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('stabilite', 'instable')">CDD / Intérim</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'cdi-recent')">CDI depuis moins de 6 mois</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'stable')">CDI stable ou Militaire</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'cdi-recent')">CDI &lt; 6 mois</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'stable')">CDI stable / Militaire</div>
                     <div class="option-card" onclick="nextStep('stabilite', 'tres-stable')">CDI stable + conjoint(e)</div>
                 </div>
             </div>
-
             <div class="step" data-step="6">
                 <p class="question-title">6. Qu'est-ce qui te bloque aujourd'hui ?</p>
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('blocage', 'argent')">Pas assez d'argent</div>
                     <div class="option-card" onclick="nextStep('blocage', 'peur')">Peur de me tromper</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'connaissance')">Je ne sais pas par où commencer</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'connaissance')">Où commencer ?</div>
                     <div class="option-card" onclick="nextStep('blocage', 'rien')">Rien, je suis prêt !</div>
                 </div>
             </div>
-
             <div class="step" data-step="7">
                 <p class="question-title">7. Tu es actuellement logé(e) ... ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('logement', 'fonction')">Logement fonction / LCNAS</div>
+                    <div class="option-card" onclick="nextStep('logement', 'fonction')">Logement fonction</div>
                     <div class="option-card" onclick="nextStep('logement', 'locataire')">Location classique</div>
                     <div class="option-card" onclick="nextStep('logement', 'proprietaire-rp')">Propriétaire RP</div>
                     <div class="option-card" onclick="nextStep('logement', 'proprietaire-invest')">Déjà investisseur</div>
                 </div>
             </div>
-
             <div class="step" data-step="8">
                 <p class="question-title">8. Pourquoi veux-tu investir ?</p>
                 <div class="options-grid">
@@ -162,7 +145,6 @@
                     <div class="option-card" onclick="nextStep('objectif', 'liberte')">Liberté financière</div>
                 </div>
             </div>
-
             <div class="step" data-step="9">
                 <p class="question-title">9. Quand veux-tu avoir signé ?</p>
                 <div class="options-grid">
@@ -171,7 +153,6 @@
                     <div class="option-card" onclick="nextStep('timeline', 'flexible')">Plus tard (6-12 mois)</div>
                 </div>
             </div>
-
             <div class="step" data-step="10">
                 <p class="question-title">10. Comment te décrirais-tu ?</p>
                 <div class="options-grid">
@@ -183,94 +164,106 @@
 
             <div class="step" data-step="11">
                 <p class="question-title">C'est presque fini ! 🚀</p>
-                <div class="final-container">
-                    <input type="text" id="prenom" name="prenom" placeholder="Ton prénom" required>
-                    <input type="email" id="email" name="email" placeholder="Ton adresse email" required>
-                    <input type="text" id="instagram" name="instagram" placeholder="Pseudo Instagram (@...)">
-                    <button type="submit" class="btn-submit">DÉCOUVRIR MON PROFIL</button>
+                <div class="final-inputs">
+                    <input type="text" id="prenom" placeholder="Ton prénom" required>
+                    <input type="email" id="email" placeholder="Ton adresse email" required>
+                    <input type="tel" id="telephone" placeholder="Ton numéro de téléphone" required>
+                    <input type="text" id="instagram" placeholder="Pseudo Instagram (@...)">
+                    <button type="submit" class="btn-submit">VOIR MON DIAGNOSTIC</button>
                 </div>
             </div>
         </form>
-        <div id="successScreen" style="display:none; width:100%; max-width:600px; background:white; padding:40px; border-radius:25px; text-align:center;"></div>
+        <div id="successScreen" style="display:none; text-align:center; background:white; padding:40px; border-radius:25px; max-width:700px; width:90%; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"></div>
     </div>
 
-    <div class="progress-footer" id="footer">
-        <div class="progress-wrapper">
-            <div class="progress-bg"><div class="progress-fill" id="pFill"></div></div>
-            <div class="progress-text" id="pText">0%</div>
-        </div>
-    </div>
+    <div class="progress-footer" id="footer"><div class="progress-bg"><div class="progress-fill" id="pFill"></div></div></div>
 
     <script>
         let currentStep = 1;
-        const totalSteps = 11;
         const answers = {};
 
         function nextStep(key, value) {
             answers[key] = value;
             document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
             currentStep++;
-            const next = document.querySelector(`.step[data-step="${currentStep}"]`);
-            if (next) { next.classList.add('active'); updateProgress(); }
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+            document.getElementById('pFill').style.width = ((currentStep-1)/10 * 100) + '%';
         }
 
-        function updateProgress() {
-            const p = Math.round(((currentStep - 1) / (totalSteps - 1)) * 100);
-            document.getElementById('pFill').style.width = p + '%';
-            document.getElementById('pText').innerText = p + '%';
-        }
-
-        document.getElementById('quizForm').addEventListener('submit', async function(e) {
+        document.getElementById('quizForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Collecte finale des données
-            answers.prenom = document.getElementById('prenom').value;
-            answers.email = document.getElementById('email').value;
-            answers.instagram = document.getElementById('instagram').value || 'Non renseigné';
+            const prenom = document.getElementById('prenom').value;
+            const email = document.getElementById('email').value;
+            const telephone = document.getElementById('telephone').value;
+            const instagram = document.getElementById('instagram').value || 'Non renseigné';
 
-            // ANALYSE IDENTIQUE AU CODE D'ORIGINE
+            // --- ANALYSE PRÉCISE (LOGIQUE ORIGINALE) ---
+            let conseils_liste = [];
+            let points_forts_liste = [];
             let est_qualifie = true;
-            let points_forts = [];
-            let conseils = [];
 
-            if (answers.revenus === 'faible') est_qualifie = false;
-            if (answers.epargne === 'tres-peu') est_qualifie = false;
-            if (answers.endettement === 'rp-lourd') est_qualifie = false;
-            if (['instable', 'cdi-recent'].includes(answers.stabilite)) est_qualifie = false;
+            if (answers.revenus === 'faible') { est_qualifie = false; conseils_liste.push("Augmenter tes revenus mensuels"); }
+            else { points_forts_liste.push("Revenus mensuels stables"); }
+
+            if (answers.epargne === 'tres-peu') { est_qualifie = false; conseils_liste.push("Constituer une épargne de sécurité (8k€+)"); }
+            else { points_forts_liste.push("Capacité d'apport disponible"); }
+
+            if (answers.endettement === 'rp-lourd') { est_qualifie = false; conseils_liste.push("Réduire ton taux d'endettement actuel"); }
+            
+            if (['instable', 'cdi-recent'].includes(answers.stabilite)) { est_qualifie = false; conseils_liste.push("Stabiliser ta situation professionnelle (CDI 6 mois+)"); }
+            else { points_forts_liste.push("Situation professionnelle solide"); }
 
             let profil = est_qualifie ? 'PRET' : (answers.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
-            answers.profil = profil;
 
-            // Affichage immédiat du message de succès
+            // --- AFFICHAGE AVEC PASTILLES ET TEXTE COMPLET ---
             document.getElementById('quizForm').style.display = 'none';
             document.getElementById('footer').style.display = 'none';
             const screen = document.getElementById('successScreen');
             screen.style.display = 'block';
-            screen.innerHTML = `<h2>Analyse en cours...</h2>`;
 
-            // ENVOI AU GOOGLE SHEET (Méthode JSON d'origine)
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec';
-            
-            try {
-                await fetch(scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    cache: 'no-cache',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(answers)
-                });
-                
-                // Message final selon le profil
-                if (profil === 'PRET') {
-                    screen.innerHTML = `<h2 style="color:#10b981;">✅ TU ES PRÊT !</h2><p style="margin-top:15px;">Félicitations <b>${answers.prenom}</b> ! Ton diagnostic détaillé t'a été envoyé par email.</p>`;
-                } else if (profil === 'PRESQUE') {
-                    screen.innerHTML = `<h2 style="color:#f59e0b;">⚠️ PRESQUE PRÊT</h2><p style="margin-top:15px;">Tu y es presque <b>${answers.prenom}</b> ! Regarde tes emails pour découvrir ton plan d'action.</p>`;
-                } else {
-                    screen.innerHTML = `<h2 style="color:#ef4444;">🛑 PAS ENCORE</h2><p style="margin-top:15px;">Ce n'est pas encore le moment <b>${answers.prenom}</b>, mais on va t'aider. Ton plan est dans tes emails.</p>`;
-                }
-            } catch (err) {
-                screen.innerHTML = `<h2>Merci !</h2><p>Tes résultats arrivent par email.</p>`;
+            let resultHtml = "";
+            if (profil === 'PRET') {
+                resultHtml = `
+                    <div style="margin-bottom:20px;"><span class="profile-badge profile-pret">✅ TU ES PRÊT !</span></div>
+                    <p style="font-size:20px; margin-bottom:15px;"><strong>Félicitations ${prenom} !</strong></p>
+                    <p style="font-size:16px; line-height:1.6; color:#4a5568;">
+                        Bonne nouvelle : tous les voyants sont au vert ! Ton profil correspond parfaitement aux critères bancaires actuels.<br><br>
+                        <strong>Ton diagnostic personnalisé et ton plan d'action t'ont été envoyés par email.</strong>
+                    </p>`;
+            } else if (profil === 'PRESQUE') {
+                resultHtml = `
+                    <div style="margin-bottom:20px;"><span class="profile-badge profile-presque">⚠️ PRESQUE PRÊT</span></div>
+                    <p style="font-size:20px; margin-bottom:15px;"><strong>Bonjour ${prenom} !</strong></p>
+                    <p style="font-size:16px; line-height:1.6; color:#4a5568;">
+                        Tu es sur la bonne voie ! 💪 Ton profil a de sérieux atouts, mais quelques points bloquent encore ton financement immobilier.<br><br>
+                        <strong>Ton diagnostic détaillé avec les étapes pour débloquer ta situation t'attend par email.</strong>
+                    </p>`;
+            } else {
+                resultHtml = `
+                    <div style="margin-bottom:20px;"><span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span></div>
+                    <p style="font-size:20px; margin-bottom:15px;"><strong>Bonjour ${prenom} !</strong></p>
+                    <p style="font-size:16px; line-height:1.6; color:#4a5568;">
+                        Ce n'est pas encore le moment pour toi, mais rien n'est impossible ! 💪 Il faut d'abord poser des bases plus solides pour rassurer les banques.<br><br>
+                        <strong>Ton plan d'action stratégique pour les 12 prochains mois t'a été envoyé par email.</strong>
+                    </p>`;
             }
+            screen.innerHTML = resultHtml + `<p style="margin-top:25px; font-size:14px; color:#94a3b8;">📧 Pense à vérifier tes spams</p>`;
+
+            // --- ENVOI INTÉGRAL AU GOOGLE SHEET ---
+            const dataToSend = {
+                ...answers,
+                prenom, email, telephone, instagram,
+                profil: profil,
+                date: new Date().toLocaleString('fr-FR'),
+                points_forts: points_forts_liste.join(' | '),
+                conseils_detail: conseils_liste.join(' | ')
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(dataToSend)
+            });
         });
     </script>
 </body>
