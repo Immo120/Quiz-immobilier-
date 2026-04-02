@@ -13,7 +13,7 @@
             width: 100%; 
             font-family: 'Segoe UI', Roboto, sans-serif; 
             background: #f0f4f8; 
-            overflow: hidden; /* Empêche de monter/descendre */
+            overflow: hidden; 
             position: fixed;
         }
 
@@ -199,17 +199,17 @@
             </div>
 
             <div class="step" data-step="11">
-                <p class="question-title">C'est fini ! 🚀</p>
+                <p class="question-title">Dernière étape ! 🚀</p>
                 <div class="final-container">
                     <input type="text" id="prenom" placeholder="Prénom" required>
                     <input type="email" id="email" placeholder="Email" required>
                     <input type="tel" id="telephone" placeholder="Téléphone" required>
                     <input type="text" id="instagram" placeholder="Pseudo Instagram">
-                    <button type="submit" class="btn-submit">VOIR MON RÉSULTAT</button>
+                    <button type="submit" class="btn-submit">VOIR MON DIAGNOSTIC</button>
                 </div>
             </div>
         </form>
-        <div id="resultScreen" style="display:none; text-align:center; background:white; padding:40px; border-radius:20px; max-width:500px;"></div>
+        <div id="resultScreen" style="display:none; text-align:center; background:white; padding:40px; border-radius:20px; width: 100%; max-width:500px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"></div>
     </div>
 
     <div class="progress-footer" id="footerBar">
@@ -245,26 +245,53 @@
             answers.telephone = document.getElementById('telephone').value;
             answers.instagram = document.getElementById('instagram').value;
 
+            // --- CALCUL DU PROFIL ---
             let score = 0;
             if (answers.revenus !== 'Moins de 2000€') score++;
             if (answers.epargne !== 'Moins de 8000€') score++;
             if (answers.stabilite !== 'Instable') score++;
             
-            let profil = score === 3 ? "PRÊT" : (score >= 1 ? "PRESQUE PRÊT" : "PAS ENCORE PRÊT");
-            answers.profil = profil;
+            let profil = "";
+            let color = "";
+            let message = "";
 
+            if (score === 3) {
+                profil = "PRÊT";
+                color = "#10b981"; // Vert
+                message = "Ton profil est excellent ! Un membre de l'équipe Immo 120 va te recontacter très vite.";
+            } else if (score >= 1) {
+                profil = "PRESQUE PRÊT";
+                color = "#f59e0b"; // Orange
+                message = "C'est bien engagé. Il nous manque quelques détails pour valider ton dossier.";
+            } else {
+                profil = "PAS ENCORE PRÊT";
+                color = "#ef4444"; // Rouge
+                message = "Ce n'est pas encore le moment, mais on va t'aider à construire ton projet.";
+            }
+            
+            answers.profil = profil; // Ajouté pour l'envoi Google Sheet
+
+            // --- AFFICHAGE RÉSULTAT ---
             document.getElementById('quizForm').style.display = 'none';
             document.getElementById('footerBar').style.display = 'none';
             const res = document.getElementById('resultScreen');
             res.style.display = 'block';
+            res.innerHTML = `
+                <h2 style="color:${color}; font-size:28px;">${profil} !</h2>
+                <p style="margin-top:20px; font-size:18px; color:#4a5568;">Merci <b>${answers.prenom}</b>.<br>${message}</p>
+                <div style="margin-top:30px; font-size:12px; color:#999;">Diagnostic Immo 120</div>
+            `;
 
-            res.innerHTML = `<h2>Merci ${answers.prenom} !</h2><p style="margin-top:20px; font-size:18px;">Ton profil : <b>${profil}</b>.<br>On revient vers toi rapidement.</p>`;
-
+            // --- ENVOI GOOGLE SHEETS ---
             try {
                 await fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
-                    method: 'POST', mode: 'no-cors', body: JSON.stringify(answers)
+                    method: 'POST', 
+                    mode: 'no-cors', 
+                    body: JSON.stringify(answers)
                 });
-            } catch (err) {}
+            } catch (err) {
+                console.log("Erreur d'envoi");
+            }
         });
     </script>
 </body>
