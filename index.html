@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diagnostic Immo 120</title>
     <style>
-        /* --- CONFIGURATION DE BASE --- */
+        /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Segoe UI', Roboto, sans-serif; 
@@ -13,28 +13,32 @@
             display: flex; flex-direction: column; min-height: 100vh;
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER (LOGO RÉTABLI) --- */
         .header {
-            width: 100%; background: #1a1a1a; padding: 25px 15px;
+            width: 100%; background: #1a1a1a; padding: 20px 15px;
             text-align: center; color: white; border-bottom: 4px solid #FF9500;
         }
-        .header h1 { font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
-        .header-badge { display: inline-block; background: #FF9500; color: #000; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 900; margin-top: 10px; }
+        .logo-container {
+            width: 65px; height: 65px; background: white; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            margin-bottom: 10px; overflow: hidden;
+        }
+        .logo-container img { width: 85%; height: 85%; object-fit: contain; }
+        .header h1 { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- LE QUIZ (SÉCURITÉ ANTI-EMPILAGE) --- */
+        /* --- QUIZ CONTAINER (ANTI-EMPILAGE) --- */
         .quiz-container {
             flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;
         }
         #quizForm { width: 100%; max-width: 550px; }
 
-        /* Règle d'or : On cache TOUT par défaut, même sur ordi */
+        /* SÉCURITÉ ABSOLUE : display: none !important */
         .step {
             display: none !important; 
             background: white; padding: 30px; border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%;
         }
 
-        /* Seule l'étape active peut s'afficher */
         .step.active {
             display: block !important;
             animation: fadeIn 0.4s ease;
@@ -51,35 +55,29 @@
         }
         .option-card:hover { border-color: #FF9500; background: #fffaf0; transform: scale(1.02); }
 
-        /* --- INPUTS FINAUX --- */
+        /* FORMULAIRE FINAL */
         .final-container input { width: 100%; padding: 15px; margin-bottom: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; }
         .btn-submit { width: 100%; padding: 20px; background: #1a1a1a; color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: 800; cursor: pointer; }
 
-        /* --- FOOTER & PROGRESSION --- */
+        /* FOOTER PROGRESSION */
         .progress-footer { width: 100%; background: white; padding: 20px; border-top: 1px solid #eee; }
         .progress-wrapper { width: 100%; max-width: 550px; margin: 0 auto; display: flex; align-items: center; gap: 15px; }
         .progress-bg { flex: 1; height: 10px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: #FF9500; width: 0%; transition: width 0.4s ease; }
         .progress-text { font-weight: 800; color: #FF9500; min-width: 40px; }
 
-        /* =============================================
-           MODE ORDINATEUR (VERSION LARGE SÉCURISÉE)
-           ============================================= */
+        /* --- VERSION ORDINATEUR / MODE ANDROID LARGE --- */
         @media (min-width: 950px) {
             #quizForm { max-width: 1000px !important; }
-            
-            /* On garde le display flex QUE pour l'élément actif */
             .step.active {
                 display: flex !important;
                 flex-direction: column;
                 justify-content: center;
-                min-height: 500px;
-                padding: 60px;
+                min-height: 500px; padding: 60px;
             }
-
-            .question-title { font-size: 2.2rem; margin-bottom: 40px; }
+            .question-title { font-size: 2.5rem; margin-bottom: 40px; }
             .options-grid { grid-template-columns: 1fr 1fr; gap: 25px; }
-            .option-card { padding: 40px 20px; font-size: 1.3rem; border-width: 3px; }
+            .option-card { padding: 40px 20px; font-size: 1.4rem; border-width: 3px; }
             .progress-wrapper { max-width: 1000px; }
         }
     </style>
@@ -87,8 +85,10 @@
 <body>
 
     <div class="header">
+        <div class="logo-container">
+            <img src="Immo 120_20251031_094012_0000.svg" alt="Logo Immo 120">
+        </div>
         <h1>ES-TU PRÊT À INVESTIR ?</h1>
-        <div class="header-badge">DIAGNOSTIC IMMO 120</div>
     </div>
 
     <div class="quiz-container">
@@ -96,104 +96,105 @@
             <div class="step active" data-step="1">
                 <p class="question-title">1. Quels sont tes revenus mensuels nets ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('revenus', 'faible')">Moins de 2 000€</div>
-                    <div class="option-card" onclick="nextStep('revenus', 'correct')">2 000€ - 3 000€</div>
-                    <div class="option-card" onclick="nextStep('revenus', 'bon')">3 000€ - 4 500€</div>
-                    <div class="option-card" onclick="nextStep('revenus', 'excellent')">Plus de 4 500€</div>
+                    <div class="option-card" onclick="nextStep('revenus', 'Moins de 2000€')">Moins de 2 000€</div>
+                    <div class="option-card" onclick="nextStep('revenus', '2000-3000€')">2 000€ - 3 000€</div>
+                    <div class="option-card" onclick="nextStep('revenus', '3000-4500€')">3 000€ - 4 500€</div>
+                    <div class="option-card" onclick="nextStep('revenus', 'Plus de 4500€')">Plus de 4 500€</div>
                 </div>
             </div>
 
             <div class="step" data-step="2">
                 <p class="question-title">2. Quelle est ta profession ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('profession', 'militaire')">Gendarme / Militaire</div>
-                    <div class="option-card" onclick="nextStep('profession', 'policier')">Policier / Pompier</div>
-                    <div class="option-card" onclick="nextStep('profession', 'salarie')">Salarié CDI</div>
-                    <div class="option-card" onclick="nextStep('profession', 'autre')">Indépendant / Autre</div>
+                    <div class="option-card" onclick="nextStep('profession', 'Gendarme/Militaire')">Gendarme / Militaire</div>
+                    <div class="option-card" onclick="nextStep('profession', 'Policier/Pompier')">Policier / Pompier</div>
+                    <div class="option-card" onclick="nextStep('profession', 'Salarie CDI')">Salarié CDI</div>
+                    <div class="option-card" onclick="nextStep('profession', 'Indépendant/Autre')">Indépendant / Autre</div>
                 </div>
             </div>
 
             <div class="step" data-step="3">
                 <p class="question-title">3. Combien as-tu d'épargne disponible ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('epargne', 'tres-peu')">Moins de 5 000€</div>
-                    <div class="option-card" onclick="nextStep('epargne', 'correct')">5 000€ - 15 000€</div>
-                    <div class="option-card" onclick="nextStep('epargne', 'bon')">15 000€ - 30 000€</div>
-                    <div class="option-card" onclick="nextStep('epargne', 'excellent')">Plus de 30 000€</div>
+                    <div class="option-card" onclick="nextStep('epargne', 'Moins de 8000€')">Moins de 8 000€</div>
+                    <div class="option-card" onclick="nextStep('epargne', '8000-15000€')">8 000€ - 15 000€</div>
+                    <div class="option-card" onclick="nextStep('epargne', '15000-40000€')">15 000€ - 40 000€</div>
+                    <div class="option-card" onclick="nextStep('epargne', 'Plus de 40000€')">Plus de 40 000€</div>
                 </div>
             </div>
 
             <div class="step" data-step="4">
                 <p class="question-title">4. As-tu déjà un crédit immobilier en cours ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('credit', 'aucun')">Non, aucun</div>
-                    <div class="option-card" onclick="nextStep('credit', 'rp')">Oui, pour ma résidence</div>
-                    <div class="option-card" onclick="nextStep('credit', 'invest')">Oui, déjà un investissement</div>
+                    <div class="option-card" onclick="nextStep('credit', 'Aucun')">Non, aucun</div>
+                    <div class="option-card" onclick="nextStep('credit', 'RP en cours')">Oui, pour ma résidence</div>
+                    <div class="option-card" onclick="nextStep('credit', 'Investissement')">Oui, déjà investi</div>
                 </div>
             </div>
 
             <div class="step" data-step="5">
                 <p class="question-title">5. Stabilité de ta situation professionnelle ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('stabilite', 'instable')">Période d'essai / CDD</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'stable')">CDI confirmé / Militaire</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'tres-stable')">Fonctionnaire + Conjoint</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'Instable')">Période d'essai / CDD</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'Stable')">CDI confirmé / Militaire</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'Très stable')">Fonctionnaire + Conjoint</div>
                 </div>
             </div>
 
             <div class="step" data-step="6">
-                <p class="question-title">6. Qu'est-ce qui te bloque le plus aujourd'hui ?</p>
+                <p class="question-title">6. Qu'est-ce qui te bloque le plus ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('blocage', 'apport')">Le manque d'apport</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'peur')">La peur de faire une erreur</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'banque')">Le refus bancaire</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'temps')">Le manque de temps</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'Apport')">Le manque d'apport</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'Peur')">La peur de l'erreur</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'Banque')">Le refus bancaire</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'Aucun')">Rien, je suis chaud !</div>
                 </div>
             </div>
 
             <div class="step" data-step="7">
                 <p class="question-title">7. Quel est ton type de logement actuel ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('logement', 'gratuit')">Logement de fonction / Parent</div>
-                    <div class="option-card" onclick="nextStep('logement', 'locataire')">Locataire</div>
-                    <div class="option-card" onclick="nextStep('logement', 'proprietaire')">Propriétaire</div>
+                    <div class="option-card" onclick="nextStep('logement', 'Parent/Fonction')">Parent / Logement fonction</div>
+                    <div class="option-card" onclick="nextStep('logement', 'Locataire')">Locataire</div>
+                    <div class="option-card" onclick="nextStep('logement', 'Propriétaire')">Propriétaire</div>
                 </div>
             </div>
 
             <div class="step" data-step="8">
                 <p class="question-title">8. Quel est ton objectif principal ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('objectif', 'revenus')">Revenus immédiats (Cashflow)</div>
-                    <div class="option-card" onclick="nextStep('objectif', 'patrimoine')">Préparer ma retraite</div>
-                    <div class="option-card" onclick="nextStep('objectif', 'fiscalite')">Payer moins d'impôts</div>
+                    <div class="option-card" onclick="nextStep('objectif', 'Revenus')">Cashflow immédiat</div>
+                    <div class="option-card" onclick="nextStep('objectif', 'Patrimoine')">Préparer ma retraite</div>
+                    <div class="option-card" onclick="nextStep('objectif', 'Liberté')">Liberté financière</div>
                 </div>
             </div>
 
             <div class="step" data-step="9">
                 <p class="question-title">9. Quand souhaites-tu investir ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('temps', 'immediat')">Immédiatement</div>
-                    <div class="option-card" onclick="nextStep('temps', 'moyen')">D'ici 6 mois</div>
-                    <div class="option-card" onclick="nextStep('temps', 'reflexion')">Je prends des infos</div>
+                    <div class="option-card" onclick="nextStep('temps', 'Immédiat')">Immédiatement</div>
+                    <div class="option-card" onclick="nextStep('temps', '6 mois')">D'ici 6 mois</div>
+                    <div class="option-card" onclick="nextStep('temps', 'Réflexion')">Je me renseigne</div>
                 </div>
             </div>
 
             <div class="step" data-step="10">
                 <p class="question-title">10. Es-tu prêt à passer à l'action ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('mindset', 'pret')">Oui, je n'attends que ça</div>
-                    <div class="option-card" onclick="nextStep('mindset', 'hesitant')">J'ai besoin d'être accompagné</div>
+                    <div class="option-card" onclick="nextStep('mindset', 'Prêt')">Oui, je fonce</div>
+                    <div class="option-card" onclick="nextStep('mindset', 'Accompagné')">Oui, avec de l'aide</div>
+                    <div class="option-card" onclick="nextStep('mindset', 'Hésitant')">Pas encore sûr</div>
                 </div>
             </div>
 
             <div class="step" data-step="11">
-                <p class="question-title">Dernière étape ! 🚀</p>
+                <p class="question-title">C'est le moment ! 🚀</p>
                 <div class="final-container">
                     <input type="text" id="prenom" placeholder="Prénom" required>
                     <input type="email" id="email" placeholder="Email" required>
                     <input type="tel" id="telephone" placeholder="Numéro de téléphone" required>
                     <input type="text" id="instagram" placeholder="Pseudo Instagram">
-                    <button type="submit" class="btn-submit">OBTENIR MON DIAGNOSTIC</button>
+                    <button type="submit" class="btn-submit">VOIR MON RÉSULTAT</button>
                 </div>
             </div>
         </form>
@@ -201,9 +202,9 @@
         <div id="resultScreen" style="display:none; width:100%; max-width:800px; text-align:center; background:white; padding:50px; border-radius:30px;"></div>
     </div>
 
-    <div class="progress-footer" id="pFoot">
+    <div class="progress-footer" id="footerBar">
         <div class="progress-wrapper">
-            <div class="progress-bg"><div class="progress-fill" id="pBar"></div></div>
+            <div class="progress-bg"><div class="progress-fill" id="pFill"></div></div>
             <div class="progress-text" id="pText">0%</div>
         </div>
     </div>
@@ -226,47 +227,54 @@
 
         function updateProgress() {
             const p = Math.round(((currentStep - 1) / (totalSteps - 1)) * 100);
-            document.getElementById('pBar').style.width = p + '%';
+            document.getElementById('pFill').style.width = p + '%';
             document.getElementById('pText').innerText = p + '%';
         }
 
         document.getElementById('quizForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Collecte infos finales
+            // Collecte finale
             answers.prenom = document.getElementById('prenom').value;
             answers.email = document.getElementById('email').value;
-            answers.tel = document.getElementById('telephone').value;
-            answers.insta = document.getElementById('instagram').value;
+            answers.telephone = document.getElementById('telephone').value;
+            answers.instagram = document.getElementById('instagram').value;
 
-            // Logique de score
+            // --- LOGIQUE DE PROFIL ---
             let score = 0;
-            if (answers.revenus !== 'faible') score++;
-            if (answers.epargne !== 'tres-peu') score++;
-            if (answers.stabilite === 'stable' || answers.stabilite === 'tres-stable') score++;
+            if (answers.revenus !== 'Moins de 2000€') score++;
+            if (answers.epargne !== 'Moins de 8000€') score++;
+            if (answers.stabilite !== 'Instable') score++;
+            
+            let profil = score === 3 ? "PRÊT" : (score >= 1 ? "PRESQUE PRÊT" : "PAS ENCORE PRÊT");
+            answers.profil = profil;
 
-            let profil = score >= 3 ? "PRET" : (score >= 1 ? "PRESQUE" : "PAS_PRET");
-
-            // Affichage résultat
+            // --- AFFICHAGE ---
             document.getElementById('quizForm').style.display = 'none';
-            document.getElementById('pFoot').style.display = 'none';
+            document.getElementById('footerBar').style.display = 'none';
             const res = document.getElementById('resultScreen');
             res.style.display = 'block';
 
-            if(profil === "PRET") {
-                res.innerHTML = `<h2 style="color:#10b981;font-size:35px;">✅ TU ES PRÊT !</h2><p style="margin-top:20px;font-size:20px;">Ton profil est excellent, ${answers.prenom}. On te contacte très vite !</p>`;
-            } else if(profil === "PRESQUE") {
-                res.innerHTML = `<h2 style="color:#f59e0b;font-size:35px;">⚠️ PRESQUE PRÊT</h2><p style="margin-top:20px;font-size:20px;">Il manque quelques détails, mais c'est bien parti ${answers.prenom}.</p>`;
+            if(profil === "PRÊT") {
+                res.innerHTML = `<h2 style="color:#10b981;font-size:35px;">✅ TU ES PRÊT !</h2><p style="margin-top:20px;font-size:18px;">Félicitations <b>${answers.prenom}</b>, ton profil est parfait. Un membre de l'équipe Immo 120 va te recontacter très vite sur Instagram ou par téléphone.</p>`;
+            } else if(profil === "PRESQUE PRÊT") {
+                res.innerHTML = `<h2 style="color:#f59e0b;font-size:35px;">⚠️ PRESQUE PRÊT</h2><p style="margin-top:20px;font-size:18px;">Tu y es presque <b>${answers.prenom}</b> ! Il nous manque quelques éléments pour valider ton dossier. Surveille tes messages.</p>`;
             } else {
-                res.innerHTML = `<h2 style="color:#ef4444;font-size:35px;">🛑 PAS ENCORE</h2><p style="margin-top:20px;font-size:20px;">On va t'aider à construire ton dossier, ${answers.prenom}.</p>`;
+                res.innerHTML = `<h2 style="color:#ef4444;font-size:35px;">🛑 PAS ENCORE PRÊT</h2><p style="margin-top:20px;font-size:18px;">Ce n'est pas encore le moment <b>${answers.prenom}</b>, mais ne lâche rien ! On t'envoie des conseils par email pour préparer ton futur investissement.</p>`;
             }
 
-            // Envoi des données (Google Sheets URL)
+            // --- ENVOI GOOGLE SHEETS ---
             try {
                 await fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
-                    method: 'POST', mode: 'no-cors', body: JSON.stringify({...answers, profil})
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(answers)
                 });
-            } catch (e) {}
+            } catch (error) {
+                console.log("Erreur d'envoi");
+            }
         });
     </script>
 </body>
