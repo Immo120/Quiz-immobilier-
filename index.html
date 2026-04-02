@@ -36,25 +36,37 @@
         .logo img { width: 100%; height: 100%; object-fit: contain; }
         h1 { font-size: 22px; line-height: 1.2; margin-bottom: 5px; }
 
-        /* Container du Quiz - C'est ici que se joue le centrage */
-.quiz-container {
-    flex: 1; /* Prend l'espace disponible entre le header et le footer */
-    max-width: 700px;
-    width: 100%;
-    margin: 0 auto;
-    
-    /* MODIFICATIONS ICI 👇 */
-    display: flex; /* Active le mode flexbox */
-    flex-direction: column; /* Organise le contenu en colonne */
-    justify-content: center; /* Centre verticalement les questions */
-    align-items: center; /* Centre horizontalement les questions */
-    
-    /* Espace de sécurité pour mobile */
-    padding: 20px;
-    /* Espace pour ne pas cacher le contenu sous la barre de progression en bas */
-    margin-bottom: 80px; 
-}
+                .quiz-container {
+            flex: 1;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            margin-bottom: 100px; /* Espace pour la barre en bas */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
 
+        #quizForm {
+            width: 100%;
+            max-width: 850px; /* Augmenté pour que ce soit plus large sur PC */
+        }
+
+        @media (min-width: 1024px) {
+            .quiz-container {
+                justify-content: center; /* Centre au milieu de l'écran sur PC */
+            }
+            .question-title {
+                font-size: 32px; /* Titre plus gros sur PC */
+                margin-bottom: 40px;
+            }
+            .option-card {
+                padding: 25px; /* Cases plus grandes */
+                font-size: 20px; /* Texte plus gros */
+            }
+        }
+        
 
         /* Système de Slides */
         .step { display: none; animation: slideIn 0.3s ease-out; }
@@ -128,19 +140,26 @@
         .btn-submit:hover { background: #333; }
 
         /* Barre de progression */
-        .progress-container {
+                .progress-container {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background: white;
             padding: 20px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             z-index: 100;
         }
+
+        @media (min-width: 1024px) {
+            .progress-container {
+                padding: 35px 10%; /* Plus de hauteur et de marges sur les côtés sur PC */
+            }
+        }
+
         .progress-bg {
             flex: 1;
             height: 10px;
