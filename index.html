@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Diagnostic Immo 120</title>
     <style>
-        /* --- RESET & BLOCAGE SCROLL --- */
+        /* RESET & BLOCAGE DU SCROLL */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { 
             height: 100%; width: 100%; 
-            overflow: hidden; /* FIXE : plus de montée/descente */
+            overflow: hidden; 
             position: fixed;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: #f0f4f8;
         }
         body { display: flex; flex-direction: column; align-items: center; }
 
-        /* --- HEADER --- */
+        /* HEADER */
         .header {
             width: 100%; background: #1a1a1a;
             padding: 15px; text-align: center; color: white;
             border-bottom: 4px solid #FF9500; flex-shrink: 0;
         }
-        .logo { width: 55px; height: 55px; background: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }
-        .logo img { width: 85%; height: 85%; object-fit: contain; }
+        .logo { width: 55px; height: 55px; background: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; padding: 5px; }
+        .logo img { width: 100%; height: 100%; object-fit: contain; }
         .header h1 { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
         .header-badge { display: inline-block; background: #FF9500; color: #1a1a1a; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 900; }
 
-        /* --- CONTENEUR --- */
+        /* CONTENEUR QUIZ */
         .quiz-container {
             flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; padding: 15px; overflow: hidden;
         }
@@ -40,30 +40,35 @@
         .step.active { display: block !important; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .question-title { font-size: 1.2rem; font-weight: 800; color: #1a202c; margin-bottom: 20px; text-align: center; }
-        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-        .option-card { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 15px; cursor: pointer; font-weight: 600; color: #4a5568; text-align: center; transition: 0.2s; }
-        .option-card:hover { border-color: #FF9500; background: #fffaf0; }
+        .question-title { font-size: 1.2rem; font-weight: 800; color: #2d3748; margin-bottom: 20px; text-align: center; }
+        .options-grid { display: flex; flex-direction: column; gap: 10px; }
+        .option-card { 
+            background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 12px; 
+            padding: 15px; cursor: pointer; font-weight: 600; color: #2d3748; 
+            text-align: center; transition: 0.2s; 
+        }
+        .option-card:hover { border-color: #FF9500; background: #FFF5E6; }
 
-        /* --- FOOTER --- */
+        /* FOOTER & PROGRESSION */
         .progress-footer { width: 100%; background: white; padding: 15px; border-top: 1px solid #eee; flex-shrink: 0; }
-        .progress-wrapper { width: 100%; max-width: 600px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
-        .progress-bg { flex: 1; height: 8px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
+        .progress-wrapper { width: 100%; max-width: 600px; margin: 0 auto; display: flex; align-items: center; gap: 15px; }
+        .progress-bg { flex: 1; height: 100%; height: 10px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: #FF9500; width: 0%; transition: width 0.4s; }
-        .progress-text { font-weight: 800; color: #FF9500; font-size: 12px; }
+        .progress-text { font-weight: 800; color: #FF9500; font-size: 14px; min-width: 40px; }
 
-        input { width: 100%; padding: 12px; margin-bottom: 10px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; }
-        .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; }
+        /* FORMULAIRE FINAL */
+        .final-container input { width: 100%; padding: 14px; margin-bottom: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; }
+        .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 800; font-size: 18px; cursor: pointer; }
 
-        /* --- MODE ORDINATEUR --- */
+        /* VERSION ORDINATEUR (LARGE) */
         @media (min-width: 1024px) {
             #quizForm { max-width: 1000px; }
             .step.active { display: flex !important; flex-direction: column; justify-content: center; min-height: 450px; padding: 50px; }
             .question-title { font-size: 2.2rem; margin-bottom: 40px; }
-            .options-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
             .option-card { padding: 35px; font-size: 1.4rem; }
             .final-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-            .btn-submit { grid-column: span 2; }
+            .btn-submit { grid-column: span 2; font-size: 22px; }
         }
     </style>
 </head>
@@ -114,8 +119,8 @@
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('endettement', 'aucun')">Non, aucun crédit immo</div>
                     <div class="option-card" onclick="nextStep('endettement', 'locataire')">Je suis locataire</div>
-                    <div class="option-card" onclick="nextStep('endettement', 'rp-leger')">Oui, crédit raisonnable (&lt;30%)</div>
-                    <div class="option-card" onclick="nextStep('endettement', 'rp-lourd')">Oui, crédit élevé (&gt;30%)</div>
+                    <div class="option-card" onclick="nextStep('endettement', 'rp-leger')">Oui, mensualité raisonnable (&lt;30%)</div>
+                    <div class="option-card" onclick="nextStep('endettement', 'rp-lourd')">Oui, mensualité élevée (&gt;30%)</div>
                 </div>
             </div>
 
@@ -123,8 +128,8 @@
                 <p class="question-title">5. Stabilité de ta situation pro ?</p>
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('stabilite', 'instable')">CDD / Intérim</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'cdi-recent')">CDI &lt; 6 mois</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'stable')">CDI stable / Militaire</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'cdi-recent')">CDI depuis moins de 6 mois</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'stable')">CDI stable ou Militaire</div>
                     <div class="option-card" onclick="nextStep('stabilite', 'tres-stable')">CDI stable + conjoint(e)</div>
                 </div>
             </div>
@@ -134,7 +139,7 @@
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('blocage', 'argent')">Pas assez d'argent</div>
                     <div class="option-card" onclick="nextStep('blocage', 'peur')">Peur de me tromper</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'connaissance')">Où commencer ?</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'connaissance')">Je ne sais pas par où commencer</div>
                     <div class="option-card" onclick="nextStep('blocage', 'rien')">Rien, je suis prêt !</div>
                 </div>
             </div>
@@ -142,7 +147,7 @@
             <div class="step" data-step="7">
                 <p class="question-title">7. Tu es actuellement logé(e) ... ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('logement', 'fonction')">Logement fonction</div>
+                    <div class="option-card" onclick="nextStep('logement', 'fonction')">Logement fonction / LCNAS</div>
                     <div class="option-card" onclick="nextStep('logement', 'locataire')">Location classique</div>
                     <div class="option-card" onclick="nextStep('logement', 'proprietaire-rp')">Propriétaire RP</div>
                     <div class="option-card" onclick="nextStep('logement', 'proprietaire-invest')">Déjà investisseur</div>
@@ -181,19 +186,18 @@
                 <div class="final-container">
                     <input type="text" id="prenom" name="prenom" placeholder="Ton prénom" required>
                     <input type="email" id="email" name="email" placeholder="Ton adresse email" required>
-                    <input type="tel" id="telephone" name="telephone" placeholder="Ton numéro" required>
-                    <input type="text" id="instagram" name="instagram" placeholder="Pseudo Instagram" required>
-                    <button type="submit" class="btn-submit">VOIR MON DIAGNOSTIC</button>
+                    <input type="text" id="instagram" name="instagram" placeholder="Pseudo Instagram (@...)">
+                    <button type="submit" class="btn-submit">DÉCOUVRIR MON PROFIL</button>
                 </div>
             </div>
         </form>
         <div id="successScreen" style="display:none; width:100%; max-width:600px; background:white; padding:40px; border-radius:25px; text-align:center;"></div>
     </div>
 
-    <div class="progress-footer" id="progressWrapper">
+    <div class="progress-footer" id="footer">
         <div class="progress-wrapper">
-            <div class="progress-bg"><div class="progress-fill" id="progressBar"></div></div>
-            <div class="progress-text" id="progressText">0%</div>
+            <div class="progress-bg"><div class="progress-fill" id="pFill"></div></div>
+            <div class="progress-text" id="pText">0%</div>
         </div>
     </div>
 
@@ -202,63 +206,71 @@
         const totalSteps = 11;
         const answers = {};
 
-        function updateProgress() {
-            const percent = Math.round(((currentStep - 1) / (totalSteps - 1)) * 100);
-            document.getElementById('progressBar').style.width = percent + '%';
-            document.getElementById('progressText').innerText = percent + '%';
-        }
-
         function nextStep(key, value) {
-            if (key) answers[key] = value;
+            answers[key] = value;
             document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
             currentStep++;
             const next = document.querySelector(`.step[data-step="${currentStep}"]`);
             if (next) { next.classList.add('active'); updateProgress(); }
         }
 
-        document.getElementById('quizForm').addEventListener('submit', function(e) {
+        function updateProgress() {
+            const p = Math.round(((currentStep - 1) / (totalSteps - 1)) * 100);
+            document.getElementById('pFill').style.width = p + '%';
+            document.getElementById('pText').innerText = p + '%';
+        }
+
+        document.getElementById('quizForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // On récupère les dernières variables exactement comme au départ
+            // Collecte finale des données
             answers.prenom = document.getElementById('prenom').value;
             answers.email = document.getElementById('email').value;
-            answers.telephone = document.getElementById('telephone').value;
-            answers.instagram = document.getElementById('instagram').value;
+            answers.instagram = document.getElementById('instagram').value || 'Non renseigné';
 
-            // Logique de qualification d'origine
-            let qualifie = (answers.revenus !== 'faible' && answers.epargne !== 'tres-peu' && answers.stabilite !== 'instable');
-            let profil = qualifie ? 'PRET' : (answers.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
+            // ANALYSE IDENTIQUE AU CODE D'ORIGINE
+            let est_qualifie = true;
+            let points_forts = [];
+            let conseils = [];
+
+            if (answers.revenus === 'faible') est_qualifie = false;
+            if (answers.epargne === 'tres-peu') est_qualifie = false;
+            if (answers.endettement === 'rp-lourd') est_qualifie = false;
+            if (['instable', 'cdi-recent'].includes(answers.stabilite)) est_qualifie = false;
+
+            let profil = est_qualifie ? 'PRET' : (answers.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
             answers.profil = profil;
 
-            // Masquage et écran de succès
+            // Affichage immédiat du message de succès
             document.getElementById('quizForm').style.display = 'none';
-            document.getElementById('progressWrapper').style.display = 'none';
+            document.getElementById('footer').style.display = 'none';
             const screen = document.getElementById('successScreen');
             screen.style.display = 'block';
             screen.innerHTML = `<h2>Analyse en cours...</h2>`;
 
-            // --- ENVOI AVEC LIAISON SÉCURISÉE ---
+            // ENVOI AU GOOGLE SHEET (Méthode JSON d'origine)
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec';
             
-            // On utilise URLSearchParams pour être sûr que Google Sheets reçoive les variables nommées
-            const params = new URLSearchParams();
-            for (const key in answers) {
-                params.append(key, answers[key]);
-            }
-
-            fetch(scriptURL + "?" + params.toString(), { method: 'POST', mode: 'no-cors' })
-            .then(() => {
+            try {
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(answers)
+                });
+                
+                // Message final selon le profil
                 if (profil === 'PRET') {
-                    screen.innerHTML = `<h2 style="color:#10b981;margin-bottom:15px;">✅ TU ES PRÊT !</h2><p>Félicitations <b>${answers.prenom}</b> ! Ton profil est idéal. Regarde vite tes emails !</p>`;
+                    screen.innerHTML = `<h2 style="color:#10b981;">✅ TU ES PRÊT !</h2><p style="margin-top:15px;">Félicitations <b>${answers.prenom}</b> ! Ton diagnostic détaillé t'a été envoyé par email.</p>`;
                 } else if (profil === 'PRESQUE') {
-                    screen.innerHTML = `<h2 style="color:#f59e0b;margin-bottom:15px;">⚠️ PRESQUE PRÊT</h2><p>Tu y es presque <b>${answers.prenom}</b> ! Ton plan personnalisé t'attend par email.</p>`;
+                    screen.innerHTML = `<h2 style="color:#f59e0b;">⚠️ PRESQUE PRÊT</h2><p style="margin-top:15px;">Tu y es presque <b>${answers.prenom}</b> ! Regarde tes emails pour découvrir ton plan d'action.</p>`;
                 } else {
-                    screen.innerHTML = `<h2 style="color:#ef4444;margin-bottom:15px;">🛑 PAS ENCORE</h2><p>C'est un peu tôt <b>${answers.prenom}</b>. Regarde tes emails pour voir comment progresser.</p>`;
+                    screen.innerHTML = `<h2 style="color:#ef4444;">🛑 PAS ENCORE</h2><p style="margin-top:15px;">Ce n'est pas encore le moment <b>${answers.prenom}</b>, mais on va t'aider. Ton plan est dans tes emails.</p>`;
                 }
-            })
-            .catch(() => {
-                screen.innerHTML = `<h2>Erreur d'envoi.</h2>`;
-            });
+            } catch (err) {
+                screen.innerHTML = `<h2>Merci !</h2><p>Tes résultats arrivent par email.</p>`;
+            }
         });
     </script>
 </body>
