@@ -112,17 +112,6 @@
             animation: fadeIn 0.5s ease-out forwards;
         }
 
-        .question-block:nth-child(1)  { animation-delay: 0.1s; }
-        .question-block:nth-child(2)  { animation-delay: 0.2s; }
-        .question-block:nth-child(3)  { animation-delay: 0.3s; }
-        .question-block:nth-child(4)  { animation-delay: 0.4s; }
-        .question-block:nth-child(5)  { animation-delay: 0.5s; }
-        .question-block:nth-child(6)  { animation-delay: 0.6s; }
-        .question-block:nth-child(7)  { animation-delay: 0.7s; }
-        .question-block:nth-child(8)  { animation-delay: 0.8s; }
-        .question-block:nth-child(9)  { animation-delay: 0.9s; }
-        .question-block:nth-child(10) { animation-delay: 1.0s; }
-
         @keyframes fadeIn {
             to { opacity: 1; }
         }
@@ -195,7 +184,8 @@
         }
 
         input[type="email"],
-        input[type="text"] {
+        input[type="text"],
+        input[type="tel"] {
             width: 100%;
             padding: 16px 20px;
             font-size: 16px;
@@ -208,7 +198,8 @@
         }
 
         input[type="email"]:focus,
-        input[type="text"]:focus {
+        input[type="text"]:focus,
+        input[type="tel"]:focus {
             outline: none;
             border-color: white;
             background: white;
@@ -234,16 +225,6 @@
             background: #2d2d2d;
         }
 
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        .submit-btn:disabled {
-            background: #cbd5e0;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
         .success {
             background: white;
             padding: 30px;
@@ -265,13 +246,8 @@
         .profile-pas-pret { background: #ef4444; color: white; }
 
         @media (max-width: 768px) {
-            .header { padding: 40px 20px; }
-            .logo { width: 100px; height: 100px; }
             h1 { font-size: 32px; }
-            .subtitle { font-size: 17px; }
             .container { padding: 35px 25px; margin: -20px 20px 20px 20px; }
-            .question { font-size: 17px; }
-            .intro-text { font-size: 15px; }
         }
     </style>
 </head>
@@ -293,253 +269,93 @@
         </p>
 
         <form id="quizForm">
-
-            <!-- Q1 : Revenus -->
-            <div class="question-block">
-                <p class="question">1. Quels sont tes revenus mensuels nets ?</p>
+            <div class="question-block"><p class="question">1. Quels sont tes revenus mensuels nets ?</p>
                 <div class="options">
-                    <div class="option">
-                        <input type="radio" id="rev1" name="revenus" value="faible" required>
-                        <label for="rev1">Moins de 2 000€/mois</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="rev2" name="revenus" value="correct">
-                        <label for="rev2">2 000€ - 3 000€/mois</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="rev3" name="revenus" value="bon">
-                        <label for="rev3">3 000€ - 4 500€/mois</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="rev4" name="revenus" value="excellent">
-                        <label for="rev4">Plus de 4 500€/mois</label>
-                    </div>
+                    <div class="option"><input type="radio" id="rev1" name="revenus" value="faible" required><label for="rev1">Moins de 2 000€/mois</label></div>
+                    <div class="option"><input type="radio" id="rev2" name="revenus" value="correct"><label for="rev2">2 000€ - 3 000€/mois</label></div>
+                    <div class="option"><input type="radio" id="rev3" name="revenus" value="bon"><label for="rev3">3 000€ - 4 500€/mois</label></div>
+                    <div class="option"><input type="radio" id="rev4" name="revenus" value="excellent"><label for="rev4">Plus de 4 500€/mois</label></div>
                 </div>
             </div>
 
-            <!-- Q2 : Corps de métier (collecté mais non analysé) -->
-            <div class="question-block">
-                <p class="question">2. Quelle est ta profession ?</p>
+            <div class="question-block"><p class="question">2. Quelle est ta profession ?</p>
                 <div class="options">
-                    <div class="option">
-                        <input type="radio" id="prof1" name="profession" value="gendarme-militaire" required>
-                        <label for="prof1">Gendarme / Militaire</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="prof2" name="profession" value="policier">
-                        <label for="prof2">Policier</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="prof3" name="profession" value="pompier">
-                        <label for="prof3">Pompier pro</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="prof4" name="profession" value="autre">
-                        <label for="prof4">Autre fonctionnaire ou salarié du secteur privé</label>
-                    </div>
+                    <div class="option"><input type="radio" id="prof1" name="profession" value="gendarme-militaire" required><label for="prof1">Gendarme / Militaire</label></div>
+                    <div class="option"><input type="radio" id="prof2" name="profession" value="policier"><label for="prof2">Policier</label></div>
+                    <div class="option"><input type="radio" id="prof3" name="profession" value="pompier"><label for="prof3">Pompier pro</label></div>
+                    <div class="option"><input type="radio" id="prof4" name="profession" value="autre"><label for="prof4">Autre fonctionnaire ou salarié</label></div>
                 </div>
             </div>
 
-            <!-- Q3 : Épargne -->
-            <div class="question-block">
-                <p class="question">3. Combien as-tu d'épargne disponible aujourd'hui ?</p>
+            <div class="question-block"><p class="question">3. Combien as-tu d'épargne disponible aujourd'hui ?</p>
                 <div class="options">
-                    <div class="option">
-                        <input type="radio" id="ep1" name="epargne" value="tres-peu" required>
-                        <label for="ep1">Moins de 8 000€</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="ep2" name="epargne" value="correct">
-                        <label for="ep2">8 000€ - 10 000€</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="ep3" name="epargne" value="bon">
-                        <label for="ep3">10 000€ - 40 000€</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="ep4" name="epargne" value="excellent">
-                        <label for="ep4">Plus de 40 000€</label>
-                    </div>
+                    <div class="option"><input type="radio" id="ep1" name="epargne" value="tres-peu" required><label for="ep1">Moins de 8 000€</label></div>
+                    <div class="option"><input type="radio" id="ep2" name="epargne" value="correct"><label for="ep2">8 000€ - 10 000€</label></div>
+                    <div class="option"><input type="radio" id="ep3" name="epargne" value="bon"><label for="ep3">10 000€ - 40 000€</label></div>
+                    <div class="option"><input type="radio" id="ep4" name="epargne" value="excellent"><label for="ep4">Plus de 40 000€</label></div>
                 </div>
             </div>
 
-            <!-- Q4 : Endettement -->
-            <div class="question-block">
-                <p class="question">4. As-tu déjà un crédit immobilier en cours (résidence principale) ?</p>
+            <div class="question-block"><p class="question">4. As-tu déjà un crédit immobilier en cours (RP) ?</p>
                 <div class="options">
-                    <div class="option">
-                        <input type="radio" id="end1" name="endettement" value="aucun" required>
-                        <label for="end1">Non, aucun crédit immobilier</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="end2" name="endettement" value="locataire">
-                        <label for="end2">Je suis locataire (pas de crédit)</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="end3" name="endettement" value="rp-leger">
-                        <label for="end3">Oui, crédit RP avec mensualité raisonnable (&lt;30% revenus)</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="end4" name="endettement" value="rp-lourd">
-                        <label for="end4">Oui, crédit RP avec mensualité élevée (&gt;30% revenus)</label>
-                    </div>
+                    <div class="option"><input type="radio" id="end1" name="endettement" value="aucun" required><label for="end1">Non, aucun crédit immobilier</label></div>
+                    <div class="option"><input type="radio" id="end2" name="endettement" value="locataire"><label for="end2">Je suis locataire (pas de crédit)</label></div>
+                    <div class="option"><input type="radio" id="end3" name="endettement" value="rp-leger"><label for="end3">Oui, crédit RP raisonnable (<30%)</label></div>
+                    <div class="option"><input type="radio" id="end4" name="endettement" value="rp-lourd"><label for="end4">Oui, crédit RP élevé (>30%)</label></div>
                 </div>
             </div>
 
-            <!-- Q5 : Stabilité professionnelle -->
-            <div class="question-block">
-                <p class="question">5. Quelle est la stabilité de ta situation professionnelle ?</p>
+            <div class="question-block"><p class="question">5. Quelle est la stabilité de ta situation professionnelle ?</p>
                 <div class="options">
-                    <div class="option">
-                        <input type="radio" id="stab1" name="stabilite" value="instable" required>
-                        <label for="stab1">CDD / Intérim (moins d'1 an)</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="stab2" name="stabilite" value="freelance-debut">
-                        <label for="stab2">Freelance avec moins de 3 bilans</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="stab3" name="stabilite" value="cdi-recent">
-                        <label for="stab3">CDI depuis moins de 6 mois</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="stab4" name="stabilite" value="stable">
-                        <label for="stab4">CDI stable (6 mois+) ou militaire / fonctionnaire</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="stab5" name="stabilite" value="freelance-etabli">
-                        <label for="stab5">Freelance avec 3+ bilans positifs</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="stab6" name="stabilite" value="tres-stable">
-                        <label for="stab6">CDI stable + conjoint(e) en CDI</label>
-                    </div>
+                    <div class="option"><input type="radio" id="stab4" name="stabilite" value="stable" required><label for="stab4">CDI (6 mois+) ou militaire / fonctionnaire</label></div>
+                    <div class="option"><input type="radio" id="stab1" name="stabilite" value="instable"><label for="stab1">Autre situation (CDD, intérim, etc.)</label></div>
                 </div>
             </div>
 
-            <!-- Q6 : Blocage -->
-            <div class="question-block">
-                <p class="question">6. Qu'est-ce qui te bloque aujourd'hui ?</p>
+            <div class="question-block"><p class="question">6. Qu'est-ce qui te bloque aujourd'hui ?</p>
                 <div class="options">
-                    <div class="option">
-                        <input type="radio" id="bloc1" name="blocage" value="argent" required>
-                        <label for="bloc1">Je n'ai pas assez d'argent</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="bloc2" name="blocage" value="peur">
-                        <label for="bloc2">J'ai peur de me tromper / de faire une erreur</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="bloc3" name="blocage" value="connaissance">
-                        <label for="bloc3">Je ne sais pas par où commencer</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="bloc4" name="blocage" value="temps">
-                        <label for="bloc4">Je n'ai pas le temps de m'en occuper</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="bloc5" name="blocage" value="rien">
-                        <label for="bloc5">Rien, je suis prêt(e) à passer à l'action maintenant</label>
-                    </div>
+                    <div class="option"><input type="radio" id="bloc2" name="blocage" value="peur" required><label for="bloc2">J'ai peur de me tromper</label></div>
+                    <div class="option"><input type="radio" id="bloc3" name="blocage" value="connaissance"><label for="bloc3">Je ne sais pas par où commencer</label></div>
+                    <div class="option"><input type="radio" id="bloc5" name="blocage" value="rien"><label for="bloc5">Rien, je suis prêt(e) à passer à l'action</label></div>
                 </div>
             </div>
 
-            <!-- Q7 : Logement (collecté mais non analysé) -->
-            <div class="question-block">
-                <p class="question">7. Tu es actuellement logé(e) ... ?</p>
+            <div class="question-block"><p class="question">7. Tu es actuellement logé(e) ... ?</p>
                 <div class="options">
-                    <div class="option">
-                        <input type="radio" id="log1" name="logement" value="fonction" required>
-                        <label for="log1">En logement de fonction / LCNAS</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="log2" name="logement" value="locataire">
-                        <label for="log2">Location à l'extérieur</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="log3" name="logement" value="proprietaire-rp">
-                        <label for="log3">Propriétaire de ta résidence principale</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="log4" name="logement" value="proprietaire-invest">
-                        <label for="log4">Propriétaire avec déjà un investissement locatif</label>
-                    </div>
+                    <div class="option"><input type="radio" id="log1" name="logement" value="fonction" required><label for="log1">En logement de fonction / LCNAS</label></div>
+                    <div class="option"><input type="radio" id="log2" name="logement" value="locataire"><label for="log2">Location à l'extérieur</label></div>
+                    <div class="option"><input type="radio" id="log3" name="logement" value="proprietaire-rp"><label for="log3">Propriétaire résidence principale</label></div>
                 </div>
             </div>
 
-            <!-- Q8 : Objectif -->
-            <div class="question-block">
-                <p class="question">8. Pourquoi veux-tu investir dans l'immobilier ?</p>
+            <div class="question-block"><p class="question">8. Pourquoi veux-tu investir dans l'immobilier ?</p>
                 <div class="options">
-                    <div class="option">
-                        <input type="radio" id="obj1" name="objectif" value="securite" required>
-                        <label for="obj1">Sécuriser mon avenir / celui de ma famille</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="obj2" name="objectif" value="revenus">
-                        <label for="obj2">Créer des revenus complémentaires</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="obj3" name="objectif" value="patrimoine">
-                        <label for="obj3">Me constituer un patrimoine solide</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="obj4" name="objectif" value="liberte">
-                        <label for="obj4">Atteindre la liberté financière / quitter le service</label>
-                    </div>
+                    <div class="option"><input type="radio" id="obj1" name="objectif" value="securite" required><label for="obj1">Sécuriser mon avenir / ma famille</label></div>
+                    <div class="option"><input type="radio" id="obj4" name="objectif" value="liberte"><label for="obj4">Atteindre la liberté financière</label></div>
                 </div>
             </div>
 
-            <!-- Q9 : Timeline -->
-            <div class="question-block">
-                <p class="question">9. Dans combien de temps veux-tu avoir signé ton premier bien ?</p>
+            <div class="question-block"><p class="question">9. Dans combien de temps veux-tu avoir signé ?</p>
                 <div class="options">
-                    <div class="option">
-                        <input type="radio" id="time1" name="timeline" value="urgent" required>
-                        <label for="time1">Dans les 3 prochains mois (c'est urgent)</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="time2" name="timeline" value="motive">
-                        <label for="time2">Dans les 3-6 prochains mois (je suis motivé(e))</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="time3" name="timeline" value="flexible">
-                        <label for="time3">Dans les 6-12 mois (je prends mon temps)</label>
-                    </div>
+                    <div class="option"><input type="radio" id="time1" name="timeline" value="urgent" required><label for="time1">Dans les 3 prochains mois</label></div>
+                    <div class="option"><input type="radio" id="time2" name="timeline" value="motive"><label for="time2">Dans les 3-6 prochains mois</label></div>
                 </div>
             </div>
 
-            <!-- Q10 : Mindset -->
-            <div class="question-block">
-                <p class="question">10. Comment te décrirais-tu ?</p>
+            <div class="question-block"><p class="question">10. Comment te décrirais-tu ?</p>
                 <div class="options">
-                    <div class="option">
-                        <input type="radio" id="mind1" name="mindset" value="paralysie" required>
-                        <label for="mind1">J'analyse tout mais je ne passe jamais à l'action</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="mind2" name="mindset" value="prudent">
-                        <label for="mind2">J'ai besoin d'être rassuré(e) avant d'agir</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="mind3" name="mindset" value="determine">
-                        <label for="mind3">Une fois que je décide, je fonce (comme dans le sport)</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="mind4" name="mindset" value="reve">
-                        <label for="mind4">J'en parle depuis longtemps mais je n'ai rien fait</label>
-                    </div>
+                    <div class="option"><input type="radio" id="mind3" name="mindset" value="determine" required><label for="mind3">Une fois que je décide, je fonce</label></div>
+                    <div class="option"><input type="radio" id="mind2" name="mindset" value="prudent"><label for="mind2">Besoin d'être rassuré(e)</label></div>
                 </div>
             </div>
 
-            <!-- Collecte email -->
             <div class="email-section">
                 <h3>Reçois ton profil d'investisseur personnalisé</h3>
-                <p>Découvre si tu es prêt(e) à investir maintenant, ou ce qu'il te manque pour y arriver</p>
+                <p>Découvre si tu es prêt(e) à investir maintenant</p>
                 <input type="text" name="prenom" placeholder="Ton prénom" required>
                 <input type="email" name="email" placeholder="Ton adresse email" required>
+                <input type="tel" name="telephone" placeholder="Ton numéro de téléphone (ex: +33 6...)" pattern="^\+?[0-9\s]{10,20}$" required>
                 <input type="text" name="instagram" placeholder="Ton pseudo Instagram (@ton_pseudo)" required>
-                <input type="tel" name="telephone" placeholder="Ton numéro de téléphone (ex: +33 6...)" pattern="^\+?[0-9\s]{10,20}$" title="Merci d'entrer un numéro de téléphone valide" required>
             </div>
 
             <button type="submit" class="submit-btn">Découvrir mon profil</button>
@@ -558,181 +374,67 @@
             const formData = new FormData(form);
             const data = {
                 revenus:    formData.get('revenus'),
-                profession: formData.get('profession'),   // Q2 — collecté, non analysé
+                profession: formData.get('profession'),
                 epargne:    formData.get('epargne'),
                 endettement:formData.get('endettement'),
                 stabilite:  formData.get('stabilite'),
                 blocage:    formData.get('blocage'),
-                logement:   formData.get('logement'),     // Q7 — collecté, non analysé
+                logement:   formData.get('logement'),
                 objectif:   formData.get('objectif'),
                 timeline:   formData.get('timeline'),
                 mindset:    formData.get('mindset'),
                 prenom:     formData.get('prenom'),
                 email:      formData.get('email'),
-                instagram:  formData.get('instagram') || 'Non renseigné'
+                telephone:  formData.get('telephone'), // Donnée ajoutée
+                instagram:  formData.get('instagram')
             };
 
             const analyse = analyserProfil(data);
-
-            const dataToSend = {
-                ...data,
-                profil: analyse.profil,
-                points_forts: analyse.points_forts.join('\n'),
-                conseils_detail: analyse.conseils.map(c => c.detail + ' - ' + c.conseil).join('\n\n')
-            };
-
             afficherResultat(analyse, data);
             form.style.display = 'none';
             successMessage.style.display = 'block';
             window.scrollTo(0, 0);
 
+            // Envoi Google Sheet (ajoute bien la colonne téléphone dans ton Sheet)
             try {
                 await fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(dataToSend)
+                    body: JSON.stringify({...data, profil: analyse.profil})
                 });
-                console.log('Données envoyées au Google Sheet');
-            } catch (error) {
-                console.error('Erreur Google Sheet:', error);
-            }
-
-            try {
-                await fetch('/api/submit-quiz', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        email:   data.email,
-                        prenom:  data.prenom,
-                        profil:  analyse.profil
-                    })
-                });
-                console.log('Contact envoyé à Systeme.io ✅');
-            } catch (error) {
-                console.error('Erreur Systeme.io:', error);
-            }
+            } catch (error) { console.error('Erreur Sheet:', error); }
         });
 
         function analyserProfil(data) {
-            let conseils = [];
             let points_forts = [];
             let est_qualifie = true;
 
-            // Revenus
-            if (data.revenus === 'faible') {
-                est_qualifie = false;
-                conseils.push({
-                    detail: 'Revenus insuffisants',
-                    conseil: "Pour augmenter tes chances d'investir, il te faut chercher à augmenter tes revenus."
-                });
-            } else if (data.revenus === 'correct') {
-                points_forts.push('Revenus corrects (2 000 - 3 000€)');
-            } else if (data.revenus === 'bon') {
-                points_forts.push('Bons revenus (3 000 - 4 500€)');
-            } else {
-                points_forts.push('Excellents revenus (4 500€ et plus)');
-            }
+            if (data.revenus === 'faible') est_qualifie = false;
+            if (data.epargne === 'tres-peu') est_qualifie = false;
+            if (data.endettement === 'rp-lourd') est_qualifie = false;
+            if (['instable'].includes(data.stabilite)) est_qualifie = false;
 
-            // Épargne
-            if (data.epargne === 'tres-peu') {
-                est_qualifie = false;
-                conseils.push({
-                    detail: 'Épargne insuffisante',
-                    conseil: "Il te faut constituer une épargne de sécurité d'au moins 8 000€."
-                });
-            } else if (data.epargne === 'correct') {
-                points_forts.push('Épargne correcte (8 000 - 10 000€)');
-            } else if (data.epargne === 'bon') {
-                points_forts.push('Bonne épargne (10 000 - 40 000€)');
-            } else {
-                points_forts.push('Excellente épargne (40 000€ et plus)');
-            }
-
-            // Endettement
-            if (data.endettement === 'rp-lourd') {
-                est_qualifie = false;
-                conseils.push({
-                    detail: 'Endettement trop élevé',
-                    conseil: "Ton taux d'endettement doit être optimisé avant d'investir."
-                });
-            } else if (data.endettement === 'rp-leger') {
-                points_forts.push('Endettement gérable');
-            } else {
-                points_forts.push('Aucun endettement immobilier');
-            }
-
-            // Stabilité professionnelle
-            if (['instable', 'freelance-debut', 'cdi-recent'].includes(data.stabilite)) {
-                est_qualifie = false;
-                conseils.push({
-                    detail: 'Situation professionnelle à stabiliser',
-                    conseil: "Il te faut consolider ta situation professionnelle pour rassurer les banques."
-                });
-            } else {
-                points_forts.push('Situation professionnelle stable');
-            }
-
-            // Calcul du profil final
-            let profil;
-            if (est_qualifie) {
-                profil = 'PRET';
-            } else if (conseils.length <= 2 && data.revenus !== 'faible') {
-                profil = 'PRESQUE';
-            } else {
-                profil = 'PAS_PRET';
-            }
-
-            return { profil, conseils, points_forts, est_qualifie };
+            let profil = est_qualifie ? 'PRET' : (data.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
+            return { profil };
         }
 
         function afficherResultat(analyse, data) {
             const prenom = data.prenom;
-            let html = '';
+            let badge = analyse.profil === 'PRET' ? 'profile-pret' : (analyse.profil === 'PRESQUE' ? 'profile-presque' : 'profile-pas-pret');
+            let texte = analyse.profil === 'PRET' ? 'TU ES PRÊT À INVESTIR' : (analyse.profil === 'PRESQUE' ? 'TU SERAS BIENTÔT PRÊT' : 'PAS ENCORE PRÊT');
 
-            if (analyse.profil === 'PRET') {
-                html = `
-                    <div style="text-align: center;">
-                        <span class="profile-badge profile-pret">✅ TU ES PRÊT À INVESTIR</span>
-                    </div>
-                    <p style="text-align: center; font-size: 18px; margin-top: 20px;"><strong>Bonjour ${prenom}</strong>,</p>
-                    <p style="text-align: center; font-size: 16px; line-height: 1.6; margin-top: 15px;">
-                        Excellente nouvelle ! 🎉<br>
-                        <strong>Ton profil détaillé et les prochaines étapes t'ont été envoyés par email.</strong>
-                    </p>
-                    <p style="text-align: center; margin-top: 20px; color: #666;">
-                        📧 Vérifie ta boîte mail (et tes spams si besoin)
-                    </p>`;
-            } else if (analyse.profil === 'PRESQUE') {
-                html = `
-                    <div style="text-align: center;">
-                        <span class="profile-badge profile-presque">⚠️ TU SERAS BIENTÔT PRÊT</span>
-                    </div>
-                    <p style="text-align: center; font-size: 18px; margin-top: 20px;"><strong>Bonjour ${prenom}</strong>,</p>
-                    <p style="text-align: center; font-size: 16px; line-height: 1.6; margin-top: 15px;">
-                        Bonne nouvelle : tu es sur la bonne voie ! 💪<br>
-                        <strong>Ton diagnostic personnalisé et ton plan d'action t'ont été envoyés par email.</strong>
-                    </p>
-                    <p style="text-align: center; margin-top: 20px; color: #666;">
-                        📧 Vérifie ta boîte mail (et tes spams si besoin)
-                    </p>`;
-            } else {
-                html = `
-                    <div style="text-align: center;">
-                        <span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span>
-                    </div>
-                    <p style="text-align: center; font-size: 18px; margin-top: 20px;"><strong>Bonjour ${prenom}</strong>,</p>
-                    <p style="text-align: center; font-size: 16px; line-height: 1.6; margin-top: 15px;">
-                        Ce n'est pas encore le moment, mais ça viendra ! 💪<br>
-                        <strong>Ton plan d'action détaillé pour les 12-18 prochains mois t'a été envoyé par email.</strong>
-                    </p>
-                    <p style="text-align: center; margin-top: 20px; color: #666;">
-                        📧 Vérifie ta boîte mail (et tes spams si besoin)
-                    </p>`;
-            }
-
-            successMessage.innerHTML = html;
+            successMessage.innerHTML = `
+                <div style="text-align: center;">
+                    <span class="profile-badge ${badge}">✅ ${texte}</span>
+                </div>
+                <p style="text-align: center; font-size: 18px; margin-top: 20px;"><strong>Bonjour ${prenom}</strong>,</p>
+                <p style="text-align: center; font-size: 16px; line-height: 1.6; margin-top: 15px;">
+                    Tes résultats détaillés t'ont été envoyés par email.<br>
+                    <strong>Nous reviendrons vers toi rapidement sur Instagram ou par téléphone.</strong>
+                </p>`;
         }
     </script>
 </body>
-</html>
+                    </html>
+                        
