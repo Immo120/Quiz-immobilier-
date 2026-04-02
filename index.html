@@ -8,8 +8,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f4f8;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f4f8;
+            /* Motif de fond discret pour remplir l'espace sur PC */
+            background-image: radial-gradient(#FF9500 0.5px, transparent 0.5px), radial-gradient(#FF9500 0.5px, #f0f4f8 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -18,9 +22,10 @@
         /* Header */
         .header {
             background: linear-gradient(135deg, #FF9500 0%, #FF6B00 50%, #1a1a1a 100%);
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
             color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             z-index: 10;
         }
         .logo {
@@ -35,67 +40,85 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .logo img { width: 100%; height: 100%; object-fit: contain; }
-        h1 { font-size: 22px; line-height: 1.2; }
+        h1 { font-size: 24px; font-weight: 800; }
 
         /* Quiz Container */
         .quiz-container {
             flex: 1;
             width: 100%;
-            max-width: 850px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centre verticalement sur toutes les tailles */
+            justify-content: center; /* Centre verticalement sur PC */
             align-items: center;
-            margin-bottom: 100px;
+            margin-bottom: 120px; /* Espace pour la barre de progression */
         }
 
         #quizForm { width: 100%; }
 
-        /* Slides */
-        .step { display: none; animation: slideIn 0.3s ease-out; width: 100%; }
+        /* Style Carte pour les questions */
+        .step { 
+            display: none; 
+            animation: slideIn 0.4s ease-out; 
+            width: 100%; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        }
         .step.active { display: block; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Textes & Cartes */
+        @keyframes slideIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
         .question-title {
             font-size: 22px;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 25px;
+            font-weight: 800;
+            color: #1a202c;
+            margin-bottom: 30px;
             text-align: center;
             line-height: 1.4;
         }
 
-        .options-grid { display: flex; flex-direction: column; gap: 12px; }
+        /* Grille d'options (1 colonne mobile / 2 colonnes PC) */
+        .options-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 15px; 
+        }
 
         .option-card {
-            background: white;
+            background: #f8fafc;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
-            padding: 18px 20px;
+            padding: 20px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             font-size: 16px;
             color: #4a5568;
-            font-weight: 500;
+            font-weight: 600;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
         }
 
         .option-card:hover {
             border-color: #FF9500;
-            background: #FFF5E6;
-            transform: translateY(-2px);
+            background: #fffaf0;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 149, 0, 0.1);
         }
 
         /* Formulaire final */
-        .final-form {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
+        .final-form { width: 100%; max-width: 500px; margin: 0 auto; }
+        .final-form h3 { margin-bottom: 20px; text-align: center; color: #FF6B00; }
+        
         input {
             width: 100%;
             padding: 15px;
@@ -103,7 +126,10 @@
             border: 2px solid #e2e8f0;
             border-radius: 10px;
             font-size: 16px;
+            background: #f8fafc;
         }
+        input:focus { border-color: #FF9500; outline: none; background: white; }
+
         .btn-submit {
             width: 100%;
             padding: 18px;
@@ -112,9 +138,11 @@
             border: none;
             border-radius: 10px;
             font-size: 18px;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
+            transition: all 0.3s;
         }
+        .btn-submit:hover { background: #FF6B00; }
 
         /* Barre de progression */
         .progress-container {
@@ -122,28 +150,29 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 20px;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
             gap: 15px;
             z-index: 100;
         }
         .progress-bg { flex: 1; height: 10px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #FF9500, #FF6B00); width: 0%; transition: width 0.3s ease; }
-        .progress-text { font-weight: 700; color: #FF9500; min-width: 45px; font-size: 14px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #FF9500, #FF6B00); width: 0%; transition: width 0.5s ease; }
+        .progress-text { font-weight: 800; color: #FF9500; min-width: 45px; font-size: 14px; }
 
         /* Écran de succès */
-        .success-screen { text-align: center; display: none; padding: 40px 20px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .profile-badge { display: inline-block; padding: 12px 25px; border-radius: 50px; color: white; font-weight: 700; margin-bottom: 20px; }
+        .success-screen { text-align: center; display: none; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%; }
+        .profile-badge { display: inline-block; padding: 12px 25px; border-radius: 50px; color: white; font-weight: 800; margin-bottom: 20px; }
 
-        /* --- AJUSTEMENTS SPECIFIQUES ORDINATEUR --- */
+        /* AJUSTEMENTS ORDINATEUR */
         @media (min-width: 1024px) {
-            .quiz-container { padding-top: 0; } /* Supprime le décalage haut car justify-center s'en occupe */
-            .question-title { font-size: 32px; margin-bottom: 40px; }
-            .option-card { padding: 25px; font-size: 20px; border-radius: 15px; }
-            .options-grid { gap: 18px; }
+            .step { padding: 50px; }
+            .question-title { font-size: 30px; }
+            .options-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .option-card { font-size: 18px; padding: 25px; }
             .progress-container { padding: 30px 15%; }
             .progress-bg { height: 14px; }
         }
@@ -153,13 +182,14 @@
 
     <div class="header">
         <div class="logo">
-            <img src="Immo 120_20251031_094012_0000.svg" alt="Logo IMMO 120">
+            <img src="Immo 120_20251031_094012_0000.svg" alt="Logo">
         </div>
-        <h1>Es-tu prêt à investir dans l'immobilier ?</h1>
+        <h1>Es-tu prêt à investir ?</h1>
     </div>
 
     <div class="quiz-container">
         <form id="quizForm">
+            
             <div class="step active" data-step="1">
                 <p class="question-title">1. Quels sont tes revenus mensuels nets ?</p>
                 <div class="options-grid">
@@ -194,56 +224,56 @@
                 <p class="question-title">4. As-tu déjà un crédit immobilier (RP) ?</p>
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('endettement', 'aucun')">Non, aucun crédit immo</div>
-                    <div class="option-card" onclick="nextStep('endettement', 'locataire')">Je suis locataire (pas de crédit)</div>
-                    <div class="option-card" onclick="nextStep('endettement', 'rp-leger')">Oui, crédit RP raisonnable (<30%)</div>
-                    <div class="option-card" onclick="nextStep('endettement', 'rp-lourd')">Oui, crédit RP élevé (>30%)</div>
+                    <div class="option-card" onclick="nextStep('endettement', 'locataire')">Je suis locataire</div>
+                    <div class="option-card" onclick="nextStep('endettement', 'rp-leger')">Oui, crédit raisonnable (&lt;30%)</div>
+                    <div class="option-card" onclick="nextStep('endettement', 'rp-lourd')">Oui, crédit élevé (&gt;30%)</div>
                 </div>
             </div>
 
             <div class="step" data-step="5">
-                <p class="question-title">5. Quelle est la stabilité de ta situation pro ?</p>
+                <p class="question-title">5. Stabilité de ta situation pro ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('stabilite', 'instable')">CDD / Intérim / Freelance débutant</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'cdi-recent')">CDI depuis moins de 6 mois</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'stable')">CDI stable (6 mois+) / Militaire / Fonctionnaire</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'tres-stable')">Situation stable + conjoint(e) stable</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'instable')">CDD / Intérim</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'cdi-recent')">CDI &lt; 6 mois</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'stable')">CDI stable / Militaire</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'tres-stable')">CDI stable + conjoint(e)</div>
                 </div>
             </div>
 
             <div class="step" data-step="6">
                 <p class="question-title">6. Qu'est-ce qui te bloque aujourd'hui ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('blocage', 'argent')">Je n'ai pas assez d'argent</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'peur')">J'ai peur de me tromper</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'connaissance')">Je ne sais pas par où commencer</div>
-                    <div class="option-card" onclick="nextStep('blocage', 'rien')">Rien, je suis prêt à foncer</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'argent')">Pas assez d'argent</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'peur')">Peur de me tromper</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'connaissance')">Où commencer ?</div>
+                    <div class="option-card" onclick="nextStep('blocage', 'rien')">Rien, je suis prêt !</div>
                 </div>
             </div>
 
             <div class="step" data-step="7">
                 <p class="question-title">7. Tu es actuellement logé(e) ... ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('logement', 'fonction')">En logement de fonction / LCNAS</div>
-                    <div class="option-card" onclick="nextStep('logement', 'locataire')">Location à l'extérieur</div>
+                    <div class="option-card" onclick="nextStep('logement', 'fonction')">Logement fonction / LCNAS</div>
+                    <div class="option-card" onclick="nextStep('logement', 'locataire')">Location classique</div>
                     <div class="option-card" onclick="nextStep('logement', 'proprietaire-rp')">Propriétaire RP</div>
-                    <div class="option-card" onclick="nextStep('logement', 'proprietaire-invest')">Déjà investi dans le locatif</div>
+                    <div class="option-card" onclick="nextStep('logement', 'proprietaire-invest')">Déjà investisseur</div>
                 </div>
             </div>
 
             <div class="step" data-step="8">
                 <p class="question-title">8. Pourquoi veux-tu investir ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('objectif', 'securite')">Sécuriser mon avenir / ma famille</div>
-                    <div class="option-card" onclick="nextStep('objectif', 'revenus')">Créer des revenus complémentaires</div>
-                    <div class="option-card" onclick="nextStep('objectif', 'liberte')">Liberté financière / Quitter le service</div>
+                    <div class="option-card" onclick="nextStep('objectif', 'securite')">Sécuriser mon avenir</div>
+                    <div class="option-card" onclick="nextStep('objectif', 'revenus')">Revenus complémentaires</div>
+                    <div class="option-card" onclick="nextStep('objectif', 'liberte')">Liberté financière</div>
                 </div>
             </div>
 
             <div class="step" data-step="9">
                 <p class="question-title">9. Quand veux-tu avoir signé ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('timeline', 'urgent')">Dans les 3 prochains mois</div>
-                    <div class="option-card" onclick="nextStep('timeline', 'motive')">Dans les 3-6 prochains mois</div>
+                    <div class="option-card" onclick="nextStep('timeline', 'urgent')">Sous 3 mois</div>
+                    <div class="option-card" onclick="nextStep('timeline', 'motive')">Sous 3-6 mois</div>
                     <div class="option-card" onclick="nextStep('timeline', 'flexible')">Plus tard (6-12 mois)</div>
                 </div>
             </div>
@@ -251,15 +281,16 @@
             <div class="step" data-step="10">
                 <p class="question-title">10. Comment te décrirais-tu ?</p>
                 <div class="options-grid">
-                    <div class="option-card" onclick="nextStep('mindset', 'prudent')">Besoin d'être rassuré(e) avant d'agir</div>
-                    <div class="option-card" onclick="nextStep('mindset', 'determine')">Une fois décidé, je fonce</div>
-                    <div class="option-card" onclick="nextStep('mindset', 'reve')">J'en parle mais j'ai du mal à agir</div>
+                    <div class="option-card" onclick="nextStep('mindset', 'prudent')">Besoin d'être rassuré(e)</div>
+                    <div class="option-card" onclick="nextStep('mindset', 'determine')">Décidé, je fonce</div>
+                    <div class="option-card" onclick="nextStep('mindset', 'reve')">J'en rêve mais j'hésite</div>
                 </div>
             </div>
 
             <div class="step" data-step="11">
                 <p class="question-title">Bravo, c'est fini ! 🚀</p>
                 <div class="final-form">
+                    <h3>Tes résultats sont prêts</h3>
                     <input type="text" id="prenom" placeholder="Ton prénom" required>
                     <input type="email" id="email" placeholder="Ton adresse email" required>
                     <input type="tel" id="telephone" placeholder="Ton numéro de téléphone" required>
