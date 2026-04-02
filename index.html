@@ -63,56 +63,57 @@
         .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-size: 17px; font-weight: 800; cursor: pointer; }
 
         /* =============================================
-           MODE ORDINATEUR (C'est ici qu'on change tout)
+           MODE ORDINATEUR (Correction pour Largeur)
            ============================================= */
         @media (min-width: 1024px) {
-            .header { padding: 40px 0; }
-            .header h1 { font-size: 45px; letter-spacing: 2px; }
-            .header p { font-size: 20px; margin-top: 10px; }
-            .logo { width: 100px; height: 100px; margin-bottom: 20px; }
-            .header-badge { font-size: 16px; padding: 8px 25px; margin-top: 15px; }
+            .header { padding: 30px 0; }
+            .header h1 { font-size: 38px; }
+            .header p { font-size: 18px; }
+            .logo { width: 80px; height: 80px; }
 
-            /* On explose la largeur pour l'ordinateur */
+            /* On élargit le conteneur principal */
             #quizForm { 
-                max-width: 1200px; /* Largeur maximale pour remplir l'écran */
+                max-width: 1100px; /* Augmenté pour occuper l'espace */
             }
 
             .step { 
-                padding: 60px 80px; 
-                min-height: 500px; /* Force une hauteur élégante */
+                padding: 50px 60px; 
+                border-radius: 30px;
+                min-height: 450px;
                 display: none; 
                 flex-direction: column;
-                justify-content: center; 
-                border-radius: 40px; /* Bordures plus rondes sur PC */
+                justify-content: center;
             }
             .step.active { display: flex; }
 
             .question-title { 
-                font-size: 42px; 
-                margin-bottom: 60px; 
-                color: #1a1a1a;
+                font-size: 36px; 
+                margin-bottom: 50px; 
             }
             
+            /* On passe à 2 colonnes bien larges */
             .options-grid { 
-                grid-template-columns: 1fr 1fr; /* 2 colonnes larges */
-                gap: 40px; 
+                grid-template-columns: 1fr 1fr; 
+                gap: 25px; 
             }
             
             .option-card { 
-                padding: 45px 30px; 
-                font-size: 24px; 
-                border-radius: 25px;
-                border-width: 3px;
+                padding: 35px 25px; 
+                font-size: 22px; 
             }
 
-            .progress-footer { padding: 40px; }
-            .progress-wrapper { max-width: 1200px; }
-            .progress-bg { height: 15px; border-radius: 20px; }
-            .progress-text { font-size: 18px; margin-left: 15px; }
+            .progress-footer { padding: 30px; }
+            .progress-wrapper { max-width: 1100px; } /* Aligné sur le formulaire */
             
             /* Formulaire final sur PC */
-            .final-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-            .btn-submit { grid-column: span 2; margin-top: 20px; font-size: 24px; padding: 25px; }
+            .final-container { 
+                display: grid; 
+                grid-template-columns: 1fr 1fr; 
+                gap: 20px; 
+                max-width: 900px; 
+                margin: 0 auto; 
+            }
+            .btn-submit { grid-column: span 2; font-size: 22px; padding: 22px; }
         }
     </style>
 </head>
