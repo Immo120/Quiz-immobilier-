@@ -5,20 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Diagnostic Immo 120</title>
     <style>
-        /* RESET TOTAL */
+        /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html, body { 
             height: 100%; width: 100%; 
-            overflow: hidden; 
             font-family: 'Segoe UI', Roboto, sans-serif;
             background: #f0f4f8;
+            overflow-x: hidden;
         }
-
-        body {
-            display: flex; flex-direction: column; align-items: center;
-            background: radial-gradient(circle at top right, #e2e8f0, #f0f4f8);
-        }
+        body { display: flex; flex-direction: column; align-items: center; }
 
         /* --- HEADER --- */
         .header {
@@ -27,93 +22,90 @@
             border-bottom: 3px solid #FF9500; flex-shrink: 0;
         }
         .header-content { width: 100%; max-width: 800px; margin: 0 auto; }
-        .logo { width: 50px; height: 50px; background: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 8px; padding: 5px; }
-        .logo img { width: 85%; height: 85%; object-fit: contain; }
-        .header h1 { font-size: 18px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
+        .logo { width: 50px; height: 50px; background: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+        .logo img { width: 80%; height: 80%; object-fit: contain; }
+        .header h1 { font-size: 18px; font-weight: 800; text-transform: uppercase; }
         .header p { font-size: 12px; color: #ccc; margin-bottom: 5px; }
         .header-badge { display: inline-block; background: #FF9500; color: #1a1a1a; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 900; }
 
-        /* --- CONTENEUR QUIZ (Base Mobile) --- */
+        /* --- STRUCTURE QUIZ (MOBILE) --- */
         .quiz-container {
-            flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; padding: 15px; overflow: hidden;
+            flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; padding: 15px;
         }
-        #quizForm { width: 100%; max-width: 600px; margin: 0 auto; }
-
+        #quizForm { 
+            width: 100%; 
+            max-width: 550px; /* Limite mobile */
+        }
         .step {
             display: none; background: white; padding: 25px; border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%;
-            max-height: 80vh; overflow-y: auto; animation: fadeIn 0.3s ease-out;
+            animation: fadeIn 0.4s ease-out;
         }
         .step.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .question-title { font-size: 19px; font-weight: 800; color: #1a202c; margin-bottom: 20px; text-align: center; }
-        .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; width: 100%; }
-        .option-card { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.2s; font-size: 15px; font-weight: 600; color: #4a5568; text-align: center; }
+        .question-title { font-size: 1.2rem; font-weight: 800; color: #1a202c; margin-bottom: 20px; text-align: center; }
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .option-card { 
+            background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; 
+            padding: 18px; cursor: pointer; transition: 0.2s; 
+            font-size: 15px; font-weight: 600; text-align: center; color: #4a5568;
+        }
         .option-card:hover { border-color: #FF9500; background: #fffaf0; transform: translateY(-2px); }
 
         /* --- FOOTER --- */
-        .progress-footer { width: 100%; background: white; padding: 15px; box-shadow: 0 -5px 15px rgba(0,0,0,0.05); display: flex; justify-content: center; flex-shrink: 0; }
-        .progress-wrapper { width: 100%; max-width: 600px; display: flex; align-items: center; gap: 10px; }
+        .progress-footer { width: 100%; background: white; padding: 15px; box-shadow: 0 -5px 15px rgba(0,0,0,0.05); }
+        .progress-wrapper { width: 100%; max-width: 550px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
         .progress-bg { flex: 1; height: 8px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #FF9500, #FF6B00); width: 0%; transition: width 0.4s ease; }
-        .progress-text { font-weight: 800; color: #FF9500; font-size: 13px; min-width: 35px; }
+        .progress-fill { height: 100%; background: #FF9500; width: 0%; transition: width 0.4s; }
+        .progress-text { font-weight: 800; color: #FF9500; font-size: 13px; }
 
         input { width: 100%; padding: 15px; margin-bottom: 10px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; }
         .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-size: 17px; font-weight: 800; cursor: pointer; }
 
         /* =============================================
-           MODE ORDINATEUR (Correction pour Largeur)
+           MODE ORDINATEUR (LÀ OÙ ÇA S'ÉLARGIT)
            ============================================= */
         @media (min-width: 1024px) {
-            .header { padding: 30px 0; }
+            .header { padding: 35px 0; }
             .header h1 { font-size: 38px; }
             .header p { font-size: 18px; }
-            .logo { width: 80px; height: 80px; }
+            .logo { width: 85px; height: 85px; }
 
-            /* On élargit le conteneur principal */
             #quizForm { 
-                max-width: 1100px; /* Augmenté pour occuper l'espace */
+                max-width: 1200px !important; /* Force la largeur sur PC */
+                width: 90% !important;
             }
 
             .step { 
-                padding: 50px 60px; 
-                border-radius: 30px;
-                min-height: 450px;
+                padding: 60px 80px; 
+                border-radius: 35px;
+                min-height: 480px;
                 display: none; 
                 flex-direction: column;
                 justify-content: center;
             }
             .step.active { display: flex; }
 
-            .question-title { 
-                font-size: 36px; 
-                margin-bottom: 50px; 
-            }
+            .question-title { font-size: 42px; margin-bottom: 50px; }
             
-            /* On passe à 2 colonnes bien larges */
             .options-grid { 
-                grid-template-columns: 1fr 1fr; 
-                gap: 25px; 
+                grid-template-columns: 1fr 1fr; /* 2 colonnes larges */
+                gap: 35px; 
             }
             
             .option-card { 
-                padding: 35px 25px; 
-                font-size: 22px; 
+                padding: 45px 25px; 
+                font-size: 24px; 
+                border-width: 3px;
             }
 
-            .progress-footer { padding: 30px; }
-            .progress-wrapper { max-width: 1100px; } /* Aligné sur le formulaire */
-            
-            /* Formulaire final sur PC */
-            .final-container { 
-                display: grid; 
-                grid-template-columns: 1fr 1fr; 
-                gap: 20px; 
-                max-width: 900px; 
-                margin: 0 auto; 
-            }
-            .btn-submit { grid-column: span 2; font-size: 22px; padding: 22px; }
+            .progress-wrapper { max-width: 1200px; }
+            .progress-bg { height: 12px; }
+            .progress-text { font-size: 18px; }
+
+            .final-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: 0 auto; }
+            .btn-submit { grid-column: span 2; font-size: 26px; padding: 25px; }
         }
     </style>
 </head>
@@ -121,9 +113,7 @@
 
     <div class="header">
         <div class="header-content">
-            <div class="logo">
-                <img src="Immo 120_20251031_094012_0000.svg" alt="Logo">
-            </div>
+            <div class="logo"><img src="Immo 120_20251031_094012_0000.svg" alt="Logo"></div>
             <h1>ES-TU PRÊT À INVESTIR ?</h1>
             <p>Ton diagnostic immobilier personnalisé en 2 minutes.</p>
             <div class="header-badge">DIAGNOSTIC GRATUIT - IMMO 120</div>
@@ -266,7 +256,12 @@
             document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
             currentStep++;
             const next = document.querySelector(`.step[data-step="${currentStep}"]`);
-            if (next) { next.classList.add('active'); updateProgress(); }
+            if (next) { 
+                next.classList.add('active'); 
+                // Force le display flex sur PC pour le centrage
+                if(window.innerWidth >= 1024) next.style.display = 'flex';
+                updateProgress(); 
+            }
         }
 
         document.getElementById('quizForm').addEventListener('submit', async function(e) {
@@ -277,6 +272,7 @@
             answers.telephone = document.getElementById('telephone').value;
             answers.instagram = document.getElementById('instagram').value;
 
+            // Logique de qualification
             let qualifie = (answers.revenus !== 'faible' && answers.epargne !== 'tres-peu' && answers.stabilite !== 'instable');
             let profil = qualifie ? 'PRET' : (answers.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
 
@@ -286,11 +282,11 @@
             screen.style.display = 'block';
 
             if (profil === 'PRET') {
-                screen.innerHTML = `<h2 style="color:#10b981;margin-bottom:20px;font-size:32px;">✅ TU ES PRÊT !</h2><p style="font-size:20px;">Félicitations <strong>${prenom}</strong> ! Ton profil est idéal. Regarde vite tes emails !</p>`;
+                screen.innerHTML = `<h2 style="color:#10b981;margin-bottom:20px;font-size:32px;">✅ TU ES PRÊT !</h2><p style="font-size:20px;">Félicitations <strong>${prenom}</strong> ! Ton profil est idéal pour investir. Un expert va te contacter via Instagram ou Email.</p>`;
             } else if (profil === 'PRESQUE') {
-                screen.innerHTML = `<h2 style="color:#f59e0b;margin-bottom:20px;font-size:32px;">⚠️ PRESQUE PRÊT</h2><p style="font-size:20px;">Tu y es presque <strong>${prenom}</strong> ! Ton plan personnalisé t'attend par email.</p>`;
+                screen.innerHTML = `<h2 style="color:#f59e0b;margin-bottom:20px;font-size:32px;">⚠️ PRESQUE PRÊT</h2><p style="font-size:20px;">Tu y es presque <strong>${prenom}</strong> ! Ton plan d'action personnalisé t'attend dans ta boîte mail.</p>`;
             } else {
-                screen.innerHTML = `<h2 style="color:#ef4444;margin-bottom:20px;font-size:32px;">🛑 PAS ENCORE</h2><p style="font-size:20px;">C'est un peu tôt <strong>${prenom}</strong>. Mais on va t'aider ! Regarde tes emails.</p>`;
+                screen.innerHTML = `<h2 style="color:#ef4444;margin-bottom:20px;font-size:32px;">🛑 PAS ENCORE</h2><p style="font-size:20px;">C'est un peu tôt <strong>${prenom}</strong>, mais rien n'est impossible. Regarde tes emails pour voir comment booster ton dossier.</p>`;
             }
 
             try {
