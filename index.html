@@ -2,10 +2,10 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diagnostic Immo 120</title>
     <style>
-        /* --- RESET & BASE --- */
+        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { 
             height: 100%; width: 100%; 
@@ -15,7 +15,7 @@
         }
         body { display: flex; flex-direction: column; align-items: center; }
 
-        /* --- HEADER --- */
+        /* HEADER */
         .header {
             width: 100%; background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
             padding: 20px 10px; text-align: center; color: white;
@@ -28,13 +28,13 @@
         .header p { font-size: 12px; color: #ccc; margin-bottom: 5px; }
         .header-badge { display: inline-block; background: #FF9500; color: #1a1a1a; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 900; }
 
-        /* --- STRUCTURE QUIZ (MOBILE) --- */
+        /* STRUCTURE QUIZ (MOBILE PAR DÉFAUT) */
         .quiz-container {
             flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; padding: 15px;
         }
         #quizForm { 
             width: 100%; 
-            max-width: 550px; /* Limite mobile */
+            max-width: 550px; /* Taille mobile normale */
         }
         .step {
             display: none; background: white; padding: 25px; border-radius: 20px;
@@ -53,7 +53,7 @@
         }
         .option-card:hover { border-color: #FF9500; background: #fffaf0; transform: translateY(-2px); }
 
-        /* --- FOOTER --- */
+        /* FOOTER */
         .progress-footer { width: 100%; background: white; padding: 15px; box-shadow: 0 -5px 15px rgba(0,0,0,0.05); }
         .progress-wrapper { width: 100%; max-width: 550px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
         .progress-bg { flex: 1; height: 8px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
@@ -64,19 +64,13 @@
         .btn-submit { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-size: 17px; font-weight: 800; cursor: pointer; }
 
         /* =============================================
-           MODE ORDINATEUR (LÀ OÙ ÇA S'ÉLARGIT)
+           MODE ORDINATEUR (Et "Version ordi" sur Android)
            ============================================= */
-        @media (min-width: 1024px) {
-            .header { padding: 35px 0; }
-            .header h1 { font-size: 38px; }
-            .header p { font-size: 18px; }
-            .logo { width: 85px; height: 85px; }
-
+        @media (min-width: 950px) {
             #quizForm { 
-                max-width: 1200px !important; /* Force la largeur sur PC */
-                width: 90% !important;
+                max-width: 95% !important; /* On force l'élargissement total */
+                width: 95% !important;
             }
-
             .step { 
                 padding: 60px 80px; 
                 border-radius: 35px;
@@ -86,26 +80,12 @@
                 justify-content: center;
             }
             .step.active { display: flex; }
-
-            .question-title { font-size: 42px; margin-bottom: 50px; }
-            
-            .options-grid { 
-                grid-template-columns: 1fr 1fr; /* 2 colonnes larges */
-                gap: 35px; 
-            }
-            
-            .option-card { 
-                padding: 45px 25px; 
-                font-size: 24px; 
-                border-width: 3px;
-            }
-
-            .progress-wrapper { max-width: 1200px; }
-            .progress-bg { height: 12px; }
-            .progress-text { font-size: 18px; }
-
+            .question-title { font-size: 38px; margin-bottom: 40px; }
+            .options-grid { grid-template-columns: 1fr 1fr !important; gap: 30px; }
+            .option-card { padding: 40px 25px; font-size: 22px; border-width: 3px; }
+            .progress-wrapper { max-width: 95% !important; }
             .final-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: 0 auto; }
-            .btn-submit { grid-column: span 2; font-size: 26px; padding: 25px; }
+            .btn-submit { grid-column: span 2; font-size: 24px; padding: 25px; }
         }
     </style>
 </head>
@@ -157,8 +137,8 @@
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('endettement', 'aucun')">Non, aucun crédit immo</div>
                     <div class="option-card" onclick="nextStep('endettement', 'locataire')">Je suis locataire</div>
-                    <div class="option-card" onclick="nextStep('endettement', 'rp-leger')">Oui, crédit raisonnable (&lt;30%)</div>
-                    <div class="option-card" onclick="nextStep('endettement', 'rp-lourd')">Oui, crédit élevé (&gt;30%)</div>
+                    <div class="option-card" onclick="nextStep('endettement', 'rp-leger')">Oui, crédit raisonnable</div>
+                    <div class="option-card" onclick="nextStep('endettement', 'rp-lourd')">Oui, crédit élevé</div>
                 </div>
             </div>
 
@@ -166,7 +146,7 @@
                 <p class="question-title">5. Stabilité de ta situation pro ?</p>
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('stabilite', 'instable')">CDD / Intérim</div>
-                    <div class="option-card" onclick="nextStep('stabilite', 'cdi-recent')">CDI &lt; 6 mois</div>
+                    <div class="option-card" onclick="nextStep('stabilite', 'cdi-recent')">CDI < 6 mois</div>
                     <div class="option-card" onclick="nextStep('stabilite', 'stable')">CDI stable / Militaire</div>
                     <div class="option-card" onclick="nextStep('stabilite', 'tres-stable')">CDI stable + conjoint(e)</div>
                 </div>
@@ -206,7 +186,7 @@
                 <div class="options-grid">
                     <div class="option-card" onclick="nextStep('timeline', 'urgent')">Sous 3 mois</div>
                     <div class="option-card" onclick="nextStep('timeline', 'motive')">Sous 3-6 mois</div>
-                    <div class="option-card" onclick="nextStep('timeline', 'flexible')">Plus tard (6-12 mois)</div>
+                    <div class="option-card" onclick="nextStep('timeline', 'flexible')">Plus tard</div>
                 </div>
             </div>
 
@@ -245,12 +225,6 @@
         const totalSteps = 11;
         const answers = {};
 
-        function updateProgress() {
-            const percent = Math.round(((currentStep - 1) / (totalSteps - 1)) * 100);
-            document.getElementById('progressBar').style.width = percent + '%';
-            document.getElementById('progressText').innerText = percent + '%';
-        }
-
         function nextStep(key, value) {
             if (key) answers[key] = value;
             document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
@@ -258,10 +232,15 @@
             const next = document.querySelector(`.step[data-step="${currentStep}"]`);
             if (next) { 
                 next.classList.add('active'); 
-                // Force le display flex sur PC pour le centrage
-                if(window.innerWidth >= 1024) next.style.display = 'flex';
+                if(window.innerWidth >= 950) next.style.display = 'flex';
                 updateProgress(); 
             }
+        }
+
+        function updateProgress() {
+            const percent = Math.round(((currentStep - 1) / (totalSteps - 1)) * 100);
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressText').innerText = percent + '%';
         }
 
         document.getElementById('quizForm').addEventListener('submit', async function(e) {
@@ -272,7 +251,6 @@
             answers.telephone = document.getElementById('telephone').value;
             answers.instagram = document.getElementById('instagram').value;
 
-            // Logique de qualification
             let qualifie = (answers.revenus !== 'faible' && answers.epargne !== 'tres-peu' && answers.stabilite !== 'instable');
             let profil = qualifie ? 'PRET' : (answers.revenus !== 'faible' ? 'PRESQUE' : 'PAS_PRET');
 
@@ -282,11 +260,11 @@
             screen.style.display = 'block';
 
             if (profil === 'PRET') {
-                screen.innerHTML = `<h2 style="color:#10b981;margin-bottom:20px;font-size:32px;">✅ TU ES PRÊT !</h2><p style="font-size:20px;">Félicitations <strong>${prenom}</strong> ! Ton profil est idéal pour investir. Un expert va te contacter via Instagram ou Email.</p>`;
+                screen.innerHTML = `<h2 style="color:#10b981;margin-bottom:20px;font-size:32px;">✅ TU ES PRÊT !</h2><p style="font-size:20px;">Félicitations <strong>${prenom}</strong> ! Regarde tes emails.</p>`;
             } else if (profil === 'PRESQUE') {
-                screen.innerHTML = `<h2 style="color:#f59e0b;margin-bottom:20px;font-size:32px;">⚠️ PRESQUE PRÊT</h2><p style="font-size:20px;">Tu y es presque <strong>${prenom}</strong> ! Ton plan d'action personnalisé t'attend dans ta boîte mail.</p>`;
+                screen.innerHTML = `<h2 style="color:#f59e0b;margin-bottom:20px;font-size:32px;">⚠️ PRESQUE PRÊT</h2><p style="font-size:20px;">Tu y es presque <strong>${prenom}</strong> ! Plan envoyé par email.</p>`;
             } else {
-                screen.innerHTML = `<h2 style="color:#ef4444;margin-bottom:20px;font-size:32px;">🛑 PAS ENCORE</h2><p style="font-size:20px;">C'est un peu tôt <strong>${prenom}</strong>, mais rien n'est impossible. Regarde tes emails pour voir comment booster ton dossier.</p>`;
+                screen.innerHTML = `<h2 style="color:#ef4444;margin-bottom:20px;font-size:32px;">🛑 PAS ENCORE</h2><p style="font-size:20px;">Un peu tôt <strong>${prenom}</strong>. Conseils envoyés par email.</p>`;
             }
 
             try {
