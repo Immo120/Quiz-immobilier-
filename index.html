@@ -39,6 +39,26 @@
         .logo img { width: 100%; height: 100%; object-fit: contain; }
         .header h1 { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
 
+        /* Style spécifique pour le H2 en italique */
+.header h2.sub-header {
+    font-size: 14px;      /* Taille plus petite que le titre principal */
+    font-weight: 400;     /* Moins épais pour le contraste */
+    font-style: italic;   /* Italique comme demandé */
+    color: #FF9500;       /* Couleur orange pour rappeler ton identité */
+    margin-top: 10px;     /* Espace avec le H1 */
+    margin-bottom: 15px;  /* Espace avant le badge */
+    opacity: 0.9;         /* Légère transparence pour le style */
+}
+
+/* Adaptation pour Ordinateur (Desktop) */
+@media (min-width: 1024px) {
+    .header h2.sub-header {
+        font-size: 20px;  /* Plus grand sur grand écran */
+        margin-top: 15px;
+    }
+}
+        
+
         /* Container Quiz */
         .quiz-container { 
             flex: 1; 
