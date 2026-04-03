@@ -393,24 +393,49 @@
             const screen = document.getElementById('successScreen');
             const content = document.getElementById('successContent');
             screen.classList.add('active');
+        // --- CE BLOC DOIT REMPLACER TON BLOC DE RÉSULTAT ACTUEL ---
 
-   // 1. On prépare le bloc cadeau (à mettre juste avant ton let html = '')
-            const bonusHTML = `
-                <div style="margin-top: 25px; padding: 18px; border: 2px dashed #FF9500; border-radius: 15px; background: #FFF5E6; text-align: center;">
-                    <p style="font-weight: 800; color: #1a1a1a; font-size: 1.1rem; margin-bottom: 8px;">🎁 TON CADEAU T'ATTEND !</p>
-                    <p style="font-size: 0.9rem; color: #4a5568; line-height: 1.4; margin-bottom: 15px;">
-                        Pour recevoir ton <strong>Guide de l'Investisseur Immo (Spécial Gendarme)</strong>, fais une de ces actions :
-                    </p>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <a href="https://instagram.com/florian.immo120" target="_blank" style="background: #1a1a1a; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px;">
-                            💬 Envoie "GUIDE" en DM Insta
-                        </a>
-                        <p style="font-size: 0.8rem; color: #718096; margin: 0;">— OU —</p>
-                        <p style="font-size: 14px; font-weight: 700; color: #1a1a1a; margin: 0;">📩 Réponds "GUIDE" au mail reçu</p>
-                    </div>
+        // 1. Définition du bloc Cadeau Bonus
+        const bonusHTML = `
+            <div style="margin-top: 25px; padding: 18px; border: 2px dashed #FF9500; border-radius: 15px; background: #FFF5E6; text-align: center;">
+                <p style="font-weight: 800; color: #1a1a1a; font-size: 1.1rem; margin-bottom: 8px;">🎁 TON CADEAU T'ATTEND !</p>
+                <p style="font-size: 0.9rem; color: #4a5568; line-height: 1.4; margin-bottom: 15px;">
+                    Pour recevoir ton <strong>Guide de l'Investisseur Immo (Spécial Gendarme)</strong>, fais l'une de ces actions :
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="https://instagram.com/florian.immo120" target="_blank" style="background: #1a1a1a; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px;">
+                        💬 Envoie "GUIDE" en DM Insta
+                    </a>
+                    <p style="font-size: 0.8rem; color: #718096; margin: 0;">— OU —</p>
+                    <p style="font-size: 14px; font-weight: 700; color: #1a1a1a; margin: 0;">📩 Réponds "GUIDE" au mail reçu</p>
                 </div>
-            `;
-            
+            </div>
+        `;
+        
+        // 2. Utilisation dans tes conditions (C'est ICI que ça change)
+        let html = '';
+        if (analyse.profil === 'PRET') {
+            html = `<span class="profile-badge profile-pret">✅ TU ES PRÊT !</span>
+                    <p class="question-title">Bonjour ${finalData.prenom}</p>
+                    <p>Excellente nouvelle ! 🎉<br>Ton profil détaillé et les prochaines étapes t'ont été envoyés par email.</p>
+                    ${bonusHTML}`; // <--- J'ai AJOUTÉ cette ligne ici
+        } else if (analyse.profil === 'PRESQUE') {
+            html = `<span class="profile-badge profile-presque">⚠️ PRESQUE PRÊT</span>
+                    <p class="question-title">Bonjour ${finalData.prenom}</p>
+                    <p>Tu es sur la bonne voie ! 💪<br>Ton diagnostic et ton plan d'action t'ont été envoyés par email.</p>
+                    ${bonusHTML}`; // <--- Et ICI
+        } else {
+            html = `<span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span>
+                    <p class="question-title">Bonjour ${finalData.prenom}</p>
+                    <p>Ce n'est pas encore le moment, mais ça viendra ! 💪<br>Ton plan d'action stratégique t'a été envoyé par email.</p>
+                    ${bonusHTML}`; // <--- Et LÀ
+        }
+        
+        // 3. Affichage final
+        content.innerHTML = html + `<p style="margin-top:20px; color:#666; font-size:14px;">📧 Vérifie tes spams si besoin</p>`;
+
+        // --- FIN DU BLOC À REMPLACER ---
+
             let html = '';
             if (analyse.profil === 'PRET') {
                 html = `<span class="profile-badge profile-pret">✅ TU ES PRÊT !</span>
