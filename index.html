@@ -417,14 +417,17 @@
                 html = `<span class="profile-badge profile-pret">✅ TU ES PRÊT !</span>
                         <p class="question-title">Bonjour ${finalData.prenom}</p>
                         <p>Excellente nouvelle ! 🎉<br>Ton profil détaillé et les prochaines étapes t'ont été envoyés par email.</p>`;
+                ${bonusHTML}`; //
             } else if (analyse.profil === 'PRESQUE') {
                 html = `<span class="profile-badge profile-presque">⚠️ PRESQUE PRÊT</span>
                         <p class="question-title">Bonjour ${finalData.prenom}</p>
                         <p>Tu es sur la bonne voie ! 💪<br>Ton diagnostic et ton plan d'action t'ont été envoyés par email.</p>`;
+                ${bonusHTML}`; //
             } else {
                 html = `<span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span>
                         <p class="question-title">Bonjour ${finalData.prenom}</p>
                         <p>Ce n'est pas encore le moment, mais ça viendra ! 💪<br>Ton plan d'action stratégique t'a été envoyé par email.</p>`;
+                    ${bonusHTML}`; //
             }
             content.innerHTML = html + `<p style="margin-top:20px; color:#666; font-size:14px;">📧 Vérifie tes spams si besoin</p>`;
 
