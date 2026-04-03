@@ -394,6 +394,23 @@
             const content = document.getElementById('successContent');
             screen.classList.add('active');
 
+   // 1. On prépare le bloc cadeau (à mettre juste avant ton let html = '')
+            const bonusHTML = `
+                <div style="margin-top: 25px; padding: 18px; border: 2px dashed #FF9500; border-radius: 15px; background: #FFF5E6; text-align: center;">
+                    <p style="font-weight: 800; color: #1a1a1a; font-size: 1.1rem; margin-bottom: 8px;">🎁 TON CADEAU T'ATTEND !</p>
+                    <p style="font-size: 0.9rem; color: #4a5568; line-height: 1.4; margin-bottom: 15px;">
+                        Pour recevoir ton <strong>Guide de l'Investisseur Immo (Spécial Gendarme)</strong>, fais une de ces actions :
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <a href="https://instagram.com/florian.immo120" target="_blank" style="background: #1a1a1a; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px;">
+                            💬 Envoie "GUIDE" en DM Insta
+                        </a>
+                        <p style="font-size: 0.8rem; color: #718096; margin: 0;">— OU —</p>
+                        <p style="font-size: 14px; font-weight: 700; color: #1a1a1a; margin: 0;">📩 Réponds "GUIDE" au mail reçu</p>
+                    </div>
+                </div>
+            `;
+            
             let html = '';
             if (analyse.profil === 'PRET') {
                 html = `<span class="profile-badge profile-pret">✅ TU ES PRÊT !</span>
