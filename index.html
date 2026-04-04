@@ -87,8 +87,7 @@
             <button class="btn-start" onclick="startQuiz()">DÉMARRER LE DIAGNOSTIC</button>
         </div>
 
-        
-              <form id="quizForm" style="display:none;">
+        <form id="quizForm" style="display:none;">
             <div class="step active" data-step="1">
                 <p class="question-title">1. Quel est ton corps d'armée ou d'institution ?</p>
                 <div class="options-grid">
@@ -269,7 +268,7 @@
                     <button type="submit" class="btn-submit">RECEVOIR MON PROFIL + GUIDE</button>
                 </div>
             </div>
-              </form>
+        </form>
 
         <div id="successScreen" class="step"><div id="successContent"></div></div>
     </div>
@@ -278,7 +277,7 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 19; // Nombre de questions avant le formulaire final
+        const totalSteps = 19; 
         const answers = {};
 
         function startQuiz() {
@@ -304,19 +303,43 @@
             document.getElementById('pFill').style.width = percent + '%';
         }
 
+        // --- FONCTION DE CALCUL MISE À JOUR ---
         function analyserProfil(data) {
-            let est_qualifie = true;
-            if (data.revenus === 'faible' || data.epargne === 'tres-peu' || data.stabilite === 'instable') est_qualifie = false;
+            // Définition des points bloquants pour le profil "PRET"
+            const estFaible = (data.revenus === 'faible');
+            const aPeuEpargne = (data.epargne === 'tres-peu');
+            const estInstable = (data.stabilite === 'instable');
+            const tropEndette = (data.endettement === 'rp-lourd');
+
+            // 1. Profil PRET : Tous les feux sont au vert
+            if (!estFaible && !aPeuEpargne && !estInstable && !tropEndette) {
+                return 'PRET';
+            }
             
-            if (est_qualifie) return 'PRET';
-            if (data.revenus !== 'faible' && data.epargne !== 'tres-peu') return 'PRESQUE';
+            // 2. Profil PRESQUE : Revenus et épargne OK, mais un bémol (CDD ou RP lourde)
+            if (!estFaible && !aPeuEpargne) {
+                return 'PRESQUE';
+            }
+            
+            // 3. Profil PAS PRÊT : Revenus trop bas ou épargne insuffisante
             return 'PAS_PRET';
         }
 
         document.getElementById('quizForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const finalData = { ...answers, prenom: document.getElementById('prenom').value, email: document.getElementById('email').value, telephone: document.getElementById('telephone').value, instagram: document.getElementById('instagram').value };
-            const profil = analyserProfil(finalData);
+            
+            // On compile toutes les données
+            const finalData = { 
+                ...answers, 
+                prenom: document.getElementById('prenom').value, 
+                email: document.getElementById('email').value, 
+                telephone: document.getElementById('telephone').value, 
+                instagram: document.getElementById('instagram').value 
+            };
+
+             // CALCUL DU PROFIL ET INJECTION DANS L'OBJET FINAL
+            const profilCalcule = analyserProfil(finalData);
+            finalData.profil = profilCalcule; // CRUCIAL pour l'envoi vers Google Sheet/Mail
 
             document.getElementById('quizForm').style.display = 'none';
             document.getElementById('footer').style.display = 'none';
@@ -326,13 +349,17 @@
             const bonusHTML = `<div style="margin-top:25px; padding:18px; border:2px dashed #FF9500; border-radius:15px; background:#FFF5E6;"><p style="font-weight:800;">🎁 CADEAU : Envoie "GUIDE" en DM sur Instagram pour recevoir ton Guide de l'Investisseur !</p></div>`;
 
             let resHTML = '';
-            if (profil === 'PRET') resHTML = `<span class="profile-badge profile-pret">✅ TU ES PRÊT !</span><p>Bravo ${finalData.prenom} ! Ton analyse détaillée arrive par mail.</p>`;
-            else if (profil === 'PRESQUE') resHTML = `<span class="profile-badge profile-presque">⚠️ PRESQUE PRÊT</span><p>Pas mal ${finalData.prenom} ! On y est presque. Regarde tes mails.</p>`;
-            else resHTML = `<span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span><p>Ce n'est pas pour tout de suite ${finalData.prenom}, mais ton plan arrive par mail.</p>`;
+            if (profilCalcule === 'PRET') {
+                resHTML = `<span class="profile-badge profile-pret">✅ TU ES PRÊT !</span><p>Bravo ${finalData.prenom} ! Ton analyse détaillée arrive par mail.</p>`;
+            } else if (profilCalcule === 'PRESQUE') {
+                resHTML = `<span class="profile-badge profile-presque">⚠️ PRESQUE PRÊT</span><p>Pas mal ${finalData.prenom} ! On y est presque. Regarde tes mails.</p>`;
+            } else {
+                resHTML = `<span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span><p>Ce n'est pas pour tout de suite ${finalData.prenom}, mais ton plan arrive par mail.</p>`;
+            }
 
             document.getElementById('successContent').innerHTML = resHTML + bonusHTML;
 
-            // Envoi Google Sheet
+            // Envoi vers Google Sheet (contenant désormais finalData.profil)
             try {
                 await fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
                     method: 'POST', mode: 'no-cors', body: JSON.stringify(finalData)
