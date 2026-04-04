@@ -279,96 +279,87 @@
     <div class="progress-footer" id="footer"><div class="progress-bg"><div class="progress-fill" id="pFill"></div></div></div>
 
     <script>
-        let currentStep = 1;
-        const totalSteps = 19; 
-        const answers = {};
+    let currentStep = 1;
+    const totalSteps = 19; 
+    const answers = {};
 
-        function startQuiz() {
-            document.getElementById('welcomeScreen').style.display = 'none';
-            document.getElementById('quizForm').style.display = 'block';
-            document.getElementById('footer').style.display = 'block';
+    function startQuiz() {
+        document.getElementById('welcomeScreen').style.display = 'none';
+        document.getElementById('quizForm').style.display = 'block';
+        document.getElementById('footer').style.display = 'block';
+        updateProgress();
+    }
+
+    function nextStep(key, value) {
+        answers[key] = value;
+        document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+        currentStep++;
+        const next = document.querySelector(`.step[data-step="${currentStep}"]`);
+        if (next) {
+            next.classList.add('active');
             updateProgress();
         }
+    }
 
-        function nextStep(key, value) {
-            answers[key] = value;
-            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
-            currentStep++;
-            const next = document.querySelector(`.step[data-step="${currentStep}"]`);
-            if (next) {
-                next.classList.add('active');
-                updateProgress();
-            }
+    function updateProgress() {
+        const percent = ((currentStep - 1) / totalSteps) * 100;
+        document.getElementById('pFill').style.width = percent + '%';
+    }
+
+    function analyserProfil(data) {
+        const estFaible = (data.revenus === 'faible');
+        const aPeuEpargne = (data.epargne === 'tres-peu');
+        const estInstable = (data.stabilite === 'instable');
+        const tropEndette = (data.endettement === 'rp-lourd');
+
+        if (!estFaible && !aPeuEpargne && !estInstable && !tropEndette) return 'PRET';
+        if (!estFaible && !aPeuEpargne) return 'PRESQUE';
+        return 'PAS_PRET';
+    }
+
+    document.getElementById('quizForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // On compile toutes les données proprement
+        const finalData = { 
+            ...answers, 
+            prenom: document.getElementById('prenom').value, 
+            email: document.getElementById('email').value, 
+            telephone: document.getElementById('telephone').value, 
+            instagram: document.getElementById('instagram').value 
+        };
+
+        const profilCalcule = analyserProfil(finalData);
+        finalData.profil = profilCalcule;
+
+        // Interface de succès
+        document.getElementById('quizForm').style.display = 'none';
+        document.getElementById('footer').style.display = 'none';
+        const screen = document.getElementById('successScreen');
+        screen.classList.add('active');
+
+        let resHTML = '';
+        if (profilCalcule === 'PRET') {
+            resHTML = `<span class="profile-badge profile-pret">✅ TU ES PRÊT !</span><p>Bravo ${finalData.prenom} ! Ton analyse arrive par mail.</p>`;
+        } else if (profilCalcule === 'PRESQUE') {
+            resHTML = `<span class="profile-badge profile-presque">⚠️ PRESQUE PRÊT</span><p>Pas mal ${finalData.prenom} ! Regarde tes mails.</p>`;
+        } else {
+            resHTML = `<span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span><p>Ton plan d'action arrive par mail ${finalData.prenom}.</p>`;
         }
+        
+        document.getElementById('successContent').innerHTML = resHTML + `<div style="margin-top:25px; padding:18px; border:2px dashed #FF9500; border-radius:15px; background:#FFF5E6;"><p style="font-weight:800;">🎁 CADEAU : Envoie "GUIDE" en DM sur Instagram !</p></div>`;
 
-        function updateProgress() {
-            const percent = ((currentStep - 1) / totalSteps) * 100;
-            document.getElementById('pFill').style.width = percent + '%';
+        // ENVOI DES DONNÉES
+        try {
+            await fetch('https://script.google.com/macros/s/AKfycbz3eIF8u5nS_StQsRCCh-62XMK8DFUFl6S90c5I_RelmOdIqj5YUI7n7HRUDwBM_JGbvg/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(finalData)
+            });
+        } catch (err) { 
+            console.error("Erreur d'envoi:", err); 
         }
-
-        // --- FONCTION DE CALCUL MISE À JOUR ---
-        function analyserProfil(data) {
-            // Définition des points bloquants pour le profil "PRET"
-            const estFaible = (data.revenus === 'faible');
-            const aPeuEpargne = (data.epargne === 'tres-peu');
-            const estInstable = (data.stabilite === 'instable');
-            const tropEndette = (data.endettement === 'rp-lourd');
-
-            // 1. Profil PRET : Tous les feux sont au vert
-            if (!estFaible && !aPeuEpargne && !estInstable && !tropEndette) {
-                return 'PRET';
-            }
-            
-            // 2. Profil PRESQUE : Revenus et épargne OK, mais un bémol (CDD ou RP lourde)
-            if (!estFaible && !aPeuEpargne) {
-                return 'PRESQUE';
-            }
-            
-            // 3. Profil PAS PRÊT : Revenus trop bas ou épargne insuffisante
-            return 'PAS_PRET';
-        }
-
-        document.getElementById('quizForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // On compile toutes les données
-            const finalData = { 
-                ...answers, 
-                prenom: document.getElementById('prenom').value, 
-                email: document.getElementById('email').value, 
-                telephone: document.getElementById('telephone').value, 
-                instagram: document.getElementById('instagram').value 
-            };
-
-             // CALCUL DU PROFIL ET INJECTION DANS L'OBJET FINAL
-            const profilCalcule = analyserProfil(finalData);
-            finalData.profil = profilCalcule; // CRUCIAL pour l'envoi vers Google Sheet/Mail
-
-            document.getElementById('quizForm').style.display = 'none';
-            document.getElementById('footer').style.display = 'none';
-            const screen = document.getElementById('successScreen');
-            screen.classList.add('active');
-
-            const bonusHTML = `<div style="margin-top:25px; padding:18px; border:2px dashed #FF9500; border-radius:15px; background:#FFF5E6;"><p style="font-weight:800;">🎁 CADEAU : Envoie "GUIDE" en DM sur Instagram pour recevoir ton Guide de l'Investisseur !</p></div>`;
-
-            let resHTML = '';
-            if (profilCalcule === 'PRET') {
-                resHTML = `<span class="profile-badge profile-pret">✅ TU ES PRÊT !</span><p>Bravo ${finalData.prenom} ! Ton analyse détaillée arrive par mail.</p>`;
-            } else if (profilCalcule === 'PRESQUE') {
-                resHTML = `<span class="profile-badge profile-presque">⚠️ PRESQUE PRÊT</span><p>Pas mal ${finalData.prenom} ! On y est presque. Regarde tes mails.</p>`;
-            } else {
-                resHTML = `<span class="profile-badge profile-pas-pret">🛑 PAS ENCORE PRÊT</span><p>Ce n'est pas pour tout de suite ${finalData.prenom}, mais ton plan arrive par mail.</p>`;
-            }
-
-            document.getElementById('successContent').innerHTML = resHTML + bonusHTML;
-
-            // Envoi vers Google Sheet (contenant désormais finalData.profil)
-            try {
-                await fetch('https://script.google.com/macros/s/AKfycbxcWazbRFVIOVrTH6kPXsUq1D5g6KF0cJnv1Mc2NwSV_isLi-Bgw6WLIcVNWIU0CxVG0A/exec', {
-                    method: 'POST', mode: 'no-cors', body: JSON.stringify(finalData)
-                });
-            } catch (err) { console.error(err); }
-        });
-    </script>
+    });
+</script>
 </body>
 </html>
